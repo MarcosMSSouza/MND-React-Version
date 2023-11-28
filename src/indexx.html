@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="src/css/style.css" />
+    <script type="module" src="src/js/controller.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="relics-area relicsLeft2 dragarea"></div>
+
+      <div class="magi-container2"></div>
+      <div class="relics-area relicsRight2 dragarea"></div>
+
+      <!-- </section> -->
+
+      <!-- ======== P2 SIDE START===== -->
+      <div class="container player-side-2">
+        <section class="gameArea2 dragarea"></section>
+
+        <section class="player2-hand Hand dragarea"></section>
+      </div>
+      <div class="drawdeck2">
+        <div class="card">DRAW 2</div>
+      </div>
+
+      <div class="discard2">
+        <div class="card">Discard</div>
+      </div>
+
+      <section class="log">LOG</section>
+      <!-- ============== p1 SIDE START =========== -->
+      <div class="container player-side-1">
+        <section class="gameArea1 dragarea"></section>
+
+        <section class="player1-hand Hand dragarea"></section>
+      </div>
+
+      <!-- <section class="player1_magi_area hor_bar"> -->
+      <div class="relics-area relicsLeft1 dragarea"></div>
+
+      <div class="magi-container1"></div>
+      <div class="relics-area relicsRight1 dragarea"></div>
+      <!-- </section> -->
+
+      <div class="drawdeck">
+        <div class="card">CLICK HERE TO DRAW!</div>
+      </div>
+
+      <section class="menu">
+        Shortcuts
+        <section class="console hor_bar">
+          <button class="console_button" type="button" id="btn-play">
+            PLAY
+          </button>
+          <button class="console_button" type="button" id="btn-collection">
+            COLL
+          </button>
+          <button class="console_button" type="button" id="btn-options">
+            OPTIONS
+          </button>
+          <button class="console_button" type="button" id="console-Deck_1">
+            DECK 1
+          </button>
+          <button class="console_button" type="button" id="console-Deck_2">
+            DECK 2
+          </button>
+        </section>
+      </section>
+
+      <div class="discard">
+        <div class="card">Discard</div>
+      </div>
+    </div>
+
+    <!-- //////////// MODALS //////////////////// -->
+
+    <!-- Modal 1 -->
+    <div class="modal" id="modal-loadingScreen">
+      <div class="modal-dialog">
+        <div class="modal-loadingScreen-content">
+          <div class="modal-loadingScreen-MNDLogo"></div>
+          <div
+            class="progress-bar"
+            style="--width: 10"
+            data-label="Loading..."
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="modal-PlayScreen">
+      <div class="borderDummy">
+        <div class="modal-PlayScreen-content">
+          <section class="modal-PlayScreen-LeftSection">
+            <h1 class="PStextArea">. Select a deck .</h1>
+            <div class="PlayScreen-DecksArea">
+              <!-- ////////// -->
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+
+              <div class="PlayScreen-deckDock"></div>
+              <!-- ////////////// -->
+            </div>
+          </section>
+          <section class="modal-PlayScreen-RightSection">
+            <div class="PlayScreen-RightSection-deckInformation">
+              <h1 class="PStextArea DeckRegion">no deck selected</h1>
+              <div class="PSmagisArea"></div>
+              <h1 class="PStextArea totalCards">- Cards</h1>
+            </div>
+            <div class="PlayScreen-RightSection-buttonsArea">
+              <button
+                class="console_button"
+                type="button"
+                id="PlayScreen-btn-play"
+              >
+                PLAY
+              </button>
+              <button
+                class="console_button"
+                type="button"
+                id="PlayScreen-btn-collection"
+              >
+                COLLECTION
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal hidden" id="modal-collection">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal 2</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">Content for Modal 2 goes here.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3 -->
+
+    <div class="modal modal-collection hidden">
+      <div class="modal-collection-header">
+        <div class="region-btn" role="button" id="Arderial">
+          <p>Arderial</p>
+        </div>
+        <div class="region-btn" role="button" id="Cald"><p>Cald</p></div>
+        <div class="region-btn" role="button" id="Orothe"><p>Orothe</p></div>
+        <div class="region-btn" role="button" id="Naroom"><p>Naroom</p></div>
+        <div class="region-btn" role="button" id="Underneath">
+          <p>Underneath</p>
+        </div>
+        <div class="region-btn" role="button" id="Core"><p>Core</p></div>
+        <div class="region-btn" role="button" id="dResh"><p>D'resh</p></div>
+        <div class="region-btn" role="button" id="Kybar">
+          <p>
+            Kybar's <br />
+            Teeth
+          </p>
+        </div>
+        <div class="region-btn" role="button" id="Bograth"><p>Bograth</p></div>
+        <div class="region-btn" role="button" id="Paradwyn">
+          <p>Paradwyn</p>
+        </div>
+        <div class="region-btn" role="button" id="Weave"><p>Weave</p></div>
+        <div class="region-btn" role="button" id="Nar"><p>Nar</p></div>
+        <div class="region-btn" role="button" id="Universal">
+          <p>Universal</p>
+        </div>
+      </div>
+
+      <!-- ////////////////// DECKS SECTION ///////////////// -->
+      <div class="modal-collection-decks">
+        <div class="decks-title" style="background-color: #3f6226">DECKS</div>
+
+        <button class="console_button" id="newDeck-btn" type="button">
+          New Deck
+        </button>
+
+        <button class="console_button" id="editDeck-btn" type="button">
+          Delete Deck
+        </button>
+
+        <!-- //////// DECKS CONTAINER ///////////// -->
+        <div class="new-decks-container"></div>
+        <button class="console_button" type="button" id="btn-collection-back">
+          BACK
+        </button>
+      </div>
+
+      <div class="modal-collection-content content-Arderial dragare"></div>
+      <div class="modal-collection-content content-Cald hidden dragare"></div>
+      <div class="modal-collection-content content-Orothe hidden dragare"></div>
+      <div class="modal-collection-content content-Naroom hidden dragare"></div>
+      <div
+        class="modal-collection-content content-Underneath hidden dragare"
+      ></div>
+      <div class="modal-collection-content content-Core hidden dragare"></div>
+      <div class="modal-collection-content content-dResh hidden dragare"></div>
+      <div class="modal-collection-content content-Kybar hidden dragare"></div>
+      <div
+        class="modal-collection-content content-Bograth hidden dragare"
+      ></div>
+      <div
+        class="modal-collection-content content-Paradwyn hidden dragare"
+      ></div>
+      <div class="modal-collection-content content-Weave hidden dragare"></div>
+      <div
+        class="modal-collection-content content-Universal arderial hidden dragare"
+      ></div>
+      <div class="modal-collection-content content-Nar hidden dragare"></div>
+
+      <div class="modal modal-collection-builder">
+        <div class="editor-title">
+          <p>DECK EDITOR</p>
+
+          <p class="TypeCounters">M = 1 / C = 9 / S = 3 / R = 2</p>
+        </div>
+        <div class="builder-area dragarea"></div>
+      </div>
+    </div>
+
+    <footer></footer>
+  </body>
+</html>
