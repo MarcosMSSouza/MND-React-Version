@@ -4,6 +4,10 @@ import { useState } from "react";
 import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";
 import regionPng from "./img/regionSymbols/Arderial.png";
+// import {  } from "./js/decks";
+import { PlayScreen } from "./js/PlayScreen";
+import { Field } from "./js/Field";
+import { DeckBtn, CollectionDecks, CreateCard } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
 
@@ -25,6 +29,8 @@ const regions = [
 ];
 
 export default function App() {
+  const [selected, setSelected] = useState("deck_1");
+  const [pSopen, setPSopen] = useState(false);
   // console.log(state.playerDecks);
   // const regionImg = regionPng;
   const [regionActive, setRegionActive] = useState("Arderial");
@@ -36,18 +42,40 @@ export default function App() {
     setRegionActive(region);
   }
 
+  function handleSetPSopen() {
+    setPSopen((ps) => !ps);
+    console.log(pSopen);
+  }
   return (
-    <CollectionBackground
-      regionActive={regionActive}
-      onRegionButtonClick={handleRegionButtonClick}
-    />
+    <>
+      <PlayScreen
+        selected={selected}
+        setSelected={setSelected}
+        handleSetPSopen={handleSetPSopen}
+      />
+      <CollectionBackground
+        pSopen={pSopen}
+        regionActive={regionActive}
+        onRegionButtonClick={handleRegionButtonClick}
+        selected={selected}
+        setSelected={setSelected}
+        handleSetPSopen={handleSetPSopen}
+      />
+      {/* <Field handleSetPSopen={handleSetPSopen} /> */}
+    </>
   );
 }
 
-function CollectionBackground({ onRegionButtonClick, regionActive }) {
-  const [selected, setSelected] = useState("deck_1");
+function CollectionBackground({
+  pSopen,
+  onRegionButtonClick,
+  regionActive,
+  selected,
+  setSelected,
+  handleSetPSopen,
+}) {
   return (
-    <div className="modal modal-collection ">
+    <div className={`modal modal-collection ${!pSopen && "hidden"}`}>
       <CollectionHeader onRegionButtonClick={onRegionButtonClick} />
       <CollectionContent regionActive={regionActive} />
       <CollectionBuilder state={state} selected={selected} />
@@ -55,6 +83,7 @@ function CollectionBackground({ onRegionButtonClick, regionActive }) {
         state={state}
         selected={selected}
         setSelected={setSelected}
+        handleSetPSopen={handleSetPSopen}
       ></CollectionDecks>
     </div>
   );
@@ -263,26 +292,19 @@ function populateCollectionREGIONS(card) {
   //   : regionTabSelector.appendChild(insertCard);
 }
 
-function CreateCard({ card, builder }) {
-  // console.log(card);
-  // const [hovered, setHovered] = useState(false);
-  // const toggleHover = () => setHovered(!hovered);
-
-  return (
-    <div cardtype={card.Type} key={card.Name} className="cardtest">
-      <img
-        // hovered ? "zoom" : ""`${card.Type}
-        className={builder ? "builder-collection-cards " : "collection-cards"}
-        src={card.url}
-        id={card.id}
-        dataset={card.Name}
-        alt={card.Name}
-        // onMouseEnter={toggleHover}
-        // onMouseLeave={toggleHover}
-      />
-    </div>
-  );
-}
+// function CreateCard({ card, builder }) {
+//   return (
+//     <div cardtype={card.Type} key={card.Name} className="cardtest">
+//       <img
+//         className={builder ? "builder-collection-cards " : "collection-cards"}
+//         src={card.url}
+//         id={card.id}
+//         dataset={card.Name}
+//         alt={card.Name}
+//       />
+//     </div>
+//   );
+// }
 
 // function zoomOnHover(id) {
 //   // let allCollectionCards = document.querySelectorAll(".collection-cards");
@@ -306,89 +328,8 @@ function CreateCard({ card, builder }) {
 // }
 
 ////////////// RENDER DECKS ////////////////
-function CollectionDecks({ state, regionImg, selected, setSelected }) {
-  // const [selected, setSelected] = useState("deck_1");
-  // console.log(selected);
-  // let url = `./img/regionSymbols/Arderial.png`;
-  // let deckimg = regionPng;
-  function handleSelectDeck(id) {
-    setSelected(id);
-    // console.log(selected);
-  } // let deckRegion = addDeckRegionImg(deck);
-
-  return (
-    <div className="modal-collection-decks">
-      <div className="decks-title">DECKS</div>
-
-      <button className="console_button" id="newDeck-btn" type="button">
-        New Deck
-      </button>
-
-      <button className="console_button" id="editDeck-btn" type="button">
-        Delete Deck
-      </button>
-
-      {/* <!-- //////// DECKS CONTAINER ///////////// --> */}
-      <div className="new-decks-container">
-        {Object.values(state.playerDecks).map((deck, i) => (
-          <DeckBtn
-            deck={deck}
-            regionImg={regionImg}
-            i={i + 1}
-            selected={selected}
-            onSelectDeck={handleSelectDeck}
-          />
-        ))}
-      </div>
-
-      <button className="console_button" type="button" id="btn-collection-back">
-        BACK
-      </button>
-    </div>
-  );
-}
 
 // function DecksB({ state }) {
 //   // state.playerDecks.map((deck) => <DeckCol deck={deck} />);
 //   Object.values(state.playerDecks).map((deck) => <DeckCol deck={deck} />);
 // }
-
-function DeckBtn({ deck, i, selected, onSelectDeck }) {
-  let deckName = deck.name;
-  let deckRegion = addDeckRegionImg(deck);
-
-  // console.log(regionPng);
-
-  let id = `deck_${i}`;
-  // console.log(imageList[1]);
-
-  return (
-    <div
-      className={`deck-btn ${deckRegion}  ${id === selected ? "selected" : ""}`}
-      // id={deckRegion}
-      // value={id}
-      id={id}
-      onClick={(e) => onSelectDeck(e.target.id)}
-      // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
-    >
-      <h1 className="deck-title" style={{ pointerEvents: "none" }}>
-        {deckName}
-      </h1>
-      <div className="deck-btns-container">
-        <button className="deck-inner-btn save-btn ">SAVE</button>
-        <button className="deck-inner-btn edit-btn ">EDIT</button>
-      </div>
-    </div>
-  );
-}
-
-function addDeckRegionImg(deck) {
-  let curDeck = deck.magi;
-
-  let magiTypes = curDeck.map((magi) => magi.Region);
-  // console.log(magiTypes);
-
-  let deckRegion = magiTypes[0] === magiTypes[1] ? magiTypes[0] : magiTypes[2];
-
-  return magiTypes.length > 2 ? deckRegion : magiTypes[0];
-}
