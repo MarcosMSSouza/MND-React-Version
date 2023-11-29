@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/MND-React-Version/static/css/main.6e323400.css",
+    "main.js": "/MND-React-Version/static/js/main.70dc2dad.js",
+    "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
+    "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
+    "static/media/play screen5.png": "/MND-React-Version/static/media/play screen5.769a590f5c4e441f5bfa.png",
+    "static/media/Arderial.png": "/MND-React-Version/static/media/Arderial.4de5931c1c57292d8826.png",
+    "static/media/Paradwyn.png": "/MND-React-Version/static/media/Paradwyn.78cfaea05382e86362d8.png",
+    "static/media/d'Resh.png": "/MND-React-Version/static/media/d'Resh.79889253e25aabf85efe.png",
+    "static/media/Underneath.png": "/MND-React-Version/static/media/Underneath.75dc678ba92d605fb511.png",
+    "static/media/Universal.png": "/MND-React-Version/static/media/Universal.b0c179e45da72b6a6c33.png",
+    "static/media/Bograth.png": "/MND-React-Version/static/media/Bograth.816f939318e05290485e.png",
+    "static/media/Core.png": "/MND-React-Version/static/media/Core.458110140dded057027b.png",
+    "static/media/Weave.png": "/MND-React-Version/static/media/Weave.d8023ccfbd661e57e421.png",
+    "static/media/Naroom.png": "/MND-React-Version/static/media/Naroom.9b38fb06431ad039796a.png",
+    "static/media/Kybar's Teeth.png": "/MND-React-Version/static/media/Kybar's Teeth.23794860ff47925789fe.png",
+    "static/media/Battle_for_the_moonlands_login_screen.webp": "/MND-React-Version/static/media/Battle_for_the_moonlands_login_screen.98e2b5fd800e2dc61657.webp",
+    "static/media/Cald.png": "/MND-React-Version/static/media/Cald.45922bc6f19320209015.png",
+    "static/media/playmat.webp": "/MND-React-Version/static/media/playmat.420a970066415759d707.webp",
+    "static/media/Orothe.png": "/MND-React-Version/static/media/Orothe.dc5003e23cef24a7e9fa.png",
+    "static/media/Nar.png": "/MND-React-Version/static/media/Nar.e673b30ac4d1fd57e9ca.png",
+    "static/media/Logo - official - more shadow.png": "/MND-React-Version/static/media/Logo - official - more shadow.a0d6cf1020e5bb49a6fa.png",
+    "static/media/cardback.jpg": "/MND-React-Version/static/media/cardback.61f3ba850c82cef30195.jpg",
+    "index.html": "/MND-React-Version/index.html",
+    "main.6e323400.css.map": "/MND-React-Version/static/css/main.6e323400.css.map",
+    "main.70dc2dad.js.map": "/MND-React-Version/static/js/main.70dc2dad.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6e323400.css",
+    "static/js/main.70dc2dad.js"
+  ]
+}
