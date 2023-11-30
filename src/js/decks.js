@@ -3,10 +3,10 @@ import { state } from "./model";
 
 // console.log(state.decks);
 
-export function renderColDecksss() {
-  console.log(state.playerDecks);
-  // console.log("hiiiiiii");
-}
+// export function renderColDecksss() {
+//   console.log(state.playerDecks);
+//   // console.log("hiiiiiii");
+// }
 
 // function renderAlldecks() {
 //     console.log(key);
@@ -15,6 +15,7 @@ export function renderColDecksss() {
 //     console.log(state.playerDecks[key].crs);
 //     decksView.renderPSdeckButtons(keyName);+
 //     decksView.renderColDeckButtons(keyName);
+export let selectedID;
 //   }
 export function CollectionDecks({
   state,
@@ -22,14 +23,17 @@ export function CollectionDecks({
   selected,
   setSelected,
   handleSetPSopen,
+  setSelectedID,
 }) {
   // const [selected, setSelected] = useState("deck_1");
   // console.log(selected);
   // let url = `./img/regionSymbols/Arderial.png`;
   // let deckimg = regionPng;
   function handleSelectDeck(id) {
-    setSelected(id);
-    // console.log(selected);
+    setSelected(state.playerDecks[id]);
+    selectedID = id;
+    console.log(setSelected);
+    setSelectedID(selectedID);
   }
   // let deckRegion = addDeckRegionImg(deck);
 
@@ -47,15 +51,18 @@ export function CollectionDecks({
 
       {/* <!-- //////// DECKS CONTAINER ///////////// --> */}
       <div className="new-decks-container">
-        {Object.values(state.playerDecks).map((deck, i) => (
-          <DeckBtn
-            deck={deck}
-            regionImg={regionImg}
-            i={i + 1}
-            selected={selected}
-            onSelectDeck={handleSelectDeck}
-          />
-        ))}
+        {Object.values(state.playerDecks).map(
+          (deck, i) =>
+            deck.name && (
+              <DeckBtn
+                deck={deck}
+                regionImg={regionImg}
+                i={i + 1}
+                selected={selected}
+                onSelectDeck={handleSelectDeck}
+              />
+            )
+        )}
       </div>
 
       <button
@@ -93,20 +100,20 @@ export function CollectionDecks({
 //       </div>
 //     </div>
 
-export function DeckBtn({ deck, i, selected, onSelectDeck }) {
+export function DeckBtn({ deck, i, selected, onSelectDeck, PSdeck }) {
   let deckName = deck.name;
   let deckRegion = addDeckRegionImg(deck);
 
-  // console.log(regionPng);
+  console.log(selected.id);
 
   let id = `deck_${i}`;
-  // console.log(imageList[1]);
+  // console.log(id);
 
   return (
     <div
-      className={`deck-btn ${deckRegion}  ${id === selected ? "selected" : ""}`}
-      // id={deckRegion}
-      // value={id}
+      className={`deck-btn ${deckRegion}  ${
+        id === selected.id ? "selected" : ""
+      } ${PSdeck ? "PSdeckBtn" : ""}`}
       id={id}
       onClick={(e) => onSelectDeck(e.target.id)}
       // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
@@ -115,14 +122,22 @@ export function DeckBtn({ deck, i, selected, onSelectDeck }) {
         {deckName}
       </h1>
       <div className="deck-btns-container">
-        <button className="deck-inner-btn save-btn ">SAVE</button>
-        <button className="deck-inner-btn edit-btn ">EDIT</button>
+        {!PSdeck && (
+          <>
+            {id === selected.id && (
+              <>
+                <SaveBtn />
+                <EditBtn />
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
 }
 //   );
-function addDeckRegionImg(deck) {
+export function addDeckRegionImg(deck) {
   let curDeck = deck.magi;
 
   let magiTypes = curDeck.map((magi) => magi.Region);
@@ -134,16 +149,68 @@ function addDeckRegionImg(deck) {
 }
 // }
 
-export function CreateCard({ card, builder }) {
+// export function CreateCard({
+//   card,
+//   builder,
+//   selected,
+//   setSelected,
+//   updateCardsOnEditor,
+//   setCardsOnEditor,
+// }) {
+//   function handleAddtoEditor(selected) {
+//     // let deck = state.playerDecks[selected];
+//     if (card.Type === "magi") selected.magi = [...selected.magi, card];
+//     else selected.crs = [...selected.crs, card];
+//     let selectedDeck = [...selected.magi, ...selected.crs];
+//     console.log(selectedDeck);
+//     // setSelected((selected) => selectedDeck);
+//     // setCardsOnEditor(selectedDeck);
+//     // handleUpdateCardsOnEditor();
+//     // setSelected(selected);
+//     // setState(selected);
+//     // card.Type === 'magi' &&
+//   }
+
+//   return (
+//     <div cardtype={card.Type} key={card.Name} className="cardtest">
+//       <img
+//         className={builder ? "builder-collection-cards " : "collection-cards"}
+//         src={card.url}
+//         id={card.id}
+//         dataset={card.Name}
+//         alt={card.Name}
+//         value={card}
+//         onClick={() => {
+//           handleAddtoEditor(selected);
+//           // setSelected((selected) => selected);
+//           // setSelected;
+
+//           // handleUpdateCardsOnEditor();
+//         }}
+//       />
+//     </div>
+//   );
+// }
+
+function SaveBtn() {
+  console.log("SAVE btn clicked");
   return (
-    <div cardtype={card.Type} key={card.Name} className="cardtest">
-      <img
-        className={builder ? "builder-collection-cards " : "collection-cards"}
-        src={card.url}
-        id={card.id}
-        dataset={card.Name}
-        alt={card.Name}
-      />
-    </div>
+    <button className="deck-inner-btn save-btn " onClick={() => {}}>
+      SAVE
+    </button>
   );
 }
+
+function EditBtn() {
+  return <button className="deck-inner-btn edit-btn ">EDIT</button>;
+}
+
+// function handleAddtoEditor(card, selected, setSelected) {
+//   // let deck = state.playerDecks[selected];
+//   if (card.Type === "magi") selected.magi = [...selected.magi, card];
+//   else selected.crs = [...selected.crs, card];
+
+//   setSelected((selected) => selected);
+//   console.log(selected);
+//   // card.Type === 'magi' &&
+// }

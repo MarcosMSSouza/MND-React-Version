@@ -1,13 +1,13 @@
 import "./App.css";
 import { convertedMNDcards } from "./js/cards";
 import { useState } from "react";
-import { renderColDecksss } from "./js/decks";
+// import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";
 import regionPng from "./img/regionSymbols/Arderial.png";
 // import {  } from "./js/decks";
 import { PlayScreen } from "./js/PlayScreen";
 import { Field } from "./js/Field";
-import { DeckBtn, CollectionDecks, CreateCard } from "./js/decks";
+import { DeckBtn, CollectionDecks, selectedID } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
 
@@ -28,9 +28,14 @@ const regions = [
   "Universal",
 ];
 
+let selectedteste;
 export default function App() {
-  const [selected, setSelected] = useState("deck_1");
+  const [selected, setSelected] = useState(state.playerDecks.deck_1);
+  let selectedDeck = [...selected.magi, ...selected.crs];
+
+  const [selectedID, setSelectedID] = useState("deck_1");
   const [pSopen, setPSopen] = useState(false);
+  selectedteste = selected;
   // console.log(state.playerDecks);
   // const regionImg = regionPng;
   const [regionActive, setRegionActive] = useState("Arderial");
@@ -38,7 +43,7 @@ export default function App() {
   function handleRegionButtonClick(e, region) {
     // regionbtn.addEventListener("mouseover", () => {
 
-    renderColDecksss();
+    // renderColDecksss();
     setRegionActive(region);
   }
 
@@ -60,6 +65,8 @@ export default function App() {
         selected={selected}
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
+        setSelectedID={setSelectedID}
+        selectedID={selectedID}
       />
       {/* <Field handleSetPSopen={handleSetPSopen} /> */}
     </>
@@ -73,17 +80,29 @@ function CollectionBackground({
   selected,
   setSelected,
   handleSetPSopen,
+  setSelectedID,
+  selectedID,
+  cardsOnEditor,
+  setCardsOnEditor,
 }) {
   return (
     <div className={`modal modal-collection ${!pSopen && "hidden"}`}>
       <CollectionHeader onRegionButtonClick={onRegionButtonClick} />
-      <CollectionContent regionActive={regionActive} />
-      <CollectionBuilder state={state} selected={selected} />
+      <CollectionContent regionActive={regionActive} selected={selected} />
+      <CollectionBuilder
+        state={state}
+        selected={selected}
+        setSelected={setSelected}
+        selectedID={selectedID}
+        cardsOnEditor={cardsOnEditor}
+        setCardsOnEditor={setCardsOnEditor}
+      />
       <CollectionDecks
         state={state}
         selected={selected}
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
+        setSelectedID={setSelectedID}
       ></CollectionDecks>
     </div>
   );
@@ -127,7 +146,7 @@ function CollectionHeader({ onRegionButtonClick }) {
 
 // let allcar=[]
 
-function CollectionContent({ regionActive }) {
+function CollectionContent({ regionActive, selected }) {
   return (
     <>
       {console.log(regionActive)}
@@ -142,7 +161,7 @@ function CollectionContent({ regionActive }) {
           key={`content-${region}`}
         >
           {Object.values(convertedMNDcards).map((card) => {
-            return renderCollectionREGIONS(card, region);
+            return renderCollectionREGIONS(card, region, selected);
             // return (
 
             //   console.log(allmagi);
@@ -155,7 +174,7 @@ function CollectionContent({ regionActive }) {
 
 /////////////
 
-function renderCollectionREGIONS(card, region) {
+function renderCollectionREGIONS(card, region, selected) {
   // Object.values(convertedMNDcards).map((card) => {
   let regexPatern = /[^A-Za-z0-9_]/g;
 
@@ -222,19 +241,45 @@ function renderCollectionREGIONS(card, region) {
 
   return (
     <>
-      <CreateCard card={card} Type={Type} key={card.Name} />
+      <CreateCard card={card} Type={Type} key={card.Name} selected={selected} />
     </>
   );
 
   //////ok//////////
 }
 
-function CollectionBuilder({ state, selected }) {
-  let selectedDeck = [
-    ...state.playerDecks[`${selected}`].magi,
-    ...state.playerDecks[`${selected}`].crs,
-  ];
+function CollectionBuilder({
+  state,
+  selected,
+  setSelected,
+
+  selectedID,
+}) {
+  // const [forceRender, setForceRender] = useState(false);
+  // console.log(cardsOnEditor);
+  let selectedDeck = [...selected.magi, ...selected.crs];
+  const [cardsOnEditor, setCardsOnEditor] = useState(selectedDeck);
+
+  function updateCardsOnEditor() {
+    // console.log(selectedteste);
+    // selectedteste = [...selectedteste.magi, ...selectedteste.crs];
+    setSelected(selectedDeck);
+  }
+  console.log(updateCardsOnEditor);
+
+  // console.log(selectedteste2);
+  // let selectedteste2 = [...selectedteste.magi, ...selectedteste.crs];
+  // console.log(selectedDeck);
   const builder = true;
+  // setCardsOnEditor(selectedDeck);
+  // function updateCardsOnEditor() {
+  //   let selectedDeck = [...selected.magi, ...selected.crs];
+  //   setCardsOnEditor(selectedDeck);
+  // }
+  // console.log("tewsteeeeeeeeee");
+  //////
+  // this.forceUpdate();
+  ////
   // console.log(selectedDeck);
   // console.log(state.playerDecks);
   return (
@@ -246,13 +291,62 @@ function CollectionBuilder({ state, selected }) {
       </div>
       <div className="builder-area dragarea">
         {selectedDeck.map((card) => (
-          <CreateCard card={card} builder={builder} />
+          <CreateCard
+            state={state}
+            card={card}
+            builder={builder}
+            selected={selected}
+            setSelected={setSelected}
+            onUpdateCardsOnEditor={updateCardsOnEditor}
+            selectedID={selectedID}
+          />
         ))}
       </div>
     </div>
   );
 }
+// selectedID;
+function CreateCard({
+  card,
+  builder,
+  selected,
+  selectedID,
+  setSelected,
+  onUpdateCardsOnEditor,
 
+  setCardsOnEditor,
+}) {
+  // console.log(updateCardsOnEditor);
+  function handleAddtoEditor() {
+    // console.log(state);
+    // let deck = state.playerDecks[selected];
+    // let updatedSelected = [];
+    if (card.Type === "magi") selected.magi = [...selected.magi, card];
+    else selected.crs = [...selected.crs, card];
+    let selectedDeck = [...selected.magi, ...selected.crs];
+    // setForceRender(!forceRender);
+    // setSelected(selectedDeck);
+    console.log(setSelected);
+    console.log(selectedDeck);
+
+    // console.log(updateCardsOnEditor);
+    //
+  }
+
+  return (
+    <div cardtype={card.Type} key={card.Name} className="cardtest">
+      <img
+        className={builder ? "builder-collection-cards " : "collection-cards"}
+        src={card.url}
+        id={card.id}
+        dataset={card.Name}
+        alt={card.Name}
+        value={card}
+        // onClick={() => onUpdateCardsOnEditor()}
+      />
+    </div>
+  );
+}
 /////////////////////////////////////
 
 function populateCollectionREGIONS(card) {
@@ -277,11 +371,7 @@ function populateCollectionREGIONS(card) {
   ////////////// TEST FOR DUAL REGION /////////////////////
 
   ///////////////////////////////////////////////
-  // let regionTabSelector = document.querySelector(`.content-${card.Region}`);
-  // console.log(regionTabSelector);
 
-  // {SELECIONAR CADA TAB DE CADA REGIÃO PRA INSERIR AS RESPECTIVAS CARTAS DENTRO }
-  // <CreateCard card={card} type={Type} />;
   return (
     <div>
       <CreateCard card={card} />
@@ -291,45 +381,3 @@ function populateCollectionREGIONS(card) {
   //   ? regionTabSelector.prepend(insertCard)
   //   : regionTabSelector.appendChild(insertCard);
 }
-
-// function CreateCard({ card, builder }) {
-//   return (
-//     <div cardtype={card.Type} key={card.Name} className="cardtest">
-//       <img
-//         className={builder ? "builder-collection-cards " : "collection-cards"}
-//         src={card.url}
-//         id={card.id}
-//         dataset={card.Name}
-//         alt={card.Name}
-//       />
-//     </div>
-//   );
-// }
-
-// function zoomOnHover(id) {
-//   // let allCollectionCards = document.querySelectorAll(".collection-cards");
-
-//   // let draggable = document.querySelectorAll(".field-cards");
-
-//   allCollectionCards.forEach((card) => {
-//     card.addEventListener("mouseover", () => {
-//       let audioUrl = require("url:./sounds/hoveringCardSound.mp3");
-//       let hoveringCardSound = new Audio(audioUrl);
-//       hoveringCardSound.play();
-//       card.classList.add("zoom");
-//     });
-//   });
-
-//   allCollectionCards.forEach((card) =>
-//     addEventListener("mouseout", () => {
-//       card.classList.remove("zoom");
-//     })
-//   );
-// }
-
-////////////// RENDER DECKS ////////////////
-
-// function DecksB({ state }) {
-//   // state.playerDecks.map((deck) => <DeckCol deck={deck} />);
-//   Object.values(state.playerDecks).map((deck) => <DeckCol deck={deck} />);
-// }

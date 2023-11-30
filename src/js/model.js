@@ -16,12 +16,14 @@ export const state = {
   deckEditor: {
     editable: false,
     changedCard: false,
+    wholeDeck: [],
     curMagi: [],
     curCrs: [],
   },
 
   playerDecks: {
     deck_1: {
+      id: "deck_1",
       name: "Warrada's Deck",
       magi: [
         convertedMNDcards.warrada,
@@ -37,6 +39,7 @@ export const state = {
       ],
     },
     deck_2: {
+      id: "deck_2",
       name: "deck 2",
       magi: [
         convertedMNDcards.sorrowing_ogar,
@@ -53,10 +56,11 @@ export const state = {
       ],
     },
     deck_3: {
+      id: "deck_3",
       name: " test Deck",
       magi: [
         convertedMNDcards.quilla,
-        convertedMNDcards.tuku,
+        convertedMNDcards.arosa,
         convertedMNDcards.voda,
       ],
       crs: [
@@ -72,6 +76,7 @@ export const state = {
       ],
     },
     deck_4: {
+      id: "deck_4",
       name: " Arderial",
       magi: [
         convertedMNDcards.kalius,
@@ -108,6 +113,15 @@ export const state = {
         convertedMNDcards.wildfire,
       ],
     },
+    deck_5: { id: "deck_5", name: "", magi: [], crs: [] },
+    deck_6: { id: "deck_6", name: "", magi: [], crs: [] },
+    deck_7: { id: "deck_7", name: "", magi: [], crs: [] },
+    deck_8: { id: "deck_8", name: "", magi: [], crs: [] },
+    deck_9: { id: "deck_9", name: "", magi: [], crs: [] },
+    // deck_6: {},
+    // deck_7: {},
+    // deck_8: {},
+    // deck_9: {},
   },
 };
 
