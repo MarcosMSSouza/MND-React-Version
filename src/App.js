@@ -337,16 +337,7 @@ function CollectionBuilder({
   // ("not receiving card ... to fix ");
 
   // const [forceRender, setForceRender] = useState(false);
-  // console.log("collection builder re render");
-  // let selectedDeck = [...selected.magi, ...selected.crs];
-  // function removeCardsFromEditor(card) {
-  //   console.log(card);
-  //   if (card.Type === "magi") {
-  //     // selected.magi = [...selected.magi, card];
-  //     // let cardToRemove = state.deckEditor.curMagi.some(
-  //     //   (car) => car.Name === card.Name && card
-  //     console.log(state.deckEditor.curMagi);
-  //     let filteredMagi = state.deckEditor.curMagi.filter(
+
   //       (car) => car.Name !== card.Name
   //     );
   state.deckEditor.curMagi = selected.magi;
@@ -392,11 +383,7 @@ function CollectionBuilder({
 
   return (
     <div className="modal modal-collection-builder">
-      <div className="editor-title">
-        <p>DECK EDITOR</p>
-
-        <p className="TypeCounters">M = 1 / C = 9 / S = 3 / R = 2</p>
-      </div>
+      <TypeCounters onEditor={onEditor} />
       <div className="builder-area dragarea">
         {onEditor.map((card) => (
           <CreateCard
@@ -416,6 +403,67 @@ function CollectionBuilder({
   );
 }
 // selectedID;
+function TypeCounters({ onEditor }) {
+  let magi = 0;
+  let relics = 0;
+  let creatures = 0;
+  let spells = 0;
+  onEditor.forEach((card) => {
+    if (card.Type === "magi") magi++;
+    if (card.Type === "creature") creatures++;
+    if (card.Type === "relic") relics++;
+    if (card.Type === "spell") spells++;
+  });
+  ////
+  return (
+    <div className="editorfont-title">
+      <p className="editor-title">DECK EDITOR</p>
+      <div className="typeImages">
+        <div className="editor-type-img editor-type-img-magi">
+          <p>{magi}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-creature">
+          <p> {creatures}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-relic">
+          <p>{relics}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-spell">
+          <p>{spells}</p>
+        </div>
+
+        {/* <img className="deck-editor-img-test" alt="no"></img>
+        <img className="deck-editor-img-test" alt="no"></img>
+        <img className="deck-editor-img-test" alt="no"></img> */}
+      </div>
+
+      {/* <p className="TypeCounters">{`M = ${magi} / C = ${creatures} / R = ${relics} / S = ${spells}`}</p> */}
+    </div>
+  );
+}
+function cardTypesCounter() {
+  let builderCollectionCards = document.querySelectorAll(
+    ".builder-collection-cards"
+  );
+
+  let magi = 0;
+  let relics = 0;
+  let creatures = 0;
+  let spells = 0;
+
+  builderCollectionCards.forEach((card) => {
+    if (card.classList.contains("magi")) magi++;
+    if (card.classList.contains("relic")) relics++;
+    if (card.classList.contains("spell")) spells++;
+    if (card.classList.contains("creature")) creatures++;
+  });
+
+  let TypeCounters = document.querySelector(".TypeCounters");
+
+  TypeCounters.innerHTML = `M = ${magi} / C = ${creatures} /  R = ${relics} / S = ${spells} `;
+
+  console.log("Type Counter: ", magi, relics, creatures, spells);
+}
 
 function CreateCard({
   card,
