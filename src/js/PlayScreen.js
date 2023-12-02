@@ -65,20 +65,22 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
       <h1 class="PStextArea">. Select a deck .</h1>
 
       <div class="PlayScreen-DecksArea">
-        {Object.values(state.playerDecks).map((deck, i) =>
-          deck.name ? (
-            <div class="PlayScreen-deckDock">
-              <DeckBtn
-                deck={deck}
-                PSdeck={PSdeck}
-                i={i + 1}
-                selected={selected}
-                onSelectDeck={handleSelectDeck}
-              />
-            </div>
-          ) : (
-            <div class="PlayScreen-deckDock"></div>
-          )
+        {Object.values(state.playerDecks).map(
+          (deck, i) =>
+            deck.name && (
+              <div class="PlayScreen-deckDock">
+                <DeckBtn
+                  deck={deck}
+                  PSdeck={PSdeck}
+                  i={i + 1}
+                  selected={selected}
+                  onSelectDeck={handleSelectDeck}
+                />
+              </div>
+            )
+        )}
+        {Object.values(state.playerDecks).map(
+          (deck, i) => !deck.name && <div class="PlayScreen-deckDock"></div>
         )}
 
         {/* <div class="PlayScreen-deckDock"></div>

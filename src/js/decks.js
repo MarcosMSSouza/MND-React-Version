@@ -52,6 +52,7 @@ export function CollectionDecks({
       />
       <DeleteDeck
         selected={selected}
+        setSelected={setSelected}
         setCardsOnEditor={setCardsOnEditor}
         handleSelectDeck={handleSelectDeck}
       />
@@ -96,6 +97,10 @@ function NewDeck({
     let firstNamelessDeck = Object.values(state.playerDecks).find(
       (deck) => !deck.name
     );
+    if (firstNamelessDeck === undefined) {
+      alert("Cant create more than 9 decks!");
+      return;
+    }
     let id = firstNamelessDeck.id;
     firstNamelessDeck.name = id;
     console.log(id);
@@ -137,6 +142,10 @@ function DeleteDeck({
     handleSelectDeck(id);
     let onEditor = [state.playerDecks[id]];
     setCardsOnEditor(onEditor);
+    let firstNamedDeck = Object.values(state.playerDecks).find(
+      (deck) => deck.name
+    );
+    setSelected(firstNamedDeck);
   }
   return (
     <button
