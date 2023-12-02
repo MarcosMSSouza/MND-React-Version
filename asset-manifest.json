@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.ee386f0f.css",
-    "main.js": "/MND-React-Version/static/js/main.514a429c.js",
+    "main.css": "/MND-React-Version/static/css/main.8db98ccb.css",
+    "main.js": "/MND-React-Version/static/js/main.6cd02943.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
     "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
     "static/media/play screen5.png": "/MND-React-Version/static/media/play screen5.769a590f5c4e441f5bfa.png",
@@ -23,11 +23,11 @@
     "static/media/Logo - official - more shadow.png": "/MND-React-Version/static/media/Logo - official - more shadow.a0d6cf1020e5bb49a6fa.png",
     "static/media/cardback.jpg": "/MND-React-Version/static/media/cardback.61f3ba850c82cef30195.jpg",
     "index.html": "/MND-React-Version/index.html",
-    "main.ee386f0f.css.map": "/MND-React-Version/static/css/main.ee386f0f.css.map",
-    "main.514a429c.js.map": "/MND-React-Version/static/js/main.514a429c.js.map"
+    "main.8db98ccb.css.map": "/MND-React-Version/static/css/main.8db98ccb.css.map",
+    "main.6cd02943.js.map": "/MND-React-Version/static/js/main.6cd02943.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee386f0f.css",
-    "static/js/main.514a429c.js"
+    "static/css/main.8db98ccb.css",
+    "static/js/main.6cd02943.js"
   ]
 }
