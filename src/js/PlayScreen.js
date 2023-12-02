@@ -107,7 +107,7 @@ function ShowMagiWhenSelectingDeck({ selected }) {
   let magis = selected.magi;
   // PSmagisArea.innerHTML = "";
   // console.log(magi.url);
-
+  if (!magis) return;
   return magis.map((magi, i) => {
     return (
       <div className={` PSmagi PSmagi-pile-${i} draggable=false`}>

@@ -50,7 +50,11 @@ export function CollectionDecks({
         handleSelectDeck={handleSelectDeck}
         setCardsOnEditor={setCardsOnEditor}
       />
-      <DeleteDeck />
+      <DeleteDeck
+        selected={selected}
+        setCardsOnEditor={setCardsOnEditor}
+        handleSelectDeck={handleSelectDeck}
+      />
 
       {/* <!-- //////// DECKS CONTAINER ///////////// --> */}
       <div className="new-decks-container">
@@ -116,9 +120,31 @@ function NewDeck({
   );
 }
 
-function DeleteDeck() {
+function DeleteDeck({
+  selected,
+  setSelected,
+  setSelectedID,
+  setCardsOnEditor,
+  handleSelectDeck,
+}) {
+  function removeSelectedDeck() {
+    let id = selected.id;
+    console.log(id);
+    state.playerDecks[id].magi = "";
+    state.playerDecks[id].crs = "";
+    state.playerDecks[id].name = "";
+
+    handleSelectDeck(id);
+    let onEditor = [state.playerDecks[id]];
+    setCardsOnEditor(onEditor);
+  }
   return (
-    <button className="console_button" id="editDeck-btn" type="button">
+    <button
+      className="console_button"
+      id="editDeck-btn"
+      type="button"
+      onClick={() => removeSelectedDeck()}
+    >
       Delete Deck
     </button>
   );
@@ -197,6 +223,7 @@ export function DeckBtn({
 }
 //   );
 export function addDeckRegionImg(deck) {
+  if (!deck.magi) return;
   let curDeck = deck.magi;
 
   let magiTypes = curDeck.map((magi) => {
