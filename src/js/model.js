@@ -59,9 +59,9 @@ export const state = {
       id: "deck_3",
       name: " test Deck",
       magi: [
-        convertedMNDcards.quilla,
-        convertedMNDcards.arosa,
-        convertedMNDcards.voda,
+        convertedMNDcards.bronn,
+        convertedMNDcards.halsted,
+        convertedMNDcards.erisa,
       ],
       crs: [
         convertedMNDcards.corrupt,

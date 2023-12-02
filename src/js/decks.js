@@ -24,6 +24,8 @@ export function CollectionDecks({
   setSelected,
   handleSetPSopen,
   setSelectedID,
+  cardsOnEditor,
+  setCardsOnEditor,
 }) {
   // const [selected, setSelected] = useState("deck_1");
   // console.log(selected);
@@ -32,8 +34,9 @@ export function CollectionDecks({
   function handleSelectDeck(id) {
     setSelected(state.playerDecks[id]);
     selectedID = id;
-    console.log(setSelected);
+    // console.log(setSelected);
     setSelectedID(selectedID);
+    console.log("test", selectedID);
   }
   // let deckRegion = addDeckRegionImg(deck);
 
@@ -41,13 +44,13 @@ export function CollectionDecks({
     <div className="modal-collection-decks">
       <div className="decks-title">DECKS</div>
 
-      <button className="console_button" id="newDeck-btn" type="button">
-        New Deck
-      </button>
-
-      <button className="console_button" id="editDeck-btn" type="button">
-        Delete Deck
-      </button>
+      <NewDeck
+        setSelectedID={setSelectedID}
+        setSelected={setSelected}
+        handleSelectDeck={handleSelectDeck}
+        setCardsOnEditor={setCardsOnEditor}
+      />
+      <DeleteDeck />
 
       {/* <!-- //////// DECKS CONTAINER ///////////// --> */}
       <div className="new-decks-container">
@@ -60,6 +63,8 @@ export function CollectionDecks({
                 i={i + 1}
                 selected={selected}
                 onSelectDeck={handleSelectDeck}
+                cardsOnEditor={cardsOnEditor}
+                setCardsOnEditor={setCardsOnEditor}
               />
             )
         )}
@@ -74,6 +79,48 @@ export function CollectionDecks({
         BACK
       </button>
     </div>
+  );
+}
+
+function NewDeck({
+  setSelected,
+  setSelectedID,
+  handleSelectDeck,
+  setCardsOnEditor,
+}) {
+  function checkPrimeirodecksemnome() {
+    let firstNamelessDeck = Object.values(state.playerDecks).find(
+      (deck) => !deck.name
+    );
+    let id = firstNamelessDeck.id;
+    firstNamelessDeck.name = id;
+    console.log(id);
+    // setSelectedID(primeirodecksemnome.id);
+    // setSelected(primeirodecksemnome.id);
+
+    handleSelectDeck(id);
+    let onEditor = [state.playerDecks[id]];
+    setCardsOnEditor(onEditor);
+  }
+  return (
+    <button
+      className="console_button"
+      id="newDeck-btn"
+      type="button"
+      onClick={() => {
+        checkPrimeirodecksemnome();
+      }}
+    >
+      New Deck
+    </button>
+  );
+}
+
+function DeleteDeck() {
+  return (
+    <button className="console_button" id="editDeck-btn" type="button">
+      Delete Deck
+    </button>
   );
 }
 //   let new_decks_container = document.querySelector(".new-decks-container");
@@ -100,11 +147,19 @@ export function CollectionDecks({
 //       </div>
 //     </div>
 
-export function DeckBtn({ deck, i, selected, onSelectDeck, PSdeck }) {
+export function DeckBtn({
+  deck,
+  i,
+  selected,
+  onSelectDeck,
+  PSdeck,
+  cardsOnEditor,
+  setCardsOnEditor,
+}) {
   let deckName = deck.name;
   let deckRegion = addDeckRegionImg(deck);
 
-  console.log(selected.id);
+  // console.log(selected.id);
 
   let id = `deck_${i}`;
   // console.log(id);
@@ -122,16 +177,20 @@ export function DeckBtn({ deck, i, selected, onSelectDeck, PSdeck }) {
         {deckName}
       </h1>
       <div className="deck-btns-container">
-        {!PSdeck && (
+        {/* {!PSdeck && (
           <>
             {id === selected.id && (
               <>
-                <SaveBtn />
+                <SaveBtn
+                  id={id}
+                  cardsOnEditor={cardsOnEditor}
+                  setCardsOnEditor={setCardsOnEditor}
+                />
                 <EditBtn />
               </>
             )}
           </>
-        )}
+        )} */}
       </div>
     </div>
   );
@@ -140,62 +199,29 @@ export function DeckBtn({ deck, i, selected, onSelectDeck, PSdeck }) {
 export function addDeckRegionImg(deck) {
   let curDeck = deck.magi;
 
-  let magiTypes = curDeck.map((magi) => magi.Region);
+  let magiTypes = curDeck.map((magi) => {
+    return magi.Region === "Kybar's Teeth" ? "Kybar" : magi.Region;
+  });
   // console.log(magiTypes);
 
   let deckRegion = magiTypes[0] === magiTypes[1] ? magiTypes[0] : magiTypes[2];
-
+  // console.log(deckRegion);
   return magiTypes.length > 2 ? deckRegion : magiTypes[0];
 }
 // }
 
-// export function CreateCard({
-//   card,
-//   builder,
-//   selected,
-//   setSelected,
-//   updateCardsOnEditor,
-//   setCardsOnEditor,
-// }) {
-//   function handleAddtoEditor(selected) {
-//     // let deck = state.playerDecks[selected];
-//     if (card.Type === "magi") selected.magi = [...selected.magi, card];
-//     else selected.crs = [...selected.crs, card];
-//     let selectedDeck = [...selected.magi, ...selected.crs];
-//     console.log(selectedDeck);
-//     // setSelected((selected) => selectedDeck);
-//     // setCardsOnEditor(selectedDeck);
-//     // handleUpdateCardsOnEditor();
-//     // setSelected(selected);
-//     // setState(selected);
-//     // card.Type === 'magi' &&
-//   }
-
-//   return (
-//     <div cardtype={card.Type} key={card.Name} className="cardtest">
-//       <img
-//         className={builder ? "builder-collection-cards " : "collection-cards"}
-//         src={card.url}
-//         id={card.id}
-//         dataset={card.Name}
-//         alt={card.Name}
-//         value={card}
-//         onClick={() => {
-//           handleAddtoEditor(selected);
-//           // setSelected((selected) => selected);
-//           // setSelected;
-
-//           // handleUpdateCardsOnEditor();
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
-function SaveBtn() {
-  console.log("SAVE btn clicked");
+function SaveBtn({ id, selected, cardsOnEditor, setCardsOnEditor }) {
+  // console.log("SAVE btn clicked");
+  function handleSaveDeck() {
+    selected.playerDecks[id] = state.playerDecks[id].magi;
+  }
   return (
-    <button className="deck-inner-btn save-btn " onClick={() => {}}>
+    <button
+      className="deck-inner-btn save-btn "
+      onClick={() => {
+        handleSaveDeck();
+      }}
+    >
       SAVE
     </button>
   );

@@ -1209,7 +1209,8 @@ img {
   background-position: center;
 }
 
-#Cald {
+#Cald,
+.Cald {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1234,7 +1235,8 @@ img {
   background-position: center;
 }
 
-#Naroom {
+#Naroom,
+.Naroom {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1259,7 +1261,8 @@ img {
   background-position: center;
 }
 
-#Core {
+#Core,
+.Core {
   background-size: cover;
   background-image: var(--coreimg);
   /* background-image: linear-gradient(
@@ -1272,11 +1275,11 @@ img {
   background-position: center;
 }
 
-.Core {
+/* .Core {
   background-size: cover;
   background-image: var(--coreimg);
   background-position: center;
-}
+} */
 
 #d\'Resh,
 .d\'Resh {
@@ -1291,19 +1294,22 @@ img {
   background-position: center;
 }
 
-#Kybar\'s\ Teeth {
+#Kybar\'s\ Teeth,
+.Kybar {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0) 50%,
       rgba(255, 255, 255, 0.8) 100%
     ),
-    url("/src/img/regionSymbols/Kybar's\ Teeth.png");
+    url("/src/img/regionSymbols/Kybar's\ Teeth.png"); /*
+      /* url("/src/img/regionSymbols/Paradwyn.png"); */
   /* opacity: 0.5; */
   background-position: center;
 }
 
-#Bograth {
+#Bograth,
+.Bograth {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1315,7 +1321,8 @@ img {
   background-position: center;
 }
 
-#Paradwyn {
+#Paradwyn,
+.Paradwyn {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1327,7 +1334,8 @@ img {
   background-position: center;
 }
 
-#Weave {
+#Weave,
+.Weave {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1339,7 +1347,8 @@ img {
   background-position: center;
 }
 
-#Nar {
+#Nar,
+.Nar {
   background-size: cover;
   background-image: linear-gradient(
       to bottom,
@@ -1351,7 +1360,8 @@ img {
   background-position: center;
 }
 
-#Universal {
+#Universal,
+.Universal {
   background-size: cover;
   background-position: left;
   background-image: linear-gradient(
