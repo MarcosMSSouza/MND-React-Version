@@ -456,6 +456,32 @@ function TypeCounters({ onEditor }) {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+function cardTypesCounter() {
+  let builderCollectionCards = document.querySelectorAll(
+    ".builder-collection-cards"
+  );
+
+  let magi = 0;
+  let relics = 0;
+  let creatures = 0;
+  let spells = 0;
+
+  builderCollectionCards.forEach((card) => {
+    if (card.classList.contains("magi")) magi++;
+    if (card.classList.contains("relic")) relics++;
+    if (card.classList.contains("spell")) spells++;
+    if (card.classList.contains("creature")) creatures++;
+  });
+
+  let TypeCounters = document.querySelector(".TypeCounters");
+
+  TypeCounters.innerHTML = `M = ${magi} / C = ${creatures} /  R = ${relics} / S = ${spells} `;
+
+  console.log("Type Counter: ", magi, relics, creatures, spells);
+}
+>>>>>>> 3b6c3baaaba54fbc80b0e96c2c43c3912b0a6d15
 
 function CreateCard({
   card,
