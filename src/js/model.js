@@ -25,11 +25,7 @@ export const state = {
     deck_1: {
       id: "deck_1",
       name: "Warrada's Deck",
-      magi: [
-        convertedMNDcards.warrada,
-        convertedMNDcards.hrada,
-        convertedMNDcards.marella,
-      ],
+      magi: [convertedMNDcards.warrada, convertedMNDcards.hrada],
       crs: [
         convertedMNDcards.equilibrate,
         convertedMNDcards.inyx,

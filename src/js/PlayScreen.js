@@ -1,5 +1,8 @@
 import { state } from "./model";
 import { DeckBtn, addDeckRegionImg } from "./decks";
+import useSound from "use-sound";
+import switchingGameSections from "../sounds/switchingGameSections.mp3";
+import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 
 export function PlayScreen({ selected, setSelected, handleSetPSopen, pSopen }) {
   function handleSelectDeck(id) {
@@ -122,6 +125,11 @@ function ShowMagiWhenSelectingDeck({ selected }) {
 function RightScreenSection({ selected, handleSetPSopen }) {
   let deck = selected;
   let regionSelected = addDeckRegionImg(deck);
+  const soundUrl = switchingGameSections;
+  const [play] = useSound(soundUrl);
+
+  const soundUrl2 = hoveringSystemBtns;
+  const [play2] = useSound(soundUrl2);
 
   return (
     <section class="modal-PlayScreen-RightSection">
@@ -133,14 +141,23 @@ function RightScreenSection({ selected, handleSetPSopen }) {
         <h1 class="PStextArea totalCards">{deck.crs.length} - Cards</h1>
       </div>
       <div class="PlayScreen-RightSection-buttonsArea">
-        <button class="console_button" type="button" id="PlayScreen-btn-play">
+        <button
+          class="console_button"
+          type="button"
+          id="PlayScreen-btn-play"
+          onMouseEnter={play2}
+        >
           PLAY
         </button>
         <button
           class="console_button"
           type="button"
           id="PlayScreen-btn-collection"
-          onClick={() => handleSetPSopen()}
+          onClick={() => {
+            play();
+            handleSetPSopen();
+          }}
+          onMouseEnter={play2}
         >
           COLLECTION
         </button>

@@ -10,6 +10,9 @@ import { Field } from "./js/Field";
 import { CollectionDecks, addDeckRegionImg } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
+import useSound from "use-sound";
+import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
+import changingPage from "./sounds/changingPage.mp3";
 
 // import '.index'
 const regions = [
@@ -31,7 +34,13 @@ const regions = [
 let selectedteste;
 export default function App() {
   const [selected, setSelected] = useState(state.playerDecks.deck_1);
-  const [cardsOnEditor, setCardsOnEditor] = useState(state.deckEditor);
+  state.deckEditor.wholeDeck = [
+    ...state.playerDecks.deck_1.magi,
+    ...state.playerDecks.deck_1.crs,
+  ];
+  const [cardsOnEditor, setCardsOnEditor] = useState(
+    state.deckEditor.wholeDeck
+  );
   // let selectedDeck = [...selected.magi, ...selected.crs];
 
   const [selectedID, setSelectedID] = useState("deck_1");
@@ -133,6 +142,8 @@ function CollectionHeader({ onRegionButtonClick }) {
   );
 
   function RegionButton({ region, onRegionButtonClick }) {
+    const soundUrl = changingPage;
+    const [play] = useSound(soundUrl);
     return (
       <>
         <div
@@ -146,7 +157,10 @@ function CollectionHeader({ onRegionButtonClick }) {
             //   : region
           }
           key={region}
-          onClick={(e) => onRegionButtonClick(e, region)}
+          onClick={(e) => {
+            play();
+            onRegionButtonClick(e, region);
+          }}
         >
           <p>{region}</p>
         </div>
@@ -289,8 +303,8 @@ function renderCollectionREGIONS(
   ////////////// TEST FOR DUAL REGION /////////////////////
   // console.log(setCardsOnEditor);
   ///////////////////////////////////////////////
-  function addCardsToEditor(cardsOnEditor, setCardsOnEditor) {
-    console.log("agora vai??");
+  function addCardsToEditor() {
+    console.log(cardsOnEditor);
     // console.log(setCardsOnEditor);
     if (card.Type === "magi") {
       selected.magi = [...selected.magi, card];
@@ -301,7 +315,8 @@ function renderCollectionREGIONS(
       state.deckEditor.curCrs = selected.crs;
       console.log(state.deckEditor.curCrs);
     }
-    // setCardsOnEditor(selected);
+    let onEditor = [...selected.magi, ...selected.crs];
+    setCardsOnEditor(onEditor);
   }
 
   return (
@@ -337,16 +352,7 @@ function CollectionBuilder({
   // ("not receiving card ... to fix ");
 
   // const [forceRender, setForceRender] = useState(false);
-  // console.log("collection builder re render");
-  // let selectedDeck = [...selected.magi, ...selected.crs];
-  // function removeCardsFromEditor(card) {
-  //   console.log(card);
-  //   if (card.Type === "magi") {
-  //     // selected.magi = [...selected.magi, card];
-  //     // let cardToRemove = state.deckEditor.curMagi.some(
-  //     //   (car) => car.Name === card.Name && card
-  //     console.log(state.deckEditor.curMagi);
-  //     let filteredMagi = state.deckEditor.curMagi.filter(
+
   //       (car) => car.Name !== card.Name
   //     );
   state.deckEditor.curMagi = selected.magi;
@@ -392,11 +398,7 @@ function CollectionBuilder({
 
   return (
     <div className="modal modal-collection-builder">
-      <div className="editor-title">
-        <p>DECK EDITOR</p>
-
-        <p className="TypeCounters">M = 1 / C = 9 / S = 3 / R = 2</p>
-      </div>
+      <TypeCounters onEditor={onEditor} />
       <div className="builder-area dragarea">
         {onEditor.map((card) => (
           <CreateCard
@@ -416,6 +418,44 @@ function CollectionBuilder({
   );
 }
 // selectedID;
+function TypeCounters({ onEditor }) {
+  let magi = 0;
+  let relics = 0;
+  let creatures = 0;
+  let spells = 0;
+  onEditor.forEach((card) => {
+    if (card.Type === "magi") magi++;
+    if (card.Type === "creature") creatures++;
+    if (card.Type === "relic") relics++;
+    if (card.Type === "spell") spells++;
+  });
+  ////
+  return (
+    <div className="editorfont-title">
+      <p className="editor-title">DECK EDITOR</p>
+      <div className="typeImages">
+        <div className="editor-type-img editor-type-img-magi">
+          <p>{magi}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-creature">
+          <p> {creatures}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-relic">
+          <p>{relics}</p>
+        </div>
+        <div className="editor-type-img editor-type-img-spell">
+          <p>{spells}</p>
+        </div>
+
+        {/* <img className="deck-editor-img-test" alt="no"></img>
+        <img className="deck-editor-img-test" alt="no"></img>
+        <img className="deck-editor-img-test" alt="no"></img> */}
+      </div>
+
+      {/* <p className="TypeCounters">{`M = ${magi} / C = ${creatures} / R = ${relics} / S = ${spells}`}</p> */}
+    </div>
+  );
+}
 
 function CreateCard({
   card,
@@ -432,9 +472,16 @@ function CreateCard({
 
   function handleAddtoEditor() {
     // console.log(state);
+    let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+    console.log(onEditor);
 
+    state.deckEditor.wholeDeck = onEditor;
+    console.log(state.deckEditor.wholeDeck);
+    setCardsOnEditor(state.deckEditor.wholeDeck);
+    console.log(cardsOnEditor);
+    console.log("teste 1");
     let [countSingle, countTotal] = checkCardCopies(card);
-
+    // console.log(countSingle, countTotal);
     console.log(countSingle, countTotal);
     // let magiCheck = card.Type.slice(0, 4);
     // console.log(magiCheck);
@@ -446,8 +493,8 @@ function CreateCard({
 
     // let deck = state.playerDecks[selected]
     addCardsToEditor();
-    let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-    setCardsOnEditor(onEditor);
+    // onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+    // setCardsOnEditor(onEditor);
     console.log(cardsOnEditor);
     // let selectedDeck = [...selected.magi, ...selected.crs];
 
@@ -497,9 +544,12 @@ function CreateCard({
     // let builderCollectionCards = document.querySelectorAll(
     //   ".builder-collection-cards"
     // );
+    console.log(cardsOnEditor);
+    // let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+    // setCardsOnEditor(onEditor);
     let magiCount = [0, 0];
     let crsCount = [0, 0];
-
+    console.log(cardsOnEditor);
     if (cardtomove.Type === "magi") {
       cardsOnEditor.forEach((card) => {
         if (card.Type === "magi") magiCount[1]++;
@@ -514,6 +564,8 @@ function CreateCard({
       return crsCount;
     }
   }
+  const soundUrl = hoveringcardSound;
+  const [play] = useSound(soundUrl);
 
   return (
     <div cardtype={card.Type} key={card.Name} className="cardtest">
@@ -527,6 +579,7 @@ function CreateCard({
         onClick={() => {
           builder ? removeCardsFromEditor(card) : handleAddtoEditor();
         }}
+        onMouseEnter={play}
       />
     </div>
   );

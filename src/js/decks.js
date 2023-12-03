@@ -1,4 +1,10 @@
 import { state } from "./model";
+import useSound from "use-sound";
+import deckSelected from "../sounds/deckSelected.mp3";
+import switchingGameSections from "../sounds/switchingGameSections.mp3";
+import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
+import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
+
 // import decksView from "./js/views/decksView";
 
 // console.log(state.decks);
@@ -39,7 +45,11 @@ export function CollectionDecks({
     console.log("test", selectedID);
   }
   // let deckRegion = addDeckRegionImg(deck);
+  const soundUrl = switchingGameSections;
+  const [play] = useSound(soundUrl);
 
+  const soundUrl2 = hoveringSystemBtns;
+  const [play2] = useSound(soundUrl2);
   return (
     <div className="modal-collection-decks">
       <div className="decks-title">DECKS</div>
@@ -79,7 +89,11 @@ export function CollectionDecks({
         className="console_button"
         type="button"
         id="btn-collection-back"
-        onClick={() => handleSetPSopen()}
+        onClick={() => {
+          play();
+          handleSetPSopen();
+        }}
+        onMouseEnter={play2}
       >
         BACK
       </button>
@@ -108,17 +122,27 @@ function NewDeck({
     // setSelected(primeirodecksemnome.id);
 
     handleSelectDeck(id);
-    let onEditor = [state.playerDecks[id]];
+    let onEditor = [
+      ...state.playerDecks[id].magi,
+      ...state.playerDecks[id].crs,
+    ];
     setCardsOnEditor(onEditor);
   }
+  const soundUrl = deckSelected;
+  const [play] = useSound(soundUrl);
+
+  const soundUrl2 = hoveringSystemBtns;
+  const [play2] = useSound(soundUrl2);
   return (
     <button
       className="console_button"
       id="newDeck-btn"
       type="button"
       onClick={() => {
+        play();
         checkPrimeirodecksemnome();
       }}
+      onMouseEnter={play2}
     >
       New Deck
     </button>
@@ -140,19 +164,25 @@ function DeleteDeck({
     state.playerDecks[id].name = "";
 
     handleSelectDeck(id);
-    let onEditor = [state.playerDecks[id]];
+    let onEditor = [
+      ...state.playerDecks[id].magi,
+      ...state.playerDecks[id].crs,
+    ];
     setCardsOnEditor(onEditor);
     let firstNamedDeck = Object.values(state.playerDecks).find(
       (deck) => deck.name
     );
     setSelected(firstNamedDeck);
   }
+  const soundUrl = hoveringSystemBtns;
+  const [play] = useSound(soundUrl);
   return (
     <button
       className="console_button"
       id="editDeck-btn"
       type="button"
       onClick={() => removeSelectedDeck()}
+      onMouseEnter={play}
     >
       Delete Deck
     </button>
@@ -198,6 +228,11 @@ export function DeckBtn({
 
   let id = `deck_${i}`;
   // console.log(id);
+  const soundUrl = deckSelected;
+  const [play] = useSound(soundUrl);
+
+  const soundUrl2 = hoveringDeckBtns;
+  const [play2] = useSound(soundUrl2);
 
   return (
     <div
@@ -205,12 +240,17 @@ export function DeckBtn({
         id === selected.id ? "selected" : ""
       } ${PSdeck ? "PSdeckBtn" : ""}`}
       id={id}
-      onClick={(e) => onSelectDeck(e.target.id)}
+      onClick={(e) => {
+        play();
+        onSelectDeck(e.target.id);
+      }}
+      onMouseEnter={play2}
       // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
     >
-      <h1 className="deck-title" style={{ pointerEvents: "none" }}>
+      <h1 style={{ pointerEvents: "none" }}>{!deckRegion && "no magi"}</h1>
+      <p className="deck-title" style={{ pointerEvents: "none" }}>
         {deckName}
-      </h1>
+      </p>
       <div className="deck-btns-container">
         {/* {!PSdeck && (
           <>
