@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.e95782dd.css",
-    "main.js": "/MND-React-Version/static/js/main.182db1dc.js",
+    "main.css": "/MND-React-Version/static/css/main.9f822066.css",
+    "main.js": "/MND-React-Version/static/js/main.29cce68f.js",
     "static/js/845.e07860f5.chunk.js": "/MND-React-Version/static/js/845.e07860f5.chunk.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
     "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
@@ -10,6 +10,7 @@
     "static/media/Paradwyn.png": "/MND-React-Version/static/media/Paradwyn.78cfaea05382e86362d8.png",
     "static/media/d'Resh.png": "/MND-React-Version/static/media/d'Resh.79889253e25aabf85efe.png",
     "static/media/Underneath.png": "/MND-React-Version/static/media/Underneath.75dc678ba92d605fb511.png",
+    "static/media/fancyborder-2.jpg": "/MND-React-Version/static/media/fancyborder-2.2f4d3d6f26270cb0b581.jpg",
     "static/media/Universal.png": "/MND-React-Version/static/media/Universal.b0c179e45da72b6a6c33.png",
     "static/media/Bograth.png": "/MND-React-Version/static/media/Bograth.816f939318e05290485e.png",
     "static/media/cogwheel2.png": "/MND-React-Version/static/media/cogwheel2.d13fefe937e0229344f5.png",
@@ -17,7 +18,7 @@
     "static/media/Weave.png": "/MND-React-Version/static/media/Weave.d8023ccfbd661e57e421.png",
     "static/media/Naroom.png": "/MND-React-Version/static/media/Naroom.9b38fb06431ad039796a.png",
     "static/media/Kybar's Teeth.png": "/MND-React-Version/static/media/Kybar's Teeth.23794860ff47925789fe.png",
-    "static/media/Battle_for_the_moonlands_login_screen.webp": "/MND-React-Version/static/media/Battle_for_the_moonlands_login_screen.98e2b5fd800e2dc61657.webp",
+    "static/media/Battle_for_the_moonlands_login_screen - Copia.webp": "/MND-React-Version/static/media/Battle_for_the_moonlands_login_screen - Copia.98e2b5fd800e2dc61657.webp",
     "static/media/Cald.png": "/MND-React-Version/static/media/Cald.45922bc6f19320209015.png",
     "static/media/playmat.webp": "/MND-React-Version/static/media/playmat.420a970066415759d707.webp",
     "static/media/Orothe.png": "/MND-React-Version/static/media/Orothe.dc5003e23cef24a7e9fa.png",
@@ -35,12 +36,12 @@
     "static/media/hoveringcardSound.mp3": "/MND-React-Version/static/media/hoveringcardSound.da5f791815bb29d51740.mp3",
     "static/media/hoveringDeckBtns.mp3": "/MND-React-Version/static/media/hoveringDeckBtns.45994b0c7c4c614b34d7.mp3",
     "index.html": "/MND-React-Version/index.html",
-    "main.e95782dd.css.map": "/MND-React-Version/static/css/main.e95782dd.css.map",
-    "main.182db1dc.js.map": "/MND-React-Version/static/js/main.182db1dc.js.map",
+    "main.9f822066.css.map": "/MND-React-Version/static/css/main.9f822066.css.map",
+    "main.29cce68f.js.map": "/MND-React-Version/static/js/main.29cce68f.js.map",
     "845.e07860f5.chunk.js.map": "/MND-React-Version/static/js/845.e07860f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e95782dd.css",
-    "static/js/main.182db1dc.js"
+    "static/css/main.9f822066.css",
+    "static/js/main.29cce68f.js"
   ]
 }
