@@ -13,8 +13,12 @@ import { CollectionDecks, addDeckRegionImg } from "./js/decks";
 import useSound from "use-sound";
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
 import changingPage from "./sounds/changingPage.mp3";
-
+// import { Options, optionsOpen } from "./js/decks";
+// import {  } from "./js/decks";
 // import '.index'
+// let optionsOpenss = optionsOpen;
+// console.log(optionsOpenss);
+
 const regions = [
   "Arderial",
   "Cald",
@@ -31,7 +35,7 @@ const regions = [
   "Universal",
 ];
 
-let selectedteste;
+// let selectedteste;
 export default function App() {
   const [selected, setSelected] = useState(state.playerDecks.deck_1);
   state.deckEditor.wholeDeck = [
@@ -43,9 +47,9 @@ export default function App() {
   );
   // let selectedDeck = [...selected.magi, ...selected.crs];
 
-  const [selectedID, setSelectedID] = useState("deck_1");
+  // const [selectedID, setSelectedID] = useState("deck_1");
   const [pSopen, setPSopen] = useState(false);
-  selectedteste = selected;
+  // selectedteste = selected;
   // console.log(state.playerDecks);
   // const regionImg = regionPng;
   const [regionActive, setRegionActive] = useState("Arderial");
@@ -59,7 +63,7 @@ export default function App() {
 
   function handleSetPSopen() {
     setPSopen((ps) => !ps);
-    console.log(pSopen);
+    // console.log(pSopen);
   }
   return (
     <>
@@ -68,15 +72,15 @@ export default function App() {
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
       />
-      <CollectionBackground
+      <Collection
         pSopen={pSopen}
         regionActive={regionActive}
         onRegionButtonClick={handleRegionButtonClick}
         selected={selected}
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
-        setSelectedID={setSelectedID}
-        selectedID={selectedID}
+        // setSelectedID={setSelectedID}
+        // selectedID={selectedID}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
@@ -85,7 +89,7 @@ export default function App() {
   );
 }
 
-function CollectionBackground({
+function Collection({
   pSopen,
   onRegionButtonClick,
   regionActive,
@@ -115,6 +119,7 @@ function CollectionBackground({
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
+
       <CollectionDecks
         state={state}
         selected={selected}
@@ -301,22 +306,24 @@ function renderCollectionREGIONS(
 
   if (card.Region.includes("/")) return;
   ////////////// TEST FOR DUAL REGION /////////////////////
-  // console.log(setCardsOnEditor);
+
   ///////////////////////////////////////////////
   function addCardsToEditor() {
-    console.log(cardsOnEditor);
+    // let onEditor = [...selected.magi, ...selected.crs];
+    // setCardsOnEditor(onEditor);
     // console.log(setCardsOnEditor);
     if (card.Type === "magi") {
       selected.magi = [...selected.magi, card];
       state.deckEditor.curMagi = selected.magi;
-      console.log(state.deckEditor.curMagi);
+      // console.log(state.deckEditor.curMagi);
     } else {
       selected.crs = [...selected.crs, card];
       state.deckEditor.curCrs = selected.crs;
-      console.log(state.deckEditor.curCrs);
+      // console.log(state.deckEditor.curCrs);
     }
-    let onEditor = [...selected.magi, ...selected.crs];
+    const onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
+    console.log(card.Name, "added to", selected.id, cardsOnEditor);
   }
 
   return (
@@ -349,45 +356,12 @@ function CollectionBuilder({
   selectedID,
 }) {
   // console.log(card);
-  // ("not receiving card ... to fix ");
 
-  // const [forceRender, setForceRender] = useState(false);
-
-  //       (car) => car.Name !== card.Name
   //     );
   state.deckEditor.curMagi = selected.magi;
   state.deckEditor.curCrs = selected.crs;
-  //     console.log("magi", filteredMagi);
-  //     // state.deckEditor.curMagi = filtered;
-  //     let onEditor = [...filteredMagi, ...state.deckEditor.curCrs];
-  //     console.log(onEditor);
-  //     setCardsOnEditor(onEditor);
-  //   } else {
-  //     console.log(state.deckEditor.curCrs);
-  //     let filteredCrs = state.deckEditor.curCrs.filter(
-  //       (car) => car.Name !== card.Name
-  //     );
-  //     console.log("crs", filteredCrs);
-  //     // state.deckEditor.curMagi = filtered;
-  //     let onEditor = [...state.deckEditor.curMagi, ...filteredCrs];
-  //     console.log(onEditor);
-  //     setCardsOnEditor(onEditor);
-  //     console.log(onEditor);
-  //   }
-  // }
-  // const [cardsOnEditor, setCardsOnEditor] = useState(selectedDeck);
-  // (function () {
-  //   state.deckEditor.curMagi = selected.magi;
-  //   state.deckEditor.curCrs = selected.crs;
-  // })();
-  // console.log(state.deckEditor.curMagi);
-  // setCardsOnEditor(state.deckEditor.curMagi);
+
   let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-  // console.log(cardsOnEditor);
-  // let onEditor = cardsOnEditor;
-  // console.log(onEditor);
-  // function updateCardsOnEditor() {
-  //   setCardsOnEditor(onEditor);
 
   // }
   /////////
@@ -456,32 +430,6 @@ function TypeCounters({ onEditor }) {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-function cardTypesCounter() {
-  let builderCollectionCards = document.querySelectorAll(
-    ".builder-collection-cards"
-  );
-
-  let magi = 0;
-  let relics = 0;
-  let creatures = 0;
-  let spells = 0;
-
-  builderCollectionCards.forEach((card) => {
-    if (card.classList.contains("magi")) magi++;
-    if (card.classList.contains("relic")) relics++;
-    if (card.classList.contains("spell")) spells++;
-    if (card.classList.contains("creature")) creatures++;
-  });
-
-  let TypeCounters = document.querySelector(".TypeCounters");
-
-  TypeCounters.innerHTML = `M = ${magi} / C = ${creatures} /  R = ${relics} / S = ${spells} `;
-
-  console.log("Type Counter: ", magi, relics, creatures, spells);
-}
->>>>>>> 3b6c3baaaba54fbc80b0e96c2c43c3912b0a6d15
 
 function CreateCard({
   card,
@@ -499,13 +447,13 @@ function CreateCard({
   function handleAddtoEditor() {
     // console.log(state);
     let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-    console.log(onEditor);
-
+    // console.log(onEditor);
+    // console.log("HANDLEADDTOEDITOR CHAMADO");
+    // console.log(state.deckEditor.wholeDeck);
     state.deckEditor.wholeDeck = onEditor;
-    console.log(state.deckEditor.wholeDeck);
-    setCardsOnEditor(state.deckEditor.wholeDeck);
-    console.log(cardsOnEditor);
-    console.log("teste 1");
+    setCardsOnEditor(onEditor);
+    // console.log(cardsOnEditor);
+    // console.log("teste 1");
     let [countSingle, countTotal] = checkCardCopies(card);
     // console.log(countSingle, countTotal);
     console.log(countSingle, countTotal);
@@ -516,30 +464,30 @@ function CreateCard({
     if (card.Type !== "magi" && countSingle === 3) return;
 
     ////////////////
-
+    // console.log(cardsOnEditor);
     // let deck = state.playerDecks[selected]
     addCardsToEditor();
     // onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
     // setCardsOnEditor(onEditor);
-    console.log(cardsOnEditor);
+    // console.log(cardsOnEditor);
     // let selectedDeck = [...selected.magi, ...selected.crs];
 
     addDeckRegionImg(selected);
     // console.log(updateCardsOnEditor);
     //
   }
-  function handleRemovefromEditor(card) {
-    removeCardsFromEditor();
-    let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-    setCardsOnEditor(onEditor);
-  }
+  // function handleRemovefromEditor(card) {
+  //   removeCardsFromEditor();
+  //   let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+  //   setCardsOnEditor(onEditor);
+  // }
   function removeCardsFromEditor(card) {
     // console.log(card);
     if (card.Type === "magi") {
       // selected.magi = [...selected.magi, card];
       // let cardToRemove = state.deckEditor.curMagi.some(
       //   (car) => car.Name === card.Name && card
-      console.log(state.deckEditor.curMagi);
+      // console.log(state.deckEditor.curMagi);
       let filteredMagi = state.deckEditor.curMagi.filter(
         (car) => car.Name !== card.Name
       );
@@ -550,8 +498,9 @@ function CreateCard({
       selected.magi = filteredMagi;
       // console.log(onEditor);
       setCardsOnEditor(onEditor);
+      // console.log("removeCardsFromEditor CHAMADO");
     } else {
-      console.log(state.deckEditor.curCrs);
+      // console.log(state.deckEditor.curCrs);
       let filteredCrs = state.deckEditor.curCrs.filter(
         (car) => car.Name !== card.Name
       );
@@ -570,20 +519,21 @@ function CreateCard({
     // let builderCollectionCards = document.querySelectorAll(
     //   ".builder-collection-cards"
     // );
-    console.log(cardsOnEditor);
-    // let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+
     // setCardsOnEditor(onEditor);
     let magiCount = [0, 0];
     let crsCount = [0, 0];
-    console.log(cardsOnEditor);
+    console.log(selected);
+    // if (selected.magi === "" || selected.crs === "") return [0, 0];
     if (cardtomove.Type === "magi") {
-      cardsOnEditor.forEach((card) => {
+      selected.magi.forEach((card) => {
         if (card.Type === "magi") magiCount[1]++;
         if (cardtomove.Name === card.Name) magiCount[0]++;
       });
+      console.log(magiCount);
       return magiCount;
     } else {
-      cardsOnEditor.forEach((card) => {
+      selected.crs.forEach((card) => {
         if (cardtomove.Name === card.Name) crsCount[0]++;
       });
       console.log(crsCount);

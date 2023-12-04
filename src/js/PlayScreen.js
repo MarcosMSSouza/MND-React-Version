@@ -18,10 +18,12 @@ export function PlayScreen({ selected, setSelected, handleSetPSopen, pSopen }) {
         <div class="modal-PlayScreen-content">
           <LeftScreenSection
             selected={selected}
+            setSelected={setSelected}
             handleSelectDeck={handleSelectDeck}
           />
           <RightScreenSection
             selected={selected}
+            setSelected={setSelected}
             handleSetPSopen={handleSetPSopen}
           />
         </div>
@@ -77,7 +79,7 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
                   PSdeck={PSdeck}
                   i={i + 1}
                   selected={selected}
-                  onSelectDeck={handleSelectDeck}
+                  handleSelectDeck={handleSelectDeck}
                 />
               </div>
             )

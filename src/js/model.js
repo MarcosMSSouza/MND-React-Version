@@ -25,7 +25,11 @@ export const state = {
     deck_1: {
       id: "deck_1",
       name: "Warrada's Deck",
-      magi: [convertedMNDcards.warrada, convertedMNDcards.hrada],
+      magi: [
+        convertedMNDcards.warrada,
+        convertedMNDcards.hrada,
+        // convertedMNDcards.marella,
+      ],
       crs: [
         convertedMNDcards.equilibrate,
         convertedMNDcards.inyx,
@@ -40,7 +44,7 @@ export const state = {
       magi: [
         convertedMNDcards.sorrowing_ogar,
         convertedMNDcards.prek,
-        convertedMNDcards.trygar,
+        // convertedMNDcards.trygar,
       ],
       crs: [
         convertedMNDcards.corrupt,
@@ -90,13 +94,7 @@ export const state = {
         convertedMNDcards.warlum,
         convertedMNDcards.wildfire,
         convertedMNDcards.elder_vellup,
-        convertedMNDcards.wasperine,
-        convertedMNDcards.flutter_yup,
-        convertedMNDcards.rayalon,
-        convertedMNDcards.corrupt,
-        convertedMNDcards.tranquility,
-        convertedMNDcards.corrupt,
-        convertedMNDcards.warlum,
+
         convertedMNDcards.wildfire,
         convertedMNDcards.elder_vellup,
         convertedMNDcards.wasperine,

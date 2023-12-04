@@ -4,24 +4,14 @@ import deckSelected from "../sounds/deckSelected.mp3";
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
+import { useState } from "react";
 
 // import decksView from "./js/views/decksView";
 
-// console.log(state.decks);
-
-// export function renderColDecksss() {
-//   console.log(state.playerDecks);
-//   // console.log("hiiiiiii");
-// }
-
-// function renderAlldecks() {
-//     console.log(key);
-//   for (let key in state.playerDecks) {
-//     let keyName = key;
-//     console.log(state.playerDecks[key].crs);
-//     decksView.renderPSdeckButtons(keyName);+
-//     decksView.renderColDeckButtons(keyName);
 export let selectedID;
+
+// export let optionsOpen = true;
+let optionsOpen = true;
 //   }
 export function CollectionDecks({
   state,
@@ -33,26 +23,42 @@ export function CollectionDecks({
   cardsOnEditor,
   setCardsOnEditor,
 }) {
-  // const [selected, setSelected] = useState("deck_1");
-  // console.log(selected);
-  // let url = `./img/regionSymbols/Arderial.png`;
-  // let deckimg = regionPng;
   function handleSelectDeck(id) {
-    setSelected(state.playerDecks[id]);
-    selectedID = id;
     // console.log(setSelected);
-    setSelectedID(selectedID);
-    console.log("test", selectedID);
+
+    console.log(selected);
+
+    console.log(id);
+    setSelected(state.playerDecks[id]);
+    // setSelected(state.playerDecks[id]);
+
+    console.log("SELECTED", selected);
+    // selectedID = id;
+    // setSelectedID(selectedID);
+    // console.log(state.playerDecks[id]);
+    // setSelected(state.playerDecks[id]);
+    console.log(selected);
+    let onEditor = [...selected.magi, ...selected.crs];
+    setCardsOnEditor(onEditor);
+    // console.log(state.deckEditor.wholedeck);
+    console.log("test", cardsOnEditor);
   }
+
+  // function handleOptions() {
+  //   !optionsOpen
+
+  // }
   // let deckRegion = addDeckRegionImg(deck);
   const soundUrl = switchingGameSections;
   const [play] = useSound(soundUrl);
 
   const soundUrl2 = hoveringSystemBtns;
   const [play2] = useSound(soundUrl2);
+  const [optionsOpen, setOptionsOpen] = useState(false);
   return (
     <div className="modal-collection-decks">
       <div className="decks-title">DECKS</div>
+      <Options optionsOpen={optionsOpen} />
 
       <NewDeck
         setSelectedID={setSelectedID}
@@ -77,27 +83,56 @@ export function CollectionDecks({
                 regionImg={regionImg}
                 i={i + 1}
                 selected={selected}
-                onSelectDeck={handleSelectDeck}
+                setSelected={setSelected}
+                handleSelectDeck={handleSelectDeck}
                 cardsOnEditor={cardsOnEditor}
                 setCardsOnEditor={setCardsOnEditor}
               />
             )
         )}
       </div>
+      <div className="backnoptionsbtns">
+        <button
+          className="console_button"
+          type="button"
+          id="btn-collection-back"
+          onClick={() => {
+            play();
+            handleSetPSopen();
+          }}
+          onMouseEnter={play2}
+        >
+          BACK
+        </button>
 
-      <button
-        className="console_button"
-        type="button"
-        id="btn-collection-back"
-        onClick={() => {
-          play();
-          handleSetPSopen();
-        }}
-        onMouseEnter={play2}
-      >
-        BACK
-      </button>
+        <button
+          className="optionsBtn"
+          onMouseEnter={play2}
+          onClick={() => {
+            console.log(optionsOpen);
+            play();
+            setOptionsOpen((optionsOpen) => !optionsOpen);
+            // optionsOpen = !optionsOpen;
+          }}
+        ></button>
+      </div>
     </div>
+  );
+}
+
+function Options({ optionsOpen }) {
+  // let optionsOpen;
+  console.log(optionsOpen);
+
+  return (
+    optionsOpen && (
+      <div className=" modal-options">
+        <div className="options-Content">
+          <h1>OPTIONS</h1>
+          placeholder placeholder placeholder placeholder
+        </div>
+      </div>
+    )
   );
 }
 
@@ -144,7 +179,7 @@ function NewDeck({
       }}
       onMouseEnter={play2}
     >
-      New Deck
+      <p> New Deck</p>
     </button>
   );
 }
@@ -156,23 +191,57 @@ function DeleteDeck({
   setCardsOnEditor,
   handleSelectDeck,
 }) {
+  // function removeSelectedDeck() {
+  //   let id = selected.id;
+  //   console.log(selected);
+  //   console.log(id);
+  //   state.playerDecks[id].magi = "";
+  //   state.playerDecks[id].crs = "";
+  //   state.playerDecks[id].name = "";
+
+  //   // handleSelectDeck(id);
+  //   handleSelectDeck(id);
+  //   let onEditor = [
+  //     ...state.playerDecks[id].magi,
+  //     ...state.playerDecks[id].crs,
+  //   ];
+  //   console.log(onEditor);
+
+  //   let firstNamedDeck = Object.values(state.playerDecks).find(
+  //     (deck) => deck.name
+  //   );
+  //   console.log(selected);
+  //   console.log(firstNamedDeck);
+  //   setSelected(firstNamedDeck);
+  //   console.log(selected);
+  //   setCardsOnEditor(onEditor);
+  //   console.log(selected);
+  // }
   function removeSelectedDeck() {
     let id = selected.id;
+    console.log(selected);
     console.log(id);
     state.playerDecks[id].magi = "";
     state.playerDecks[id].crs = "";
     state.playerDecks[id].name = "";
 
-    handleSelectDeck(id);
+    // handleSelectDeck(id);
     let onEditor = [
       ...state.playerDecks[id].magi,
       ...state.playerDecks[id].crs,
     ];
-    setCardsOnEditor(onEditor);
+    console.log(onEditor);
+
     let firstNamedDeck = Object.values(state.playerDecks).find(
       (deck) => deck.name
     );
+    console.log(selected);
+    console.log(firstNamedDeck.id);
     setSelected(firstNamedDeck);
+    handleSelectDeck(firstNamedDeck.id);
+    console.log(selected);
+    setCardsOnEditor(onEditor);
+    console.log(selected);
   }
   const soundUrl = hoveringSystemBtns;
   const [play] = useSound(soundUrl);
@@ -184,43 +253,90 @@ function DeleteDeck({
       onClick={() => removeSelectedDeck()}
       onMouseEnter={play}
     >
-      Delete Deck
+      <p>Delete Deck</p>
     </button>
   );
 }
-//   let new_decks_container = document.querySelector(".new-decks-container");
-//   deck_btn = new_decks_container.querySelectorAll(".deck-btn");
-//   deck_btn[0].classList.add("selected");
-// }
 
-// function renderDeckButton() {
-//   deck_btn.forEach((deck, i) => {
-//     deck.setAttribute("id", `deck_${i + 1}`);
-//     decksView.addDeckButtonEvents(deck, i);
-//   });
-// }
+// function DeleteDeck({
+//   selected,
+//   setSelected,
+//   setSelectedID,
+//   setCardsOnEditor,
+//   handleSelectDeck,
+// }) {
+//   function removeSelectedDeck() {
+//     let id = selected.id;
+//     console.log(id);
+//     state.playerDecks[id].magi = "";
+//     state.playerDecks[id].crs = "";
+//     state.playerDecks[id].name = "";
 
-// function DeckCol({ key }) {
+//     let firstNamedDeck = Object.values(state.playerDecks).find(
+//       (deck) => deck.name
+//     );
+
+//     handleSelectDeck(firstNamedDeck.id);
+//     let onEditor = [
+//       ...state.playerDecks[firstNamedDeck.id].magi,
+//       ...state.playerDecks[firstNamedDeck.id].crs,
+//     ];
+//     console.log(onEditor);
+
+//     setCardsOnEditor(onEditor);
+//     // setSelected((a) => firstNamedDeck);
+//     // console.log(selected);
+//     // console.log(firstNamedDeck);
+//     // console.log(selected);
+//     // console.log(selected);
+//   }
+//   const soundUrl = hoveringSystemBtns;
+//   const [play] = useSound(soundUrl);
 //   return (
-//     <div className="deck-btn " role="button" id={key}>
-//       <h1 className="deck-title">{deckName}</h1>
-//       <div className="deck-btns-container">
-//         <button className="deck-inner-btn save-btn hidden" role="button">
-//           SAVE
-//         </button>
-//         <button className="deck-inner-btn edit-btn hidden">EDIT</button>
-//       </div>
-//     </div>
+//     <button
+//       className="console_button"
+//       id="editDeck-btn"
+//       type="button"
+//       onClick={() => removeSelectedDeck()}
+//       onMouseEnter={play}
+//     >
+//       Delete Deck
+//     </button>
+//   );
+// }
+/////////////
 
 export function DeckBtn({
   deck,
   i,
   selected,
-  onSelectDeck,
+  setSelected,
+  handleSelectDeck,
   PSdeck,
   cardsOnEditor,
   setCardsOnEditor,
 }) {
+  // console.log(handleSelectDeck);
+  function onSelectDeck(id) {
+    // console.log(setSelected);
+
+    console.log(id);
+    setSelected(state.playerDecks[id]);
+    console.log(selected.id);
+
+    // console.log(setSelected);
+    // selectedID = id;
+    let onEditor = [...selected.magi, ...selected.crs];
+    console.log(onEditor);
+    setCardsOnEditor(onEditor);
+    // setSelectedID(selectedID);
+    console.log(selected);
+    console.log(cardsOnEditor);
+    console.log(state.playerDecks[id]);
+    // setSelected(state.playerDecks[id]);
+    console.log(state.deckEditor.wholedeck);
+    console.log("test", cardsOnEditor);
+  }
   let deckName = deck.name;
   let deckRegion = addDeckRegionImg(deck);
 
@@ -242,7 +358,11 @@ export function DeckBtn({
       id={id}
       onClick={(e) => {
         play();
-        onSelectDeck(e.target.id);
+        console.log(e.target.id);
+        // console.log(handleSelectDeck);
+
+        // onSelectDeck(e.target.id);
+        handleSelectDeck(e.target.id);
       }}
       onMouseEnter={play2}
       // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}

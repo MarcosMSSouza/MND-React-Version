@@ -9,18 +9,24 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  --ArderialGradient: linear-gradient(
+    -150deg,
+    rgb(141, 216, 245),
+    rgb(65, 43, 202) 100%
+  );
   --narrom: linear-gradient(
     180deg,
     rgba(96, 153, 60, 1) 0%,
     rgba(55, 50, 28, 1) 100%
   );
-  --cald: linear-gradient(
+  --caldGradient: linear-gradient(
     145deg,
     rgba(197, 142, 23, 1) 0%,
     rgba(87, 15, 6, 1) 100%
   );
   --blues: #26295c;
-  --reds: #862018;
+  --reds: #b1281e;
   --yellows: #dcb674;
   --greens: #67a03b;
   --darkgreens: #3f6226;
@@ -777,14 +783,15 @@ img {
   /* flex-wrap: wrap; */
   justify-content: space-around;
   padding: 5px;
-  background-image: radial-gradient(
+  /* background: radial-gradient(
     100% 100% at 100% 0,
-    #26295c 0,
-    #51338b 100%
-  );
+    rgb(23, 77, 194) 0,
+    #498cc2 100%
+  ); */
+  background: var(--ArderialGradient);
   padding-bottom: 12px;
   grid-area: a;
-  border: solid 5px #862018;
+  border: solid 5px var(--reds);
 }
 
 .region-btn {
@@ -840,9 +847,10 @@ img {
   overflow-x: hidden;
 }
 
-.content-Arderial {
-  background-color: rgb(116, 116, 206);
+/* .content-Arderial {
+  /* background-color: rgb(116, 116, 206); 
 }
+ */
 
 .modal-collection-builder {
   display: flex;
@@ -850,7 +858,8 @@ img {
   grid-area: d;
   height: 100%;
   padding: 10px;
-  background-color: var(--blues);
+  /* background-color: rgb(68, 68, 184); */
+  background: var(--ArderialGradient);
   /* width: 55vh; */
   /* margin-left: 2em; */
   justify-content: center;
@@ -863,7 +872,7 @@ img {
   border: solid var(--blues);
 
   text-align: center;
-  background-color: var(--darkgreens);
+  background-color: var(--blues);
   font-family: "Arial MT Medium", "JetBrains Mono", monospace;
   color: #fff;
   font-size: 15px;
@@ -952,7 +961,7 @@ img {
   justify-content: space-around;
   height: 100%;
   width: 100%;
-  border: solid 4px var(--blues);
+  /* border: solid 4px var(--blues); */
   overflow: auto;
 }
 
@@ -1182,22 +1191,29 @@ img {
 
 .console_button {
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   width: 80%;
-  padding: 10px;
+  /* padding: 10px; */
   align-self: center;
-  letter-spacing: 1;
+
   margin: 5px;
   font-weight: bold;
   font-family: "Arial MT Medium", sans-serif;
+
   color: white;
   background-image: linear-gradient(45deg, var(--color-1), var(--color-2));
-  border: 0;
-  border-radius: 0.25rem;
-  text-decoration: none;
+  /* border: 0; */
+  /* border-radius: 0.25rem; */
+  /* text-decoration: none; */
   border-radius: 10px;
   transition: --color-1 1000ms, --color02 1000ms;
   cursor: pointer;
+}
+.console_button p {
+  font-size: 14px;
+  padding: 10px;
+  letter-spacing: 1px;
+  /* letter-spacing: 1.6; */
 }
 
 .console_button:hover,
@@ -1431,9 +1447,9 @@ img {
 
 .deck-btn {
   display: flex;
-  height: 75px;
-  width: 135px;
-  /* min-height: 70px; */
+  height: 80px;
+  width: 140px;
+  min-height: 75px;
   box-sizing: content-box;
   justify-content: right;
   margin-top: 5px;
@@ -1475,4 +1491,71 @@ img {
   margin-top: 1em;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+}
+
+.backnoptionsbtns {
+  display: flex;
+}
+.optionsBtn-container {
+  /* display: flex; */
+  height: 100%;
+  width: 60%;
+  background-size: cover;
+  background-size: 100% 100%;
+  position: relative;
+  background-image: url("./img/cogwheel2.png");
+}
+
+.optionsBtn {
+  /* display: flex; */
+  height: 100%;
+  width: 55%;
+  border: 0;
+  background-size: cover;
+  background-size: 100% 100%;
+  background-color: transparent;
+  background-image: url("./img/cogwheel2.png");
+  /* position: absolute; */
+  cursor: pointer;
+  /* justify-content: center; */
+  /* justify-content: space-between; */
+  /* background-size: 100% 100%; */
+
+  /* background-image: url("./img/cogwheel.png"); */
+  /* position: relative; */
+  /* padding-left: 20px; */
+
+  /* scale: 80%; */
+}
+
+.modal-options {
+  display: block;
+  /* justify-self: center; */
+  align-self: center;
+  width: 50%;
+  height: 60%;
+  /* background: #333333; */
+  background: rgba(0, 0, 0, 0.8);
+  background-color: var(--blues);
+  z-index: 10000;
+  position: fixed;
+  top: 15%;
+  color: white;
+  padding: 20px;
+  /* left: 0; */
+  font-family: "Arial MT Medium", "JetBrains Mono", monospace;
+  right: 25%;
+  border: 4px solid var(--reds);
+  /* overflow: scroll; */
+  /* z-index: 15; */
+}
+
+.Options-content {
+  /* text-align: center; */
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  /* display: table-cell; */
+  /* vertical-align: middle; */
 }
