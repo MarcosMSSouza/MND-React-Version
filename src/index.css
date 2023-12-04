@@ -1457,7 +1457,7 @@ img {
   margin-left: 6px;
   margin-right: 6px;
 
-  /* border-radius: 6px; */
+  border-radius: 6px;
   /* box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset; */
 
@@ -1511,7 +1511,8 @@ img {
 .optionsBtn {
   /* display: flex; */
   height: 100%;
-  width: 50%;
+  /* margin: 4%; */
+  width: 40%;
   border: 0;
   background-size: cover;
   background-size: 100% 100%;
@@ -1527,15 +1528,15 @@ img {
   /* position: relative; */
   /* padding-left: 20px; */
 
-  /* scale: 80%; */
+  scale: 90%;
 }
 
 .modal-options {
   display: block;
   /* justify-self: center; */
   align-self: center;
-  width: 50%;
-  height: 60%;
+  width: 60%;
+  height: 50%;
   /* background: #333333; */
   background: rgba(0, 0, 0, 0.8);
   background: var(--blues);
