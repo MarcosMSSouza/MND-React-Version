@@ -148,6 +148,7 @@ function RightScreenSection({ selected, handleSetPSopen }) {
           type="button"
           id="PlayScreen-btn-play"
           onMouseEnter={play2}
+          // onClick={() => handleSetPSopen()}
         >
           PLAY
         </button>

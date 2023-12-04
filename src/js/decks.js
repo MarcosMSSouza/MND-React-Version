@@ -5,6 +5,8 @@ import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import { useState } from "react";
+import { useSoundDeckSelected, useHoveringSystemBtns } from "./Sounds";
+// import Checkbox from "@mui/material/checkbox";
 
 // import decksView from "./js/views/decksView";
 
@@ -93,7 +95,7 @@ export function CollectionDecks({
       </div>
       <div className="backnoptionsbtns">
         <button
-          className="console_button"
+          className="console_button backBtn"
           type="button"
           id="btn-collection-back"
           onClick={() => {
@@ -102,7 +104,7 @@ export function CollectionDecks({
           }}
           onMouseEnter={play2}
         >
-          BACK
+          <p>BACK</p>
         </button>
 
         <button
@@ -122,19 +124,35 @@ export function CollectionDecks({
 
 function Options({ optionsOpen }) {
   // let optionsOpen;
-  console.log(optionsOpen);
+  // console.log(optionsOpen);
 
   return (
     optionsOpen && (
       <div className=" modal-options">
         <div className="options-Content">
           <h1>OPTIONS</h1>
+          {/* <Checkbox /> */}
           placeholder placeholder placeholder placeholder
         </div>
       </div>
     )
   );
 }
+// const label = { inputProps: { "aria-label": "Checkbox demo" } };
+// function Checkbox() {
+//   const [isChecked, setIsChecked] = useState(false);
+//   <div
+//     name="demo-checkbox"
+//     checked={isChecked}
+//     size={24}
+//     label="I agree to self-isolate"
+//     onChange={() => setIsChecked(!isChecked)}
+//     // onMouseDown={playActive}
+//     // onMouseUp={() => {
+//     //   isChecked ? playOff() : playOn();
+//     // }}
+//   />;
+// }
 
 function NewDeck({
   setSelected,
@@ -168,13 +186,18 @@ function NewDeck({
 
   const soundUrl2 = hoveringSystemBtns;
   const [play2] = useSound(soundUrl2);
+  const playDeckSelectedSound = useSoundDeckSelected;
+  // const playHoveringSystemBtns = useHoveringSystemBtns;
+
   return (
     <button
       className="console_button"
       id="newDeck-btn"
       type="button"
       onClick={() => {
-        play();
+        // play();
+        playDeckSelectedSound();
+        // playDeckSelectedSound();
         checkPrimeirodecksemnome();
       }}
       onMouseEnter={play2}
@@ -248,7 +271,7 @@ function DeleteDeck({
   return (
     <button
       className="console_button"
-      id="editDeck-btn"
+      id="delete-btn"
       type="button"
       onClick={() => removeSelectedDeck()}
       onMouseEnter={play}

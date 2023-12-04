@@ -63,7 +63,7 @@ export default function App() {
 
   function handleSetPSopen() {
     setPSopen((ps) => !ps);
-    // console.log(pSopen);
+    console.log(pSopen);
   }
   return (
     <>

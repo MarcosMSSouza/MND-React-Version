@@ -26,7 +26,7 @@
     rgba(87, 15, 6, 1) 100%
   );
   --blues: #26295c;
-  --reds: #b1281e;
+  --reds: #94261e;
   --yellows: #dcb674;
   --greens: #67a03b;
   --darkgreens: #3f6226;
@@ -988,14 +988,6 @@ img {
   overflow: auto;
 }
 
-#btn-collection-back {
-  margin: 9px;
-  font-size: 12px;
-  padding: 5px;
-  letter-spacing: 2;
-  font-family: "Arial MT Medium", "JetBrains Mono", monospace;
-}
-
 .collection-cards {
   width: 145px;
   height: 200px;
@@ -1216,7 +1208,15 @@ img {
   /* letter-spacing: 1.6; */
 }
 
-.console_button:hover,
+#btn-collection-back {
+  margin: 7px;
+  font-size: 12px;
+  /* padding: 15px; */
+  /* letter-spacing: 3px; */
+  /* font-family: "Arial MT Medium", "JetBrains Mono", monospace; */
+}
+
+.back .console_button:hover,
 .console_button:focus-visible {
   --color-1: #bb2916;
   --color-2: #2c5fd4;
@@ -1454,10 +1454,10 @@ img {
   justify-content: right;
   margin-top: 5px;
   margin-bottom: 8px;
-  /* margin-left: 6px; */
-  /* margin-right: 6px; */
+  margin-left: 6px;
+  margin-right: 6px;
 
-  border-radius: 6px;
+  /* border-radius: 6px; */
   /* box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset; */
 
@@ -1487,7 +1487,8 @@ img {
   position: absolute;
   height: 80px;
   width: 140px;
-
+  /* margin-left: 16px; */
+  /* margin-right: 36px; */
   margin-top: 1em;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
@@ -1495,6 +1496,7 @@ img {
 
 .backnoptionsbtns {
   display: flex;
+  padding: 3px;
 }
 .optionsBtn-container {
   /* display: flex; */
@@ -1509,7 +1511,7 @@ img {
 .optionsBtn {
   /* display: flex; */
   height: 100%;
-  width: 55%;
+  width: 50%;
   border: 0;
   background-size: cover;
   background-size: 100% 100%;
@@ -1536,7 +1538,7 @@ img {
   height: 60%;
   /* background: #333333; */
   background: rgba(0, 0, 0, 0.8);
-  background-color: var(--blues);
+  background: var(--blues);
   z-index: 10000;
   position: fixed;
   top: 15%;
@@ -1545,7 +1547,7 @@ img {
   /* left: 0; */
   font-family: "Arial MT Medium", "JetBrains Mono", monospace;
   right: 25%;
-  border: 4px solid var(--reds);
+  border: 10px solid var(--reds);
   /* overflow: scroll; */
   /* z-index: 15; */
 }
