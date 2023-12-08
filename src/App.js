@@ -1,6 +1,7 @@
 import "./App.css";
 import { convertedMNDcards } from "./js/cards";
 import { useState } from "react";
+import useSound from "use-sound";
 // import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";
 // import regionPng from "./img/regionSymbols/Arderial.png";
@@ -10,7 +11,6 @@ import { Field } from "./js/Field";
 import { CollectionDecks, addDeckRegionImg } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
-import useSound from "use-sound";
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
 import changingPage from "./sounds/changingPage.mp3";
 // import { Options, optionsOpen } from "./js/decks";
@@ -49,6 +49,7 @@ export default function App() {
 
   // const [selectedID, setSelectedID] = useState("deck_1");
   const [pSopen, setPSopen] = useState(false);
+  const [fieldOpen, setFieldOpen] = useState(false);
   // selectedteste = selected;
   // console.log(state.playerDecks);
   // const regionImg = regionPng;
@@ -65,12 +66,17 @@ export default function App() {
     setPSopen((ps) => !ps);
     console.log(pSopen);
   }
+  function handleFieldOpen() {
+    setFieldOpen((field) => !field);
+    console.log(pSopen);
+  }
   return (
     <>
       <PlayScreen
         selected={selected}
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
+        handleFieldOpen={handleFieldOpen}
       />
       <Collection
         pSopen={pSopen}
@@ -84,7 +90,13 @@ export default function App() {
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
-      {/* <Field handleSetPSopen={handleSetPSopen} /> */}
+      <Field
+        selected={selected}
+        setSelected={setSelected}
+        handleSetPSopen={handleSetPSopen}
+        handleFieldOpen={handleFieldOpen}
+        fieldOpen={fieldOpen}
+      />
     </>
   );
 }
@@ -323,7 +335,7 @@ function renderCollectionREGIONS(
     }
     const onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
-    console.log(card.Name, "added to", selected.id, cardsOnEditor);
+    console.log(card.Name, card.id, "added to", selected.id, cardsOnEditor);
   }
 
   return (
@@ -534,8 +546,12 @@ function CreateCard({
       return magiCount;
     } else {
       selected.crs.forEach((card) => {
-        if (cardtomove.Name === card.Name) crsCount[0]++;
+        if (cardtomove.Name === card.Name) {
+          crsCount[0]++;
+        }
       });
+      if (crsCount[0] === 1) cardtomove.id = `${cardtomove.id}C2`;
+      if (crsCount[0] === 2) cardtomove.id = `${cardtomove.id}C3`;
       console.log(crsCount);
       return crsCount;
     }
@@ -561,36 +577,3 @@ function CreateCard({
   );
 }
 /////////////////////////////////////
-
-// function populateCollectionREGIONS(card) {
-//   // let insertCard = document.createElement("img");
-
-//   let regexPatern = /[^A-Za-z0-9]/g;
-//   let Type = card.Type.replace(regexPatern).toLowerCase();
-//   // insertCard.src = card.url;
-//   // insertCard.id = card.id;
-//   // insertCard.dataset.Name = card.Name;
-//   // insertCard.classList.add(`${Type}`, "collection-cards");
-
-//   if (card.Region === "d'Resh") {
-//     card.Region = "dResh";
-//   }
-
-//   if (card.Region === "Kybar's Teeth") {
-//     card.Region = "Kybar";
-//   }
-
-//   if (card.Region.includes("/")) return;
-//   ////////////// TEST FOR DUAL REGION /////////////////////
-
-//   ///////////////////////////////////////////////
-
-//   return (
-//     <div>
-//       <CreateCard card={card} />
-//     </div>
-//   );
-//   // Type === "magi"
-//   //   ? regionTabSelector.prepend(insertCard)
-//   //   : regionTabSelector.appendChild(insertCard);
-// }

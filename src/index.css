@@ -75,6 +75,10 @@
     "g f k l h";
 
   background-image: url("/src/img/playmat.webp");
+
+  width: 100%;
+  position: absolute;
+  z-index: 10000;
 }
 
 .player-side-2 {
@@ -172,12 +176,12 @@
 }
 .player1-hand {
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   grid-area: b;
   height: 90%;
   width: 80%;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   border-radius: 10px;
   justify-self: center;
   align-self: flex-end;
@@ -194,17 +198,21 @@
   justify-self: center;
   align-items: center;
   border-radius: 10px;
-  margin: 2px;
+  /* margin: 2px; */
 
   background-color: rgb(220, 182, 116, 0.5);
   border: solid var(--reds);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .discard {
+  display: flex;
   align-self: flex-end;
   grid-area: g;
-  text-align: center;
+  /* text-align: center; */
+  justify-content: center;
+  /* align-items: center; */
+  /* text-align: center; */
   font-size: 2em;
   font-weight: bold;
   font-family: "Parchment MF", "Franklin Gothic Medium", "Arial Narrow", Arial,
@@ -214,7 +222,9 @@
   width: 130px;
   background-image: url("/src/img/cardback.jpg");
   background-size: cover;
-  color: azure;
+  color: rgb(255, 255, 255);
+
+  /* font-weight: 10px bold; */
 }
 
 .discard2 {
@@ -266,10 +276,6 @@
   color: azure;
   cursor: pointer;
 }
-.console {
-  display: flex;
-  flex-wrap: wrap;
-}
 
 /* ///////////// */
 .cards {
@@ -296,26 +302,16 @@ img {
 
 /* ///////////// */
 
-.gameArea1 div {
-  display: flex;
-  align-items: center;
-  border: solid var(--blues);
-  justify-content: center;
-  height: 80px;
-  width: 70px;
-  border-radius: 40%;
-  opacity: 1;
+/* .gameArea1 span { */
 
-  overflow: hidden;
-}
-
+/* 
 .cards-mini,
 .gameArea1 img {
-  /* zoom: 10px; */
   margin-top: 70%;
-  height: 180px;
-  width: 100px;
-}
+  height: 190px;
+  width: 110px;
+  border: solid var(--blues);
+} */
 
 .relicsLeft2 {
   display: flex;
@@ -334,19 +330,6 @@ img {
   overflow: hidden;
 }
 
-.relicsLeft1 {
-  display: flex;
-  grid-area: f;
-  justify-content: center;
-  align-items: center;
-  background: blue;
-  align-content: center;
-  border: solid 1px;
-  height: 100px;
-  width: 120%;
-  overflow: hidden;
-}
-
 .relicsRight2 {
   display: flex;
   grid-area: n;
@@ -357,6 +340,19 @@ img {
   font-size: 20px;
   height: 100px;
   width: 120%;
+  margin-left: -6em;
+  overflow: hidden;
+}
+
+.relicsLeft1 {
+  display: flex;
+  grid-area: f;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 120%;
+  align-content: center;
+  /* border: solid 1px; */
   overflow: hidden;
 }
 
@@ -367,43 +363,48 @@ img {
   align-items: center;
   height: 100px;
   width: 120%;
-  margin-left: -20px;
-
+  align-content: center;
+  margin-left: -6em;
   overflow: hidden;
 }
 
 .relics-area {
   background: var(--narrom);
 }
-.magi-container2 {
-  display: flex;
-
-  position: absolute;
+.magi-container-2 {
   grid-area: m;
   top: 0;
+  display: flex;
+  position: absolute;
+
   border-radius: 10px;
   background-color: rgba(87, 15, 6, 1);
   justify-self: center;
-  height: 120px;
+  height: 110px;
   width: 100px;
-  border: solid;
   overflow: hidden;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-.magi-container1 {
-  display: flex;
-
-  position: absolute;
+.magi-container-1 {
   grid-area: k;
+  display: flex;
+  /* right: 10px; */
+  position: absolute;
+  border: solid 4px rgb(161, 32, 15);
   bottom: 0;
   border-radius: 10px;
   background-color: rgba(87, 15, 6, 1);
   justify-self: center;
-  height: 120px;
+  height: 110px;
   width: 100px;
-
+  overflow: hidden;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  /* animation: alternate glow 3s ease infinite;
+  filter: drop-shadow(10 0 1px rgb(228, 67, 56)); */
+  filter: drop-shadow(0 0 10px #d8462c);
+  animation: border 12s linear infinite;
+  /* left: 15px; */
 }
 
 .magi-container div {
@@ -416,12 +417,17 @@ img {
   border: solid 6px #d01b10;
 }
 
-.magi-pile-0 img {
-  position: absolute;
+.magi-pile img {
+  display: flex;
+  margin-left: -9px;
+  margin-top: -4px;
+  justify-self: center;
+  /* position: absolute; */
   align-self: center;
-  height: 130px;
-  width: 100px;
-  bottom: 0;
+  height: 190px;
+  width: 110px;
+
+  /* left: -15px; */
 }
 
 .modal {
@@ -550,8 +556,8 @@ img {
   padding: 15px;
   border: 70px solid;
   padding: 15px;
-  border-image: url(/src/img/Battle_for_the_moonlands_login_screen.webp) 50
-    stretch;
+  border-image: url(/src/img/Battle_for_the_moonlands_login_screen\ -\ Copia.webp)
+    50 stretch;
   height: 85%;
   width: 65%;
   border-radius: 10px;
@@ -677,17 +683,16 @@ img {
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d83b0b 0 -3px 0 inset;
 }
 
-.PSdeckBtn:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-  transform: translateY(-2px);
-}
-
 .PSdeckBtn:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
-
+.PSdeckBtn:hover {
+  /* background-color: lightgreen; */
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
 .deck-btns-container {
   display: flex;
   flex-direction: column;
@@ -750,6 +755,7 @@ img {
   margin-bottom: 20px;
   font-size: 2rem;
   letter-spacing: 2px;
+  /* transition: --color-1 1000ms, --color02 1000ms; */
 }
 
 #PlayScreen-btn-collection {
@@ -991,7 +997,7 @@ img {
 .collection-cards {
   width: 145px;
   height: 200px;
-
+  border: solid 1px;
   margin: 3px;
   margin: 10px;
   border-radius: 15px;
@@ -1122,7 +1128,7 @@ img {
 }
 
 .selected {
-  border: solid 5px var(--greens);
+  border: solid 5px rgb(21, 179, 21);
   border-radius: 10px;
   border-width: 5px;
 
@@ -1131,11 +1137,11 @@ img {
 }
 
 .playGlowtest {
-  border: solid 5px var(--blues);
-  border-radius: 10px;
-  border-width: 15px;
+  /* border: solid 5px var(--blues); */
+  /* border-radius: 10px; */
+  /* border-width: 15px; */
   animation: alternate glowSelected 3s ease infinite;
-  filter: drop-shadow(0 0 10px #2c69d8);
+  filter: drop-shadow(0 0 20px #2c69d8);
   animation: border 12s linear infinite;
 }
 
@@ -1201,9 +1207,20 @@ img {
   transition: --color-1 1000ms, --color02 1000ms;
   cursor: pointer;
 }
+/* .console {
+  display: flex;
+  flex-wrap: wrap;
+} */
 .console_button p {
   font-size: 14px;
   padding: 10px;
+  letter-spacing: 1px;
+  /* letter-spacing: 1.6; */
+}
+
+.hor_bar .console_button p {
+  font-size: 12px;
+  padding: 6px;
   letter-spacing: 1px;
   /* letter-spacing: 1.6; */
 }
@@ -1216,7 +1233,8 @@ img {
   /* font-family: "Arial MT Medium", "JetBrains Mono", monospace; */
 }
 
-.back .console_button:hover,
+.back,
+.console_button:hover,
 .console_button:focus-visible {
   --color-1: #bb2916;
   --color-2: #2c5fd4;
@@ -1532,37 +1550,98 @@ img {
 }
 
 .modal-options {
-  display: block;
-  /* justify-self: center; */
-  align-self: center;
-  width: 60%;
-  height: 50%;
+  /* display: block; */
+  /* justify-content: center;
+  align-items: center;  */
+  /* padding: 10px; */
   /* background: #333333; */
-  background: rgba(0, 0, 0, 0.8);
-  background: var(--blues);
+  /* background: rgba(0, 0, 0, 0.8); */
+  /* background: var(--blues); */
+  background-image: url("/src/img/fancyborder-2.jpg");
+  width: 50%;
+  height: 75%;
+  border-radius: 15px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  /* background-size: cover; */
   z-index: 10000;
-  position: fixed;
-  top: 15%;
+  position: absolute;
+  top: 6%;
   color: white;
-  padding: 20px;
-  /* left: 0; */
+  /* right: 35%; */
+  left: 20%;
   font-family: "Arial MT Medium", "JetBrains Mono", monospace;
-  right: 25%;
-  border: 10px solid var(--reds);
+  border: 5px solid var(--reds);
   /* overflow: scroll; */
   /* z-index: 15; */
 }
 
-.Options-content {
-  /* text-align: center; */
-  width: 100%;
-  height: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
+.options-content {
+  /* position: relative; */
+  /* border: 2px solid pink; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* width: 100%; */
+  /* height: 100%; */
+  /* padding-top: 30px; */
+  /* padding-bottom: 30px; */
+  font-size: 20px;
   /* display: table-cell; */
+
   /* vertical-align: middle; */
   /* display: table-cell; */
   /* vertical-align: middle; */
   /* display: table-cell; */
   /* vertical-align: middle; */
+}
+.modal-options h1 {
+  /* border: 2px solid green; */
+  /* display: block; */
+  /* text-decoration: overline lime; */
+  text-decoration: underline rgb(255, 255, 255);
+  /* text-decoration: */
+  padding: 5px;
+  font-size: 50px;
+  margin: 30px;
+  /* align-items: top; */
+  /* justify-content: center; */
+}
+
+.dragcontainer {
+  z-index: 10000;
+  /* width: 60em; */
+  height: 250px;
+}
+
+/* /////// drag and drop test /////////////// */
+
+.hand-cards {
+  margin: 5px;
+  border: solid 2px black;
+}
+
+.gameAreaCardDiv {
+  display: flex;
+  align-items: center;
+  border: solid 3px rgb(221, 192, 28);
+  justify-content: center;
+  height: 110px;
+  width: 90px;
+  border-radius: 30%;
+  margin: 2px;
+  /* opacity: 1;  */
+  box-shadow: 7px 4px 15px #000000;
+  overflow: hidden;
+}
+
+.fieldCards {
+  margin-top: 80%;
+  height: 190px;
+  width: 110px;
+  scale: 1.3;
+  /* border: solid var(--blues); */
 }

@@ -4,7 +4,13 @@ import useSound from "use-sound";
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 
-export function PlayScreen({ selected, setSelected, handleSetPSopen, pSopen }) {
+export function PlayScreen({
+  selected,
+  setSelected,
+  handleSetPSopen,
+  pSopen,
+  handleFieldOpen,
+}) {
   function handleSelectDeck(id) {
     setSelected(state.playerDecks[id]);
   }
@@ -23,44 +29,15 @@ export function PlayScreen({ selected, setSelected, handleSetPSopen, pSopen }) {
           />
           <RightScreenSection
             selected={selected}
-            setSelected={setSelected}
+            // setSelected={setSelected}
             handleSetPSopen={handleSetPSopen}
+            handleFieldOpen={handleFieldOpen}
           />
         </div>
       </div>
     </div>
   );
 }
-
-// function LeftScreenSection({ selected, handleSelectDeck }) {
-//   // const numOfDecks = 9;
-//   return (
-//     <section class="modal-PlayScreen-LeftSection">
-//       <h1 class="PStextArea">. Select a deck .</h1>
-
-//       <div class="PlayScreen-DecksArea">
-//         {Object.values(state.playerDecks).map(function (deck, i) {
-//           console.log(deck);
-
-//           return (
-//             <DeckBtn
-//               deck={deck}
-//               // regionImg={regionImg}
-//               i={i + 1}
-//               selected={selected}
-//               onSelectDeck={handleSelectDeck}
-//             />
-//           );
-//         })}
-//         <div class="PlayScreen-deckDock"></div>
-//         <div class="PlayScreen-deckDock"></div>
-//         <div class="PlayScreen-deckDock"></div>
-//         <div class="PlayScreen-deckDock"></div>
-//         <div class="PlayScreen-deckDock"></div>
-//       </div>
-//     </section>
-//   );
-// }
 
 function LeftScreenSection({ selected, handleSelectDeck }) {
   const PSdeck = true;
@@ -80,6 +57,7 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
                   i={i + 1}
                   selected={selected}
                   handleSelectDeck={handleSelectDeck}
+                  class1={"PSdeckBtn"}
                 />
               </div>
             )
@@ -98,19 +76,6 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
 }
 
 function ShowMagiWhenSelectingDeck({ selected }) {
-  // deck = deck.querySelector(".PSdeckBtn");
-
-  // let deckId = deck.id.slice(7);
-  // console.log(deckId);
-
-  // const Region = this.addDeckRegionImg(deckId);
-
-  // const PSmagisArea = document.querySelector(".PSmagisArea");
-
-  // const DeckRegion = document.querySelector(".DeckRegion");
-
-  // DeckRegion.innerHTML = Region + " selected";
-
   let magis = selected.magi;
   // PSmagisArea.innerHTML = "";
   // console.log(magi.url);
@@ -124,7 +89,7 @@ function ShowMagiWhenSelectingDeck({ selected }) {
   });
 }
 
-function RightScreenSection({ selected, handleSetPSopen }) {
+function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
   let deck = selected;
   let regionSelected = addDeckRegionImg(deck);
   const soundUrl = switchingGameSections;
@@ -144,16 +109,19 @@ function RightScreenSection({ selected, handleSetPSopen }) {
       </div>
       <div class="PlayScreen-RightSection-buttonsArea">
         <button
-          class="console_button"
+          class="console_button "
           type="button"
           id="PlayScreen-btn-play"
           onMouseEnter={play2}
-          // onClick={() => handleSetPSopen()}
+          onClick={() => {
+            play();
+            handleFieldOpen();
+          }}
         >
           PLAY
         </button>
         <button
-          class="console_button"
+          class="console_button "
           type="button"
           id="PlayScreen-btn-collection"
           onClick={() => {

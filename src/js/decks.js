@@ -27,19 +27,19 @@ export function CollectionDecks({
 }) {
   function handleSelectDeck(id) {
     // console.log(setSelected);
-
-    console.log(selected);
-
     console.log(id);
+
+    console.log(state.playerDecks[id]);
     setSelected(state.playerDecks[id]);
+    console.log("SELECTED", selected);
+    console.log("CARDS ON EDITOR ", cardsOnEditor);
     // setSelected(state.playerDecks[id]);
 
-    console.log("SELECTED", selected);
     // selectedID = id;
     // setSelectedID(selectedID);
     // console.log(state.playerDecks[id]);
-    // setSelected(state.playerDecks[id]);
     console.log(selected);
+    // setSelected(state.playerDecks[id]);
     let onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
     // console.log(state.deckEditor.wholedeck);
@@ -122,17 +122,17 @@ export function CollectionDecks({
   );
 }
 
-function Options({ optionsOpen }) {
+export function Options({ optionsOpen, setOptionsOpen }) {
   // let optionsOpen;
   // console.log(optionsOpen);
 
   return (
     optionsOpen && (
       <div className=" modal-options">
-        <div className="options-Content">
-          <h1>OPTIONS</h1>
+        <h1>OPTIONS</h1>
+        <div className="options-content">
           {/* <Checkbox /> */}
-          placeholder placeholder placeholder placeholder
+          <span> placeholder placeholder placeholder placeholder</span>
         </div>
       </div>
     )
@@ -173,7 +173,7 @@ function NewDeck({
     console.log(id);
     // setSelectedID(primeirodecksemnome.id);
     // setSelected(primeirodecksemnome.id);
-
+    console.log("checkPrimeirodecksemnome chamado");
     handleSelectDeck(id);
     let onEditor = [
       ...state.playerDecks[id].magi,
@@ -186,7 +186,7 @@ function NewDeck({
 
   const soundUrl2 = hoveringSystemBtns;
   const [play2] = useSound(soundUrl2);
-  const playDeckSelectedSound = useSoundDeckSelected;
+  // const playDeckSelectedSound = useSoundDeckSelected;
   // const playHoveringSystemBtns = useHoveringSystemBtns;
 
   return (
@@ -196,7 +196,7 @@ function NewDeck({
       type="button"
       onClick={() => {
         // play();
-        playDeckSelectedSound();
+        // playDeckSelectedSound();
         // playDeckSelectedSound();
         checkPrimeirodecksemnome();
       }}
@@ -244,22 +244,21 @@ function DeleteDeck({
     let id = selected.id;
     console.log(selected);
     console.log(id);
-    state.playerDecks[id].magi = "";
-    state.playerDecks[id].crs = "";
+    state.playerDecks[id].magi = [];
+    state.playerDecks[id].crs = [];
     state.playerDecks[id].name = "";
 
     // handleSelectDeck(id);
-    let onEditor = [
-      ...state.playerDecks[id].magi,
-      ...state.playerDecks[id].crs,
-    ];
+    let onEditor = [];
     console.log(onEditor);
 
     let firstNamedDeck = Object.values(state.playerDecks).find(
       (deck) => deck.name
     );
+    console.log(firstNamedDeck);
     console.log(selected);
     console.log(firstNamedDeck.id);
+    console.log("REMOVESELECTEDDECK CALLED");
     setSelected(firstNamedDeck);
     handleSelectDeck(firstNamedDeck.id);
     console.log(selected);
@@ -342,24 +341,19 @@ export function DeckBtn({
   // console.log(handleSelectDeck);
   function onSelectDeck(id) {
     // console.log(setSelected);
-
-    console.log(id);
-    setSelected(state.playerDecks[id]);
-    console.log(selected.id);
-
+    // setSelected(state.playerDecks[id]);
+    // let onEditor = [...selected.magi, ...selected.crs];
+    // setCardsOnEditor(onEditor);
+    // console.log(onEditor);
+    ///
     // console.log(setSelected);
     // selectedID = id;
-    let onEditor = [...selected.magi, ...selected.crs];
-    console.log(onEditor);
-    setCardsOnEditor(onEditor);
     // setSelectedID(selectedID);
-    console.log(selected);
-    console.log(cardsOnEditor);
-    console.log(state.playerDecks[id]);
-    // setSelected(state.playerDecks[id]);
-    console.log(state.deckEditor.wholedeck);
-    console.log("test", cardsOnEditor);
   }
+
+  // setSelected(state.playerDecks[id]);
+  // console.log(state.deckEditor.wholedeck);
+  // console.log("test", cardsOnEditor);
   let deckName = deck.name;
   let deckRegion = addDeckRegionImg(deck);
 
@@ -375,9 +369,9 @@ export function DeckBtn({
 
   return (
     <div
-      className={`deck-btn ${deckRegion}  ${
+      className={`deck-btn ${deckRegion} ${PSdeck ? "PSdeckBtn" : ""} ${
         id === selected.id ? "selected" : ""
-      } ${PSdeck ? "PSdeckBtn" : ""}`}
+      } `}
       id={id}
       onClick={(e) => {
         play();

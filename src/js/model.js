@@ -3,8 +3,10 @@ import cloneDeep from "lodash/cloneDeep";
 // import { MAGI } from './cards.js'; ///////////////
 
 export const state = {
-  player1Hand: [],
+  playerHand1: [],
+  playerHand2: [],
   player1Board: [],
+  player2Board: [],
   selectedDeck: {
     magi: [],
     crs: [],
@@ -26,32 +28,35 @@ export const state = {
       id: "deck_1",
       name: "Warrada's Deck",
       magi: [
-        convertedMNDcards.warrada,
-        convertedMNDcards.hrada,
+        convertedMNDcards.sperri,
+        convertedMNDcards.yaki,
+        convertedMNDcards.evu,
         // convertedMNDcards.marella,
       ],
       crs: [
-        convertedMNDcards.equilibrate,
-        convertedMNDcards.inyx,
+        convertedMNDcards.carillion,
         convertedMNDcards.jip,
-        convertedMNDcards.cataclysm,
-        convertedMNDcards.wildfire,
+        convertedMNDcards.grow,
+        convertedMNDcards.equilibrate,
+        convertedMNDcards.weebo,
+        convertedMNDcards.energy_band,
+        convertedMNDcards.forest_blessing,
       ],
     },
     deck_2: {
       id: "deck_2",
       name: "deck 2",
       magi: [
-        convertedMNDcards.sorrowing_ogar,
-        convertedMNDcards.prek,
+        convertedMNDcards.warrada,
+        convertedMNDcards.hrada,
         // convertedMNDcards.trygar,
       ],
       crs: [
         convertedMNDcards.corrupt,
-        convertedMNDcards.wasperine,
-        convertedMNDcards.wildfire,
+        // convertedMNDcards.wasperine,
+        // convertedMNDcards.wildfire,
         convertedMNDcards.sarf,
-        convertedMNDcards.corrupt,
+        // convertedMNDcards.corrupt,
         convertedMNDcards.wasperine,
       ],
     },
