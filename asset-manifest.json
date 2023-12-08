@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.9f822066.css",
-    "main.js": "/MND-React-Version/static/js/main.29cce68f.js",
+    "main.css": "/MND-React-Version/static/css/main.356cbbec.css",
+    "main.js": "/MND-React-Version/static/js/main.9c4735b3.js",
     "static/js/845.e07860f5.chunk.js": "/MND-React-Version/static/js/845.e07860f5.chunk.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
     "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
@@ -36,12 +36,12 @@
     "static/media/hoveringcardSound.mp3": "/MND-React-Version/static/media/hoveringcardSound.da5f791815bb29d51740.mp3",
     "static/media/hoveringDeckBtns.mp3": "/MND-React-Version/static/media/hoveringDeckBtns.45994b0c7c4c614b34d7.mp3",
     "index.html": "/MND-React-Version/index.html",
-    "main.9f822066.css.map": "/MND-React-Version/static/css/main.9f822066.css.map",
-    "main.29cce68f.js.map": "/MND-React-Version/static/js/main.29cce68f.js.map",
+    "main.356cbbec.css.map": "/MND-React-Version/static/css/main.356cbbec.css.map",
+    "main.9c4735b3.js.map": "/MND-React-Version/static/js/main.9c4735b3.js.map",
     "845.e07860f5.chunk.js.map": "/MND-React-Version/static/js/845.e07860f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f822066.css",
-    "static/js/main.29cce68f.js"
+    "static/css/main.356cbbec.css",
+    "static/js/main.9c4735b3.js"
   ]
 }
