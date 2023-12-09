@@ -2888,7 +2888,7 @@ const newMNDcards = [
   {
     Name: "Evil Evu",
     Set: "Dream's End",
-    Type: "Magi",
+    Type: "Magi - Naroom Shadow Magi",
     Region: "Core",
     Energy: 15,
     Rarity: "Uncommon",
@@ -9585,7 +9585,7 @@ const newMNDcards = [
   {
     Name: "The Dark Twins",
     Set: "Promo",
-    Type: "Naroom Shadow Magi - Alternate Hrada",
+    Type: "Magi - Naroom Shadow Magi - Alternate Hrada",
     Region: "Core",
     Energy: 26,
     Rarity: "Limited",
@@ -9626,7 +9626,7 @@ const newMNDcards = [
   {
     Name: "The Real Qwade",
     Set: "Voice of the Storms",
-    Type: "Orothe Shadow Magi",
+    Type: "Magi - Orothe Shadow Magi",
     Region: "Core",
     Energy: 20,
     Rarity: "Uncommon",
@@ -9803,7 +9803,7 @@ const newMNDcards = [
   {
     Name: "T'Lok, Traitor",
     Set: "Traitor's Reach",
-    Type: "Kybar's Teeth Shadow Magi - Alternate T'Lok",
+    Type: "Magi - Kybar's Teeth Shadow Magi - Alternate T'Lok",
     Region: "Core",
     Energy: 14,
     Rarity: "Uncommon",
@@ -11287,7 +11287,7 @@ const newMNDcards = [
   {
     Name: "Yayek",
     Set: "Traitor's Reach",
-    Type: "Weave Shadow Magi",
+    Type: "Magi - Weave Shadow Magi",
     Region: "Core",
     Energy: 10,
     Rarity: "Uncommon",
@@ -13119,6 +13119,40 @@ const newMNDcards = [
 /////////////////////////////////
 
 // card.Name = card.Name.toLowerCase().replace(' ', '_');
+const getSpecialType = function (card) {
+  let type = "";
+  let specialtype = "";
+  // let types = [type, specialtype];
+
+  if (card.Type.slice(0, 4) === "magi") {
+    type = card.Type.slice(0, 4);
+    specialtype = card.Type.slice(4);
+    // console.log(test);
+    // console.log(type, specialtype);
+    // console.log([type, specialtype]);
+    // return [type, specialtype];
+    // return specialtype;
+  } else if (card.Type.slice(0, 8) === "creature") {
+    type = card.Type.slice(0, 8);
+    specialtype = card.Type.slice(8);
+    // console.log(type, specialtype);
+    // return [type, specialtype];
+    // return specialtype;
+  } else if (card.Type.slice(0, 5) === "relic") {
+    type = card.Type.slice(0, 5);
+    specialtype = card.Type.slice(5);
+    // console.log(type, specialtype);
+    // return [type, specialtype];
+    // return specialtype;
+  } else if (card.Type.slice(0, 5) === "spell") {
+    type = card.Type.slice(0, 5);
+    specialtype = card.Type.slice(5);
+    // return [type, specialtype];
+    // return specialtype;
+  }
+  // console.log(types);
+  return [type, specialtype];
+};
 
 export const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   let regexPatern = /[^A-Za-z0-9]/g;
@@ -13127,7 +13161,27 @@ export const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   card.id = (card.Type + i).replace(regexPatern, "");
   card.url = "";
   // card.Name = card.Name.toLowerCase();
-  card.Type = card.Type.replace(regexPatern, "").toLowerCase();
+  // [card.Type] = SpecialType(card);
+  // let types = SpecialType(card);
+  // if (
+  //   card.Type !== "Magi" &&
+  //   card.Type !== "Creature" &&
+  //   card.Type !== "Relic" &&
+  //   card.Type !== "Spell"
+  // ) {
+  //   // console.log(card.Type);
+  //   // card.Type = types[0];
+  // }
+  // card.Type = card.Type.replace(regexPatern, "").toLowerCase();
+  // card.Type = card.Type.toLowerCase().replace("-", "").trim();
+  card.Type = card.Type.toLowerCase().replace("-", "").trim();
+  let types = getSpecialType(card);
+  card.Type = types[0];
+  card.SpecialType = types[1].trim();
+  //
+  // card.Type = types[0];
+  // console.log(card.SpecialType);
+  // card.Type.replace(regexPatern, "").toLowerCase();
   return obj;
 }, {});
 

@@ -1,7 +1,7 @@
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import useSound from "use-sound";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Options } from "./decks";
 import { state } from "./model";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -38,13 +38,12 @@ export function Field({
   const [cardsOnGameArea1, setCardsOnGameArea1] = useState(
     state.playerDecks.deck_2.crs
   );
-  console.log("cardsgamearea1 ", cardsOnGameArea1);
+
   // const [state, dispatch] = useReducer(reducer, { tasks });
 
   const move = (results) => {
     const { source, destination, type } = results;
-    console.log({ results });
-    console.log(source.droppableId);
+
     const fonte = [
       ...(source.droppableId === "cardsOnHand"
         ? cardsOnHand
@@ -54,8 +53,7 @@ export function Field({
     source.droppableId === "cardsOnHand"
       ? setCardsOnHand(fonte)
       : setCardsOnGameArea1(fonte);
-    console.log("FONTE", fonte);
-    console.log(destination.droppableId);
+
     const alvo = [
       ...(destination.droppableId === "cardsOnHand"
         ? cardsOnHand
@@ -121,8 +119,84 @@ export function Field({
       // console.log("cheguei até aqui");
       // setCardsOnHand(results);
     }
-  }
+  } //////////////////////////
 
+  const [isZoomed, setZoomed] = useState(false);
+  const [isFieldCardOpen, setIsFieldCardOpen] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [targetSrc, setTargetSrc] = useState("");
+
+  const handleMouseEnter = (e) => {
+    setZoomed(true);
+
+    setTargetSrc(e.target.src);
+  };
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    // const x = e.clientX - rect.right;
+    // const y = e.clientY - rect.bottom;
+    const x = rect.right - 150;
+    const y = -170;
+
+    setZoomPosition({ x, y });
+    // console.log(zoomPosition);
+  };
+
+  const handleMouseLeave = () => {
+    setZoomed(false);
+  };
+  const ImageZoom = () => {
+    return (
+      isZoomed && (
+        <div
+          className="zoomed-image-div"
+          style={{ left: `${zoomPosition.x}px`, top: `${zoomPosition.y}px` }}
+        >
+          <img src={targetSrc} alt="Zoomed" className="zoomed-image" />
+        </div>
+      )
+    );
+  };
+  function handleFielCardOpen(e) {
+    setIsFieldCardOpen((cur) => !cur);
+    handleMouseMove(e);
+    setTargetSrc(e.target.src);
+    // console.log(isFieldCardOpen);
+    // console.log("ativado", targetSrc);
+  }
+  function FieldCardOpen(e) {
+    // useEffect(() => {
+    //   // if (!isFieldCardOpen) return;
+
+    //   window.addEventListener("click", handleOutsideClick);
+
+    //   return () => {
+    //     window.removeEventListener("click", handleOutsideClick);
+    //   };
+    // }, []);
+
+    const handleOutsideClick = (event) => {
+      console.log("outside click");
+      // Check if the click target is outside the modal
+      // if (isFieldCardOpen && !event.target.closest("fieldCards")) {
+      if (!event.target.closest("fieldCards")) {
+        setIsFieldCardOpen(false);
+      }
+      console.log(isFieldCardOpen);
+    };
+
+    return (
+      isFieldCardOpen && (
+        <div
+          className="zoomed-image-div"
+          style={{ left: `${zoomPosition.x}px`, top: `${zoomPosition.y}px` }}
+        >
+          <img src={targetSrc} alt="Zoomed" className="zoomed-image" />
+        </div>
+      )
+    );
+  }
   return (
     fieldOpen && (
       <>
@@ -131,7 +205,7 @@ export function Field({
           {/* <div class="relics-area relicsLeft2 dragarea"></div> */}
           <RelicsArea classs={"relics-area relicsLeft2 dragarea"} />
           {/* <div class="magi-container2"></div> */}
-          <MagiContainer player={2} />
+          <MagiContainer deck={state.playerDecks.deck_2.magi} player={2} />
           {/* <div class="relics-area relicsRight2 dragarea"></div> */}
           <RelicsArea classs={"relics-area relicsRight2 dragarea"} />
           {/* ======== P2 SIDE START=====  */}
@@ -180,10 +254,13 @@ export function Field({
                             ref={provided.innerRef}
                           >
                             <FieldCreateCard
+                              onGameArea={true}
                               state={state}
                               card={card}
                               class1={"fieldCards"}
                               class2={"gameAreaCardDiv"}
+                              handleFieldCardOpen={handleFielCardOpen}
+                              setIsFieldCardOpen={setIsFieldCardOpen}
                             />
                           </span>
                         )}
@@ -198,14 +275,19 @@ export function Field({
                 player={1}
                 // onPlayerHand1={onPlayerHand1}
                 cardsOnHand={cardsOnHand}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseMove={handleMouseMove}
+                handleMouseLeave={handleMouseLeave}
                 // handleDragDrop={onDragEnd}
               />
             </DragDropContext>
+            <ImageZoom />
+            <FieldCardOpen />
           </section>
 
           <div class="relics-area relicsLeft1 dragarea"></div>
 
-          <MagiContainer selected={selected} player={1} />
+          <MagiContainer deck={selected.magi} player={1} />
           <div class="relics-area relicsRight1 dragarea"></div>
           <FieldDeck
             classs={"drawdeck"}
@@ -305,7 +387,7 @@ function FieldDeck({
   // console.log(selected);
   // console.log(state.selectedDeck);
 
-  playerNumber === 1 && console.log("FIELDDECK RENDERIZADO");
+  // playerNumber === 1 && console.log("FIELDDECK RENDERIZADO");
   playerNumber === 1 && (state.selectedDeck.magi = selected.magi);
   playerNumber === 1 && (state.selectedDeck.crs = selected.crs);
 
@@ -319,11 +401,11 @@ function FieldDeck({
 
     console.log(cardsOnHand, cardToDraw);
     // let copyCounter = 0;
-    let samename = [];
-    cardsOnHand.forEach((card) =>
-      card.Name === cardToDraw.Name ? samename.push(cardToDraw) : ""
-    );
-    console.log(samename);
+    // let samename = [];
+    // cardsOnHand.forEach((card) =>
+    //   card.Name === cardToDraw.Name ? samename.push(cardToDraw) : ""
+    // );
+    // console.log(samename);
 
     // if (copyCounter === 1) {
     //   cardToDraw.id = `${cardToDraw.id}C1`;
@@ -385,9 +467,13 @@ function PlayerHand({
   classs,
   player,
   // onPlayerHand1,
+  handleMouseEnter,
+  handleMouseMove,
+  handleMouseLeave,
   handleDragDrop,
   cardsOnHand,
 }) {
+  const handCards = true;
   return (
     // <DragDropContext onDragEnd={handleDragDrop}>
     <Droppable droppableId="cardsOnHand" type="group" direction="horizontal">
@@ -413,6 +499,10 @@ function PlayerHand({
                       state={state}
                       card={card}
                       class1={"hand-cards"}
+                      handCards={handCards}
+                      handleMouseEnter={handleMouseEnter}
+                      handleMouseMove={handleMouseMove}
+                      handleMouseLeave={handleMouseLeave}
                     />
                   </div>
                 )}
@@ -427,11 +517,27 @@ function PlayerHand({
   );
 }
 
-function FieldCreateCard({ card, class1, class2 }) {
+function FieldCreateCard({
+  card,
+  class1,
+  class2,
+  handleMouseEnter,
+  handleMouseMove,
+  handleMouseLeave,
+  handCards,
+  handleFieldCardOpen,
+  setIsFieldCardOpen,
+  onGameArea,
+}) {
   // console.log(card);
+
   // const playerNumber = player;
   return (
-    <div cardtype={card.Type} key={card.Name} className={class2}>
+    <div
+      cardtype={card.Type}
+      key={card.Name}
+      className={`${class2} ${onGameArea && card.Type}`}
+    >
       <img
         className={class1}
         name={card.Name}
@@ -440,9 +546,23 @@ function FieldCreateCard({ card, class1, class2 }) {
         // dataset={card.Name}
         alt={card.Name}
         // value={card}
-        onClick={() => {
-          console.log(card.Name);
-          // builder ? removeCardsFromEditor(card) : handleAddtoEditor();
+        onClick={(e) => {
+          console.log(card);
+          // setIsFieldCardOpen(true);
+          !handCards && handleFieldCardOpen(e);
+        }}
+        onMouseEnter={(e) => {
+          // setTimeout(() => {
+          // }, 800);
+          handCards && handleMouseEnter(e);
+        }}
+        onMouseMove={(e) => {
+          // clearTimeout();
+          handCards && handleMouseMove(e);
+        }}
+        onMouseLeave={(e) => {
+          // clearTimeout();
+          handCards && handleMouseLeave(e);
         }}
         // onMouseEnter={play}
       />
@@ -470,16 +590,19 @@ function GameArea({ classs, handleDragDrop, cardsOnGameArea1 }) {
   });
 }
 
-function MagiContainer({ classs, selected, player }) {
+function MagiContainer({ classs, deck, player }) {
   const playerNumber = player;
 
   // const magisP1 = state.selectedDeck.magi;
   // console.log(selected?.magi[0]);
+  // console.log(deck?.magi);
+  // let magipile = deck.magi;
+  // console.log(deck);
 
   return (
     <div className={`magi-container-${player}`}>
       <div className={"magi-pile"} draggable="false">
-        <img src={selected?.magi[0].url} alt="" />
+        <img src={deck[0].url} alt="" />
       </div>
     </div>
   );

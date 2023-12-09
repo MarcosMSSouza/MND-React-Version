@@ -45,20 +45,11 @@ export default function App() {
   const [cardsOnEditor, setCardsOnEditor] = useState(
     state.deckEditor.wholeDeck
   );
-  // let selectedDeck = [...selected.magi, ...selected.crs];
-
-  // const [selectedID, setSelectedID] = useState("deck_1");
   const [pSopen, setPSopen] = useState(false);
   const [fieldOpen, setFieldOpen] = useState(false);
-  // selectedteste = selected;
-  // console.log(state.playerDecks);
-  // const regionImg = regionPng;
   const [regionActive, setRegionActive] = useState("Arderial");
 
   function handleRegionButtonClick(e, region) {
-    // regionbtn.addEventListener("mouseover", () => {
-
-    // renderColDecksss();
     setRegionActive(region);
   }
 
@@ -210,6 +201,7 @@ function CollectionContent({
         >
           {Object.values(convertedMNDcards).map((card) => {
             if (card.Type !== "magi") return;
+            // =====Render Magi First ====== //
             return renderCollectionREGIONS(
               card,
               region,
@@ -218,12 +210,31 @@ function CollectionContent({
               cardsOnEditor,
               setCardsOnEditor
             );
-            // return (
-
-            //   console.log(allmagi);
+          })}
+          {/* // =====Render C R S ====== // */}
+          {Object.values(convertedMNDcards).map((card) => {
+            if (
+              card.Type === "magi" ||
+              card.Type === "relic" ||
+              card.Type === "spell"
+            )
+              return;
+            return renderCollectionREGIONS(
+              card,
+              region,
+              selected,
+              setSelected,
+              cardsOnEditor,
+              setCardsOnEditor
+            );
           })}
           {Object.values(convertedMNDcards).map((card) => {
-            if (card.Type === "magi") return;
+            if (
+              card.Type === "magi" ||
+              card.Type === "creature" ||
+              card.Type === "spell"
+            )
+              return;
             return renderCollectionREGIONS(
               card,
               region,
@@ -232,9 +243,22 @@ function CollectionContent({
               cardsOnEditor,
               setCardsOnEditor
             );
-            // return (
-
-            //   console.log(allmagi);
+          })}
+          {Object.values(convertedMNDcards).map((card) => {
+            if (
+              card.Type === "magi" ||
+              card.Type === "relic" ||
+              card.Type === "creature"
+            )
+              return;
+            return renderCollectionREGIONS(
+              card,
+              region,
+              selected,
+              setSelected,
+              cardsOnEditor,
+              setCardsOnEditor
+            );
           })}
         </div>
       ))}
@@ -257,6 +281,7 @@ function renderCollectionREGIONS(
 
   if (card.Region !== region) return;
 
+  // ==== Special Rules for getting the correct URL =======//
   if (
     card.Set === "UnreleasedPromos" ||
     card.Set === "Daybreak" ||
@@ -281,6 +306,7 @@ function renderCollectionREGIONS(
   let finalName = card.Name;
 
   // card.url = images[finalName];
+  // console.log(card.Name, card.Type);
   let prefix = `${card.Type[0].toLowerCase()}`;
 
   if (card.Set === "Voice of the Storms") {
@@ -304,16 +330,18 @@ function renderCollectionREGIONS(
   if (card.Set === "Unlimited" || card.Rarity === "Limited")
     finalName = finalName[0].toUpperCase() + finalName.slice(1);
   card.url = `https://lackeyccg.com/magination/medium/${finalName}.jpg`;
-  // console.log(card.url);
+
   /////////////////////
 
-  // let regexPatern = /[^A-Za-z0-9]/g;
   let Type = card.Type.replace(regexPatern).toLowerCase();
 
   ///////////To handle when magis are more than simple 'magi'
-  let magiCheck = card.Type.slice(0, 4);
-  if (magiCheck === "magi") card.Type = "magi";
-  // insertCard.src = card.url;
+  // let magiCheck = card.Type.slice(0, 4);
+  // if (magiCheck === "magi") card.Type = "magi";
+
+  // let relicCheck = card.Type.slice(0, 5);
+  // if (relicCheck === "relic") card.Type = "relic";
+
   /////////////
 
   if (card.Region.includes("/")) return;
@@ -324,18 +352,43 @@ function renderCollectionREGIONS(
     // let onEditor = [...selected.magi, ...selected.crs];
     // setCardsOnEditor(onEditor);
     // console.log(setCardsOnEditor);
+    let shallowIDCopy = {};
+
     if (card.Type === "magi") {
       selected.magi = [...selected.magi, card];
       state.deckEditor.curMagi = selected.magi;
+      // console.log(card.Type.slice(0, 4));
       // console.log(state.deckEditor.curMagi);
     } else {
-      selected.crs = [...selected.crs, card];
+      if (card.Type !== "magi") {
+        let copyCounter = 0;
+        selected.crs.forEach((car) => {
+          if (card.Name === car.Name) {
+            copyCounter++;
+          }
+        });
+        // console.log(crsCount);
+
+        if (copyCounter === 3) return;
+        shallowIDCopy = Object.assign({}, card);
+        // shallowIDCopy.id = `${card.id}C${copyCounter > 0 ? copyCounter : ""}`;
+        shallowIDCopy.id = `${card.id}${
+          copyCounter > 0 ? `C${copyCounter}` : ""
+        }`;
+        console.log(shallowIDCopy.id);
+        selected.crs = [shallowIDCopy, ...selected.crs];
+      }
+
+      // selected.crs = [shallowIDCopy, ...selected.crs];
+      if (!shallowIDCopy.id) selected.crs = [card, ...selected.crs];
+
       state.deckEditor.curCrs = selected.crs;
       // console.log(state.deckEditor.curCrs);
     }
     const onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
-    console.log(card.Name, card.id, "added to", selected.id, cardsOnEditor);
+
+    console.log(card, "added to", selected.id, cardsOnEditor);
   }
 
   return (
@@ -370,6 +423,33 @@ function CollectionBuilder({
   // console.log(card);
 
   //     );
+  //////
+  // Function to check for elements with the same property and change the property in the clones
+  // const updateDuplicateProperty = (array, property) => {
+  //   const propertyCount = new Map();
+
+  //   for (const obj of array) {
+  //     const value = obj[property];
+
+  //     // Check if the property has been encountered before
+  //     if (propertyCount.has(value)) {
+  //       // Duplicate found, update the property in the clone
+  //       obj[property] = `${value}_clone${propertyCount.get(value) + 1}`;
+  //       propertyCount.set(value, propertyCount.get(value) + 1);
+  //     } else {
+  //       // First encounter of the property, add it to the map
+  //       propertyCount.set(value, 1);
+  //     }
+  //   }
+  // };
+
+  // // Update duplicates in the array
+  // updateDuplicateProperty(selected.crs, "id");
+
+  // Display the modified array
+  // console.log(selected.crs);
+
+  //////////
   state.deckEditor.curMagi = selected.magi;
   state.deckEditor.curCrs = selected.crs;
 
@@ -469,7 +549,7 @@ function CreateCard({
     let [countSingle, countTotal] = checkCardCopies(card);
     // console.log(countSingle, countTotal);
     console.log(countSingle, countTotal);
-    // let magiCheck = card.Type.slice(0, 4);
+
     // console.log(magiCheck);
     if ((card.Type === "magi" && countSingle === 1) || countTotal === 3) return;
     console.log(countSingle, countTotal);
@@ -514,13 +594,13 @@ function CreateCard({
     } else {
       // console.log(state.deckEditor.curCrs);
       let filteredCrs = state.deckEditor.curCrs.filter(
-        (car) => car.Name !== card.Name
+        (car) => car.id !== card.id
       );
       // console.log("crs", filteredCrs);
       // state.deckEditor.curMagi = filtered;
       let onEditor = [...state.deckEditor.curMagi, ...filteredCrs];
+      console.log(card + " removed from Editor");
       selected.crs = filteredCrs;
-      console.log(card + "removed from Editor");
       // console.log(onEditor);
       setCardsOnEditor(onEditor);
       // console.log(onEditor);
@@ -529,10 +609,7 @@ function CreateCard({
 
   function checkCardCopies(cardtomove) {
     // let builderCollectionCards = document.querySelectorAll(
-    //   ".builder-collection-cards"
-    // );
 
-    // setCardsOnEditor(onEditor);
     let magiCount = [0, 0];
     let crsCount = [0, 0];
     console.log(selected);
@@ -550,11 +627,10 @@ function CreateCard({
           crsCount[0]++;
         }
       });
-      if (crsCount[0] === 1) cardtomove.id = `${cardtomove.id}C2`;
-      if (crsCount[0] === 2) cardtomove.id = `${cardtomove.id}C3`;
-      console.log(crsCount);
+
       return crsCount;
     }
+    ///ID////
   }
   const soundUrl = hoveringcardSound;
   const [play] = useSound(soundUrl);
@@ -562,7 +638,9 @@ function CreateCard({
   return (
     <div cardtype={card.Type} key={card.Name} className="cardtest">
       <img
-        className={builder ? "builder-collection-cards " : "collection-cards"}
+        className={`${card.Type === "magi" ? "magi" : "nonMagi"} ${
+          builder ? "builder-collection-cards " : "collection-cards"
+        }`}
         src={card.url}
         id={card.id}
         dataset={card.Name}

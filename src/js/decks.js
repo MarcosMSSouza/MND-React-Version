@@ -128,7 +128,7 @@ export function Options({ optionsOpen, setOptionsOpen }) {
 
   return (
     optionsOpen && (
-      <div className=" modal-options">
+      <div className="modal-options">
         <h1>OPTIONS</h1>
         <div className="options-content">
           {/* <Checkbox /> */}
