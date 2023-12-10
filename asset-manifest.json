@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.9b95cfc1.css",
-    "main.js": "/MND-React-Version/static/js/main.07714e51.js",
+    "main.css": "/MND-React-Version/static/css/main.1e426578.css",
+    "main.js": "/MND-React-Version/static/js/main.e382ab05.js",
     "static/js/845.e07860f5.chunk.js": "/MND-React-Version/static/js/845.e07860f5.chunk.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
+    "static/media/sandy1.jpg": "/MND-React-Version/static/media/sandy1.e659b1d90c926047f5de.jpg",
     "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
     "static/media/7.jpg": "/MND-React-Version/static/media/7.3c6b933f02f13df8e584.jpg",
     "static/media/play screen5.png": "/MND-React-Version/static/media/play screen5.769a590f5c4e441f5bfa.png",
@@ -23,7 +24,6 @@
     "static/media/Kybar's Teeth.png": "/MND-React-Version/static/media/Kybar's Teeth.23794860ff47925789fe.png",
     "static/media/Battle_for_the_moonlands_login_screen - Copia.webp": "/MND-React-Version/static/media/Battle_for_the_moonlands_login_screen - Copia.98e2b5fd800e2dc61657.webp",
     "static/media/Cald.png": "/MND-React-Version/static/media/Cald.45922bc6f19320209015.png",
-    "static/media/playmat.webp": "/MND-React-Version/static/media/playmat.420a970066415759d707.webp",
     "static/media/Orothe.png": "/MND-React-Version/static/media/Orothe.dc5003e23cef24a7e9fa.png",
     "static/media/Nar.png": "/MND-React-Version/static/media/Nar.e673b30ac4d1fd57e9ca.png",
     "static/media/Logo - official - more shadow.png": "/MND-React-Version/static/media/Logo - official - more shadow.a0d6cf1020e5bb49a6fa.png",
@@ -39,12 +39,12 @@
     "static/media/hoveringcardSound.mp3": "/MND-React-Version/static/media/hoveringcardSound.da5f791815bb29d51740.mp3",
     "static/media/hoveringDeckBtns.mp3": "/MND-React-Version/static/media/hoveringDeckBtns.45994b0c7c4c614b34d7.mp3",
     "index.html": "/MND-React-Version/index.html",
-    "main.9b95cfc1.css.map": "/MND-React-Version/static/css/main.9b95cfc1.css.map",
-    "main.07714e51.js.map": "/MND-React-Version/static/js/main.07714e51.js.map",
+    "main.1e426578.css.map": "/MND-React-Version/static/css/main.1e426578.css.map",
+    "main.e382ab05.js.map": "/MND-React-Version/static/js/main.e382ab05.js.map",
     "845.e07860f5.chunk.js.map": "/MND-React-Version/static/js/845.e07860f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b95cfc1.css",
-    "static/js/main.07714e51.js"
+    "static/css/main.1e426578.css",
+    "static/js/main.e382ab05.js"
   ]
 }
