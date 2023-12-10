@@ -5,7 +5,7 @@ import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import { useState } from "react";
-import { useSoundDeckSelected, useHoveringSystemBtns } from "./Sounds";
+// import { useSoundDeckSelected, useHoveringSystemBtns } from "./Sounds";
 // import Checkbox from "@mui/material/checkbox";
 
 // import decksView from "./js/views/decksView";
@@ -82,6 +82,7 @@ export function CollectionDecks({
             deck.name && (
               <DeckBtn
                 deck={deck}
+                key={deck.id}
                 regionImg={regionImg}
                 i={i + 1}
                 selected={selected}

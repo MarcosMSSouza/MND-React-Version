@@ -17,11 +17,11 @@ export function PlayScreen({
 
   return (
     <div
-      class={`modal modal-collection ${pSopen && "hidden"}`}
+      className={`modal modal-collection ${pSopen && "hidden"}`}
       id="modal-PlayScreen"
     >
-      <div class="borderGlow">
-        <div class="modal-PlayScreen-content">
+      <div className="borderGlow">
+        <div className="modal-PlayScreen-content">
           <LeftScreenSection
             selected={selected}
             setSelected={setSelected}
@@ -43,15 +43,16 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
   const PSdeck = true;
   // const numOfDecks = 9;
   return (
-    <section class="modal-PlayScreen-LeftSection">
-      <h1 class="PStextArea">. Select a deck .</h1>
+    <section className="modal-PlayScreen-LeftSection">
+      <h1 className="PStextArea">. Select a deck .</h1>
 
-      <div class="PlayScreen-DecksArea">
+      <div className="PlayScreen-DecksArea">
         {Object.values(state.playerDecks).map(
           (deck, i) =>
             deck.name && (
-              <div class="PlayScreen-deckDock">
+              <div className="PlayScreen-deckDock" key={i}>
                 <DeckBtn
+                  key={i}
                   deck={deck}
                   PSdeck={PSdeck}
                   i={i + 1}
@@ -63,13 +64,11 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
             )
         )}
         {Object.values(state.playerDecks).map(
-          (deck, i) => !deck.name && <div class="PlayScreen-deckDock"></div>
+          (deck, i) =>
+            !deck.name && (
+              <div className="PlayScreen-deckDock" key={`PSdock${i}`}></div>
+            )
         )}
-
-        {/* <div class="PlayScreen-deckDock"></div>
-        <div class="PlayScreen-deckDock"></div>
-        <div class="PlayScreen-deckDock"></div>
-        <div class="PlayScreen-deckDock"></div> */}
       </div>
     </section>
   );
@@ -82,7 +81,10 @@ function ShowMagiWhenSelectingDeck({ selected }) {
   if (!magis) return;
   return magis.map((magi, i) => {
     return (
-      <div className={` PSmagi PSmagi-pile-${i} draggable=false`}>
+      <div
+        className={` PSmagi PSmagi-pile-${i} draggable=false `}
+        key={`psmagi${i}`}
+      >
         <img src={magi.url} alt={magi.Name} />
       </div>
     );
@@ -99,17 +101,17 @@ function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
   const [play2] = useSound(soundUrl2);
 
   return (
-    <section class="modal-PlayScreen-RightSection">
-      <div class="PlayScreen-RightSection-deckInformation">
-        <h1 class="PStextArea DeckRegion">{regionSelected} selected</h1>
-        <div class="PSmagisArea">
+    <section className="modal-PlayScreen-RightSection">
+      <div className="PlayScreen-RightSection-deckInformation">
+        <h1 className="PStextArea DeckRegion">{regionSelected} selected</h1>
+        <div className="PSmagisArea">
           <ShowMagiWhenSelectingDeck selected={selected} />
         </div>
-        <h1 class="PStextArea totalCards">{deck.crs.length} - Cards</h1>
+        <h1 className="PStextArea totalCards">{deck.crs.length} - Cards</h1>
       </div>
-      <div class="PlayScreen-RightSection-buttonsArea">
+      <div className="PlayScreen-RightSection-buttonsArea">
         <button
-          class="console_button "
+          className="console_button "
           type="button"
           id="PlayScreen-btn-play"
           onMouseEnter={play2}
@@ -121,7 +123,7 @@ function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
           PLAY
         </button>
         <button
-          class="console_button "
+          className="console_button "
           type="button"
           id="PlayScreen-btn-collection"
           onClick={() => {

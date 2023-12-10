@@ -105,7 +105,10 @@ function Collection({
   setCardsOnEditor,
 }) {
   return (
-    <div className={`modal modal-collection ${!pSopen && "hidden"}`}>
+    <div
+      className={`modal modal-collection ${!pSopen && "hidden"}`}
+      key={"col"}
+    >
       <CollectionHeader onRegionButtonClick={onRegionButtonClick} />
       <CollectionContent
         regionActive={regionActive}
@@ -192,8 +195,6 @@ function CollectionContent({
       {regions.map((region) => (
         // regionActive === region &&
         <div
-          // className={`modal-collection-content content-${region}`}
-
           className={`modal-collection-content content-${region} ${
             regionActive !== region ? "hidden" : ""
           }`}
@@ -396,7 +397,7 @@ function renderCollectionREGIONS(
       <CreateCard
         card={card}
         Type={Type}
-        key={card.Name}
+        key={card.id}
         selected={selected}
         setSelected={setSelected}
         addCardsToEditor={addCardsToEditor}
@@ -470,6 +471,7 @@ function CollectionBuilder({
           <CreateCard
             state={state}
             card={card}
+            key={card.id}
             builder={builder}
             selected={selected}
             setSelected={setSelected}
@@ -643,6 +645,7 @@ function CreateCard({
         }`}
         src={card.url}
         id={card.id}
+        key={card.Name}
         dataset={card.Name}
         alt={card.Name}
         value={card}
