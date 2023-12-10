@@ -53,6 +53,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 3,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/abwynsgift.jpg",
   },
   {
     Name: "Abwyn's Quill",
@@ -519,6 +520,7 @@ const newMNDcards = [
     Region: "d'Resh",
     Energy: 1,
     Rarity: "Common",
+    url: "https://lackeyccg.com/magination/medium/Aubrascanteen_dr_vs.jpg",
   },
   {
     Name: "Aubra's Hourglass",
@@ -635,6 +637,7 @@ const newMNDcards = [
     Energy: 1,
     Rarity: "Rare",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/babyhyren_ic_vs.jpg",
   },
   {
     Name: "Bagala",
@@ -765,6 +768,7 @@ const newMNDcards = [
     Region: "Cald",
     Energy: 0,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/baraks.jpg",
   },
   {
     Name: "Barqua's Bubble",
@@ -1235,6 +1239,7 @@ const newMNDcards = [
     Energy: 18,
     Rarity: "Uncommon",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/brothersofvengance_om_vs.jpg",
   },
   {
     Name: "Brub",
@@ -1413,7 +1418,7 @@ const newMNDcards = [
     Rarity: "Uncommon",
   },
   {
-    Name: "Cauldren of Ice",
+    Name: "Cauldron of Ice",
     Set: "Voice of the Storms",
     Type: "Relic",
     Region: "Nar",
@@ -1546,6 +1551,7 @@ const newMNDcards = [
     Region: "Naroom",
     Energy: 12,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/chayla.jpg",
   },
   {
     Name: "Chill Cane",
@@ -1589,6 +1595,7 @@ const newMNDcards = [
     Energy: 5,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/choguslittle.jpg",
   },
   {
     Name: "Chur",
@@ -1696,15 +1703,15 @@ const newMNDcards = [
     Energy: 4,
     Rarity: "Rare",
   },
-  {
-    Name: "Collossus (LM)",
-    Set: "Limited",
-    Type: "Creature",
-    Region: "Universal",
-    Energy: 12,
-    Rarity: "Uncommon",
-    Format: "Restricted",
-  },
+  // {
+  //   Name: "Collossus (LM)",
+  //   Set: "Limited",
+  //   Type: "Creature",
+  //   Region: "Universal",
+  //   Energy: 12,
+  //   Rarity: "Uncommon",
+  //   Format: "Restricted",
+  // },
   {
     Name: "Colossus",
     Set: "Unlimited",
@@ -1722,6 +1729,7 @@ const newMNDcards = [
     Energy: 7,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/comethyren.jpg",
   },
   {
     Name: "Coral Hyren",
@@ -1740,6 +1748,7 @@ const newMNDcards = [
     Energy: 2,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/coralpyder.jpg",
   },
   {
     Name: "Corathan",
@@ -2317,6 +2326,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 10,
     Rarity: "Rare",
+    url: "https://lackeyccg.com/magination/medium/arderial_defender_o.jpg",
   },
   {
     Name: "Delia",
@@ -2685,6 +2695,7 @@ const newMNDcards = [
     Region: "Underneath",
     Energy: 10,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/emaal.jpg",
   },
   {
     Name: "Emaya",
@@ -2720,6 +2731,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 2,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/embervardarderial.jpg",
   },
   {
     Name: "Ember Vard (CD)",
@@ -2959,6 +2971,7 @@ const newMNDcards = [
     Region: "Core",
     Energy: 15,
     Rarity: "Rare",
+    url: "https://lackeyccg.com/magination/medium/fiendoffuroks_xm_vs.jpg",
   },
   {
     Name: "Fird",
@@ -3349,6 +3362,7 @@ const newMNDcards = [
     Energy: 12,
     Rarity: "Rare",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/underneath_fossik_ri.jpg",
   },
   {
     Name: "Fray",
@@ -3532,6 +3546,7 @@ const newMNDcards = [
     Energy: 2,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/gauntletsofcolpower.jpg",
   },
   {
     Name: "Ghazran",
@@ -3791,6 +3806,7 @@ const newMNDcards = [
     Region: "Cald",
     Energy: 3,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/gorgles.jpg",
   },
   {
     Name: "Gorgle's Glasses",
@@ -3955,6 +3971,7 @@ const newMNDcards = [
     Energy: 0,
     Rarity: "Common",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/bograth_great_pool_.jpg",
   },
   {
     Name: "Great Throne Mushrooms",
@@ -3963,6 +3980,7 @@ const newMNDcards = [
     Region: "Bograth",
     Energy: 1,
     Rarity: "Uncommon",
+    url: "https://lackeyccg.com/magination/medium/bograth_the_great_t.jpg",
   },
   {
     Name: "Great White Narth",
@@ -4319,6 +4337,7 @@ const newMNDcards = [
     Region: "Core",
     Energy: 11,
     Rarity: "Uncommon",
+    url: "https://lackeyccg.com/magination/medium/harrornightstalker_xm_vs.jpg",
   },
   {
     Name: "Harvest Feast",
@@ -4611,17 +4630,17 @@ const newMNDcards = [
     Rarity: "Uncommon",
     Format: "Restricted",
   },
+  // {
+  //   Name: "Ice Hyren (ND)",
+  //   Set: "Nightmare's Dawn",
+  //   Type: "Creature",
+  //   Region: "Nar",
+  //   Energy: 8,
+  //   Rarity: "Rare",
+  //   Format: "Restricted",
+  // },
   {
-    Name: "Ice Hyren (ND)",
-    Set: "Nightmare's Dawn",
-    Type: "Creature",
-    Region: "Nar",
-    Energy: 8,
-    Rarity: "Rare",
-    Format: "Restricted",
-  },
-  {
-    Name: "Ice Hyren (VS)",
+    Name: "Ice Hyren",
     Set: "Voice of the Storms",
     Type: "Creature",
     Region: "Nar",
@@ -4757,6 +4776,7 @@ const newMNDcards = [
     Region: "Cald",
     Energy: 6,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/inferno.jpg",
   },
   {
     Name: "Inhibitor Band",
@@ -4877,6 +4897,7 @@ const newMNDcards = [
     Region: "Core",
     Energy: 14,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/jalex.jpg",
   },
   {
     Name: "Janx",
@@ -5032,6 +5053,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 0,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/kaliusring.jpg",
   },
   {
     Name: "Karak",
@@ -5100,6 +5122,7 @@ const newMNDcards = [
     Region: "Orothe",
     Energy: 12,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/kayliel.jpg",
   },
   {
     Name: "Kazm",
@@ -5281,6 +5304,7 @@ const newMNDcards = [
     Energy: 6,
     Rarity: "Rare",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/korg&zet.jpg",
   },
   {
     Name: "Korg's Poetry",
@@ -5629,6 +5653,7 @@ const newMNDcards = [
     Region: "Universal",
     Energy: 15,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/leagueelder.jpg",
   },
   {
     Name: "Lens of Truth",
@@ -6089,16 +6114,17 @@ const newMNDcards = [
     Energy: 9,
     Rarity: "Rare",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/monarch_hyren.jpg",
   },
-  {
-    Name: "Monarch Hyren",
-    Set: "Promo",
-    Type: "Creature",
-    Region: "Universal",
-    Energy: 9,
-    Rarity: "Limited",
-    Format: "Restricted",
-  },
+  // {
+  //   Name: "Monarch Hyren (LM)",
+  //   Set: "Promo",
+  //   Type: "Creature",
+  //   Region: "Universal",
+  //   Energy: 9,
+  //   Rarity: "Limited",
+  //   Format: "Restricted",
+  // },
   {
     Name: "Monsoon Hyren",
     Set: "Promo",
@@ -6107,6 +6133,7 @@ const newMNDcards = [
     Energy: 7,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/monsoonhyren.jpg",
   },
   {
     Name: "Moob",
@@ -6398,6 +6425,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 14,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/niffer.jpg",
   },
   {
     Name: "Night Hyren",
@@ -6801,6 +6829,7 @@ const newMNDcards = [
     Region: "Orothe",
     Energy: 0,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/orlonsring.jpg",
   },
   {
     Name: "Ormagon",
@@ -6954,6 +6983,7 @@ const newMNDcards = [
     Region: "Orothe",
     Energy: 3,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/owindasgift.jpg",
   },
   {
     Name: "Pack Korrit",
@@ -7216,6 +7246,7 @@ const newMNDcards = [
     Region: "Universal",
     Energy: 11,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/power_of_the_creators.jpg",
   },
   {
     Name: "Prek",
@@ -7293,6 +7324,7 @@ const newMNDcards = [
     Region: "Cald",
     Energy: 15,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/pyte.jpg",
   },
   {
     Name: "Quallon",
@@ -7556,6 +7588,7 @@ const newMNDcards = [
     Region: "Universal",
     Energy: 12,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/rayjesconstruct.jpg",
   },
   {
     Name: "Rayje's Shield",
@@ -8026,14 +8059,14 @@ const newMNDcards = [
     Energy: 7,
     Rarity: "Rare",
   },
-  {
-    Name: "Sand Hyren (ND)",
-    Set: "Nightmare's Dawn",
-    Type: "Creature",
-    Region: "d'Resh",
-    Energy: 7,
-    Rarity: "Rare",
-  },
+  // {
+  //   Name: "Sand Hyren (ND)",
+  //   Set: "Nightmare's Dawn",
+  //   Type: "Creature",
+  //   Region: "d'Resh",
+  //   Energy: 7,
+  //   Rarity: "Rare",
+  // },
   {
     Name: "Sand Sark",
     Set: "Traitor's Reach",
@@ -8521,6 +8554,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 12,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/shivara.jpg",
   },
   {
     Name: "Shock Ring",
@@ -8548,15 +8582,15 @@ const newMNDcards = [
     Rarity: "Uncommon",
     Format: "Restricted",
   },
-  {
-    Name: "Shockwave (PR)",
-    Set: "Promo",
-    Type: "Spell",
-    Region: "Arderial",
-    Energy: 5,
-    Rarity: "Limited",
-    Format: "Restricted",
-  },
+  // {
+  //   Name: "Shockwave (PR)",
+  //   Set: "Promo",
+  //   Type: "Spell",
+  //   Region: "Arderial",
+  //   Energy: 5,
+  //   Rarity: "Limited",
+  //   Format: "Restricted",
+  // },
   {
     Name: "Shooting Star",
     Set: "Unlimited",
@@ -9554,6 +9588,7 @@ const newMNDcards = [
     Region: "Arderial",
     Energy: 7,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/tempesthyren.jpg",
   },
   {
     Name: "Terkoz",
@@ -9589,6 +9624,7 @@ const newMNDcards = [
     Region: "Core",
     Energy: 26,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/the_dark_twins.jpg",
   },
   {
     Name: "The Hunt",
@@ -9622,6 +9658,7 @@ const newMNDcards = [
     Region: "Kybar's Teeth",
     Energy: 14,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/prankster.jpg",
   },
   {
     Name: "The Real Qwade",
@@ -9630,6 +9667,7 @@ const newMNDcards = [
     Region: "Core",
     Energy: 20,
     Rarity: "Uncommon",
+    url: "https://lackeyccg.com/magination/medium/therealqwade_xm_vs.jpg",
   },
   {
     Name: "Thermal Blast",
@@ -9856,6 +9894,7 @@ const newMNDcards = [
     Region: "Universal",
     Energy: 12,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/tonyatacon.jpg",
   },
   {
     Name: "Tony Jones",
@@ -9864,6 +9903,7 @@ const newMNDcards = [
     Region: "Universal",
     Energy: 10,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/tony.jpg",
   },
   {
     Name: "Topple",
@@ -10146,6 +10186,7 @@ const newMNDcards = [
     Energy: 12,
     Rarity: "Limited",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/tuku.jpg",
   },
   {
     Name: "Tunnel",
@@ -10487,6 +10528,7 @@ const newMNDcards = [
     Region: "Orothe",
     Energy: 2,
     Rarity: "Uncommon",
+    url: "https://lackeyccg.com/magination/medium/orothe_vault.jpg",
   },
   {
     Name: "Vellup",
@@ -10646,6 +10688,7 @@ const newMNDcards = [
     Region: "Cald",
     Energy: 7,
     Rarity: "Limited",
+    url: "https://lackeyccg.com/magination/medium/volcanohyren.jpg",
   },
   {
     Name: "Volt Shield",
@@ -10768,16 +10811,18 @@ const newMNDcards = [
     Energy: 0,
     Rarity: "Uncommon",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/Warriors_Boots.jpg",
   },
-  {
-    Name: "Warrior's Boots",
-    Set: "Promo",
-    Type: "Relic",
-    Region: "Universal",
-    Energy: 0,
-    Rarity: "Limited",
-    Format: "Restricted",
-  },
+  // {
+  //   Name: "Warrior's Boots",
+  //   Set: "Promo",
+  //   Type: "Relic",
+  //   Region: "Universal",
+  //   Energy: 0,
+  //   Rarity: "Limited",
+  //   Format: "Restricted",
+  //   url: "https://lackeyccg.com/magination/medium/warriorsboots.jpg",
+  // },
   {
     Name: "Wasperine",
     Set: "Awakening",
@@ -10840,15 +10885,15 @@ const newMNDcards = [
     Rarity: "Rare",
     Format: "Restricted",
   },
-  {
-    Name: "Weave Hyren (AW)",
-    Set: "Awakening",
-    Type: "Creature",
-    Region: "Weave",
-    Energy: 8,
-    Rarity: "Rare",
-    Format: "Restricted",
-  },
+  // {
+  //   Name: "Weave Hyren (AW)",
+  //   Set: "Awakening",
+  //   Type: "Creature",
+  //   Region: "Weave",
+  //   Energy: 8,
+  //   Rarity: "Rare",
+  //   Format: "Restricted",
+  // },
   {
     Name: "Weave Mat",
     Set: "Dream's End",
@@ -13115,7 +13160,7 @@ const newMNDcards = [
 // console.log(jsonTESTE[0]);
 
 // alt shift F = auto formater
-
+function setUrlExceptions(card) {}
 /////////////////////////////////
 
 // card.Name = card.Name.toLowerCase().replace(' ', '_');
@@ -13127,28 +13172,15 @@ const getSpecialType = function (card) {
   if (card.Type.slice(0, 4) === "magi") {
     type = card.Type.slice(0, 4);
     specialtype = card.Type.slice(4);
-    // console.log(test);
-    // console.log(type, specialtype);
-    // console.log([type, specialtype]);
-    // return [type, specialtype];
-    // return specialtype;
   } else if (card.Type.slice(0, 8) === "creature") {
     type = card.Type.slice(0, 8);
     specialtype = card.Type.slice(8);
-    // console.log(type, specialtype);
-    // return [type, specialtype];
-    // return specialtype;
   } else if (card.Type.slice(0, 5) === "relic") {
     type = card.Type.slice(0, 5);
     specialtype = card.Type.slice(5);
-    // console.log(type, specialtype);
-    // return [type, specialtype];
-    // return specialtype;
   } else if (card.Type.slice(0, 5) === "spell") {
     type = card.Type.slice(0, 5);
     specialtype = card.Type.slice(5);
-    // return [type, specialtype];
-    // return specialtype;
   }
   // console.log(types);
   return [type, specialtype];
@@ -13159,20 +13191,10 @@ export const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
 
   obj[card.Name.toLowerCase().replaceAll(" ", "_")] = card;
   card.id = (card.Type + i).replace(regexPatern, "");
-  card.url = "";
+
+  if (!card.url) card.url = "";
   // card.Name = card.Name.toLowerCase();
-  // [card.Type] = SpecialType(card);
-  // let types = SpecialType(card);
-  // if (
-  //   card.Type !== "Magi" &&
-  //   card.Type !== "Creature" &&
-  //   card.Type !== "Relic" &&
-  //   card.Type !== "Spell"
-  // ) {
-  //   // console.log(card.Type);
-  //   // card.Type = types[0];
-  // }
-  // card.Type = card.Type.replace(regexPatern, "").toLowerCase();
+
   // card.Type = card.Type.toLowerCase().replace("-", "").trim();
   card.Type = card.Type.toLowerCase().replace("-", "").trim();
   let types = getSpecialType(card);
@@ -13184,5 +13206,3 @@ export const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   // card.Type.replace(regexPatern, "").toLowerCase();
   return obj;
 }, {});
-
-console.log(convertedMNDcards);

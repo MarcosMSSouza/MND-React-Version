@@ -130,10 +130,16 @@ export function Options({ optionsOpen, setOptionsOpen }) {
   return (
     optionsOpen && (
       <div className="modal-options">
-        <h1>OPTIONS</h1>
+        <h1>OPTIONS (placeholder)</h1>
         <div className="options-content">
           {/* <Checkbox /> */}
-          <span> placeholder placeholder placeholder placeholder</span>
+
+          <h2>placeholder</h2>
+          <p>
+            Some basic rules for the editor: For the magis, (the red border
+            cards) you can only have 1 of each type in a deck, or 3 in total.
+            For the other types of cards, you can have up to 3 copies of each.
+          </p>
         </div>
       </div>
     )

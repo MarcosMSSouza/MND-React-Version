@@ -290,50 +290,52 @@ function renderCollectionREGIONS(
   )
     return;
 
-  if (card.Name.includes("spirit_of")) {
-    card.Name = card.Name.toLowerCase().replaceAll("_", "");
-    // console.log(card.Name);
-  }
-
-  if (card.Set !== "Unlimited") {
-    card.Name = card.Name.toLowerCase().replaceAll(" ", "_");
-  }
-  card.Name = card.Name.replaceAll(" ", "_").replace(regexPatern, "");
-  ////////////
-
-  card.url = `https://lackeyccg.com/magination/medium/${card.Name}.jpg`;
-  ////////cl
-
-  let finalName = card.Name;
-
-  // card.url = images[finalName];
-  // console.log(card.Name, card.Type);
-  let prefix = `${card.Type[0].toLowerCase()}`;
-
-  if (card.Set === "Voice of the Storms") {
-    finalName = finalName.replaceAll("_", "");
-    finalName = `${finalName}_${card.Region[0].toLowerCase()}${prefix}_vs`;
-    // console.log(finalName);
-  }
-
-  if (card.Set === "Nightmare's Dawn") {
-    finalName = `${card.Region.toLowerCase()}_${finalName}`;
-    // console.log(card.Region);
-    if (card.Region === "Kybar's Teeth") {
-      finalName = `kybars_teeth_${card.Name.toLowerCase()}`;
+  if (card.url === "") {
+    if (card.Name.includes("spirit_of")) {
+      card.Name = card.Name.toLowerCase().replaceAll("_", "");
+      // console.log(card.Name);
     }
+
+    if (card.Set !== "Unlimited") {
+      card.Name = card.Name.toLowerCase().replaceAll(" ", "_");
+    }
+    card.Name = card.Name.replaceAll(" ", "_").replace(regexPatern, "");
+    ////////////
+
+    card.url = `https://lackeyccg.com/magination/medium/${card.Name}.jpg`;
+    ////////cl
+
+    let finalName = card.Name;
+
+    // card.url = images[finalName];
+    // console.log(card.Name, card.Type);
+    let prefix = `${card.Type[0].toLowerCase()}`;
+
+    if (card.Set === "Voice of the Storms") {
+      finalName = finalName.replaceAll("_", "");
+      finalName = `${finalName}_${card.Region[0].toLowerCase()}${prefix}_vs`;
+      // console.log(finalName);
+    }
+
+    if (card.Set === "Nightmare's Dawn") {
+      finalName = `${card.Region.toLowerCase()}_${finalName}`;
+      // console.log(card.Region);
+      if (card.Region === "Kybar's Teeth") {
+        finalName = `kybars_teeth_${card.Name.toLowerCase()}`;
+      }
+    }
+    //
+
+    if (card.Region === "Nar") {
+      finalName = `${card.Name.replaceAll("_", "")}_r${prefix}_vs`;
+    }
+
+    if (card.Set === "Unlimited" || card.Rarity === "Limited")
+      finalName = finalName[0].toUpperCase() + finalName.slice(1);
+    card.url = `https://lackeyccg.com/magination/medium/${finalName}.jpg`;
+
+    /////////////////////
   }
-  //
-
-  if (card.Region === "Nar") {
-    finalName = `${card.Name}_r${prefix}_vs`;
-  }
-  if (card.Set === "Unlimited" || card.Rarity === "Limited")
-    finalName = finalName[0].toUpperCase() + finalName.slice(1);
-  card.url = `https://lackeyccg.com/magination/medium/${finalName}.jpg`;
-
-  /////////////////////
-
   let Type = card.Type.replace(regexPatern).toLowerCase();
 
   ///////////To handle when magis are more than simple 'magi'
