@@ -1,9 +1,11 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.1e426578.css",
-    "main.js": "/MND-React-Version/static/js/main.e5229cda.js",
+    "main.css": "/MND-React-Version/static/css/main.e5891edc.css",
+    "main.js": "/MND-React-Version/static/js/main.e52d91bf.js",
     "static/js/845.e07860f5.chunk.js": "/MND-React-Version/static/js/845.e07860f5.chunk.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
+    "static/media/Logo - large scan, updated by Foghammer, edited by Zucriy Amsuna.png": "/MND-React-Version/static/media/Logo - large scan, updated by Foghammer, edited by Zucriy Amsuna.b34f231d90e9daf0c1ed.png",
+    "static/media/Unlimited.png": "/MND-React-Version/static/media/Unlimited.b34f231d90e9daf0c1ed.png",
     "static/media/sandy1.jpg": "/MND-React-Version/static/media/sandy1.e659b1d90c926047f5de.jpg",
     "static/media/main screen2.png": "/MND-React-Version/static/media/main screen2.894aa0fce525efd2eb22.png",
     "static/media/7.jpg": "/MND-React-Version/static/media/7.3c6b933f02f13df8e584.jpg",
@@ -26,25 +28,34 @@
     "static/media/Cald.png": "/MND-React-Version/static/media/Cald.45922bc6f19320209015.png",
     "static/media/Orothe.png": "/MND-React-Version/static/media/Orothe.dc5003e23cef24a7e9fa.png",
     "static/media/Nar.png": "/MND-React-Version/static/media/Nar.e673b30ac4d1fd57e9ca.png",
+    "static/media/x3.png": "/MND-React-Version/static/media/x3.4267c8251e25a6c8f903.png",
     "static/media/Logo - official - more shadow.png": "/MND-React-Version/static/media/Logo - official - more shadow.a0d6cf1020e5bb49a6fa.png",
     "static/media/cardback.jpg": "/MND-React-Version/static/media/cardback.61f3ba850c82cef30195.jpg",
     "static/media/mask_s_edited.png": "/MND-React-Version/static/media/mask_s_edited.2a1f2f73beae80bfad3a.png",
     "static/media/mask_m_edited.png": "/MND-React-Version/static/media/mask_m_edited.629c4272a92bf3b701dd.png",
     "static/media/mask_r_edited.png": "/MND-React-Version/static/media/mask_r_edited.f25285693f65bf4766fe.png",
+    "static/media/NightmaresDawn.png": "/MND-React-Version/static/media/NightmaresDawn.778ce0ea27b293dfc735.png",
+    "static/media/TraitorsReach.png": "/MND-React-Version/static/media/TraitorsReach.805b3af0b02f84cb4546.png",
+    "static/media/DreamsEnd.png": "/MND-React-Version/static/media/DreamsEnd.fec889d07cdb2902576d.png",
     "static/media/deckSelected.mp3": "/MND-React-Version/static/media/deckSelected.993c35460ef21960c240.mp3",
     "static/media/switchingGameSections.mp3": "/MND-React-Version/static/media/switchingGameSections.bcc8313f9bee169d4d70.mp3",
+    "static/media/lens.png": "/MND-React-Version/static/media/lens.603a92a4bd15a320c1c2.png",
     "static/media/mask_c_edited.png": "/MND-React-Version/static/media/mask_c_edited.b13321f5c0fa985c7213.png",
     "static/media/changingPage.mp3": "/MND-React-Version/static/media/changingPage.4ad4c372f0ac89eadaef.mp3",
+    "static/media/Awakening.png": "/MND-React-Version/static/media/Awakening.fe958c0d958c9a273624.png",
+    "static/media/Promo22.png": "/MND-React-Version/static/media/Promo22.dc0fcb04ba0e4c1360ba.png",
+    "static/media/VoiceoftheStorms.png": "/MND-React-Version/static/media/VoiceoftheStorms.ff9cf491003de7c1a0b5.png",
     "static/media/hoveringSystemBtns.mp3": "/MND-React-Version/static/media/hoveringSystemBtns.f5927c6bf05d60769612.mp3",
+    "static/media/Promo.png": "/MND-React-Version/static/media/Promo.2443d12559458cbfedf5.png",
     "static/media/hoveringcardSound.mp3": "/MND-React-Version/static/media/hoveringcardSound.da5f791815bb29d51740.mp3",
     "static/media/hoveringDeckBtns.mp3": "/MND-React-Version/static/media/hoveringDeckBtns.45994b0c7c4c614b34d7.mp3",
     "index.html": "/MND-React-Version/index.html",
-    "main.1e426578.css.map": "/MND-React-Version/static/css/main.1e426578.css.map",
-    "main.e5229cda.js.map": "/MND-React-Version/static/js/main.e5229cda.js.map",
+    "main.e5891edc.css.map": "/MND-React-Version/static/css/main.e5891edc.css.map",
+    "main.e52d91bf.js.map": "/MND-React-Version/static/js/main.e52d91bf.js.map",
     "845.e07860f5.chunk.js.map": "/MND-React-Version/static/js/845.e07860f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e426578.css",
-    "static/js/main.e5229cda.js"
+    "static/css/main.e5891edc.css",
+    "static/js/main.e52d91bf.js"
   ]
 }
