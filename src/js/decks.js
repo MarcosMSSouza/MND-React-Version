@@ -13,7 +13,7 @@ import { useState } from "react";
 export let selectedID;
 
 // export let optionsOpen = true;
-let optionsOpen = true;
+// let optionsOpen = true;
 //   }
 export function CollectionDecks({
   state,
@@ -140,6 +140,8 @@ export function Options({ optionsOpen, setOptionsOpen }) {
             cards) you can only have 1 of each type in a deck, or 3 in total.
             For the other types of cards, you can have up to 3 copies of each.
           </p>
+          <p>1 Disable Magi red borders</p>
+          <p>2 Increase collection card Zoom on Hover</p>
         </div>
       </div>
     )
@@ -202,7 +204,7 @@ function NewDeck({
       id="newDeck-btn"
       type="button"
       onClick={() => {
-        // play();
+        play();
         // playDeckSelectedSound();
         // playDeckSelectedSound();
         checkPrimeirodecksemnome();
@@ -346,17 +348,6 @@ export function DeckBtn({
   setCardsOnEditor,
 }) {
   // console.log(handleSelectDeck);
-  function onSelectDeck(id) {
-    // console.log(setSelected);
-    // setSelected(state.playerDecks[id]);
-    // let onEditor = [...selected.magi, ...selected.crs];
-    // setCardsOnEditor(onEditor);
-    // console.log(onEditor);
-    ///
-    // console.log(setSelected);
-    // selectedID = id;
-    // setSelectedID(selectedID);
-  }
 
   // setSelected(state.playerDecks[id]);
   // console.log(state.deckEditor.wholedeck);
@@ -392,7 +383,11 @@ export function DeckBtn({
       // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
     >
       <h1 style={{ pointerEvents: "none" }}>{!deckRegion && "no magi"}</h1>
-      <p className="deck-title" style={{ pointerEvents: "none" }}>
+      {/* <p className="deck-title" style={{ pointerEvents: "none" }}> */}
+      <p
+        className={`${PSdeck ? "PSdeck-title" : "deck-title"}`}
+        style={{ pointerEvents: "none" }}
+      >
         {deckName}
       </p>
       <div className="deck-btns-container">
@@ -430,26 +425,26 @@ export function addDeckRegionImg(deck) {
 }
 // }
 
-function SaveBtn({ id, selected, cardsOnEditor, setCardsOnEditor }) {
-  // console.log("SAVE btn clicked");
-  function handleSaveDeck() {
-    selected.playerDecks[id] = state.playerDecks[id].magi;
-  }
-  return (
-    <button
-      className="deck-inner-btn save-btn "
-      onClick={() => {
-        handleSaveDeck();
-      }}
-    >
-      SAVE
-    </button>
-  );
-}
+// function SaveBtn({ id, selected, cardsOnEditor, setCardsOnEditor }) {
+//   // console.log("SAVE btn clicked");
+//   function handleSaveDeck() {
+//     selected.playerDecks[id] = state.playerDecks[id].magi;
+//   }
+//   return (
+//     <button
+//       className="deck-inner-btn save-btn "
+//       onClick={() => {
+//         handleSaveDeck();
+//       }}
+//     >
+//       SAVE
+//     </button>
+//   );
+// }
 
-function EditBtn() {
-  return <button className="deck-inner-btn edit-btn ">EDIT</button>;
-}
+// function EditBtn() {
+//   return <button className="deck-inner-btn edit-btn ">EDIT</button>;
+// }
 
 // function handleAddtoEditor(card, selected, setSelected) {
 //   // let deck = state.playerDecks[selected];

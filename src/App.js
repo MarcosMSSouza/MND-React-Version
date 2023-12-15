@@ -1,6 +1,6 @@
 import "./App.css";
 import { convertedMNDcards } from "./js/cards";
-import { useState } from "react";
+import { useState, useEffect, Children } from "react";
 import useSound from "use-sound";
 // import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";
@@ -12,12 +12,9 @@ import { CollectionDecks, addDeckRegionImg } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
+import toggleFilterSound from "./sounds/toggleFilterSound.wav";
 import changingPage from "./sounds/changingPage.mp3";
 // import { Options, optionsOpen } from "./js/decks";
-// import {  } from "./js/decks";
-// import '.index'
-// let optionsOpenss = optionsOpen;
-// console.log(optionsOpenss);
 
 const regions = [
   "Arderial",
@@ -69,6 +66,9 @@ export default function App() {
         handleSetPSopen={handleSetPSopen}
         handleFieldOpen={handleFieldOpen}
       />
+      {/* <ProgressBar value={100} maxValue={100} duration={5} /> */}
+      {/* <ProgressBar2 /> */}
+      <ProgressBar3 />
       <Collection
         pSopen={pSopen}
         regionActive={regionActive}
@@ -104,19 +104,37 @@ function Collection({
   cardsOnEditor,
   setCardsOnEditor,
 }) {
+  const [cardSetFilter, setCardSetFilter] = useState([]);
+  const [cardTypeFilter, setCardTypeFilter] = useState([]);
+  const [query, setQuery] = useState("");
+
   return (
     <div
       className={`modal modal-collection ${!pSopen && "hidden"}`}
       key={"col"}
     >
       <CollectionHeader onRegionButtonClick={onRegionButtonClick} />
+
+      {/* <FilterBar
+        cardSetFilter={cardSetFilter}
+        setCardSetFilter={setCardSetFilter}
+      /> */}
+
       <CollectionContent
         regionActive={regionActive}
         selected={selected}
         setSelected={setSelected}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
+        cardSetFilter={cardSetFilter}
+        cardTypeFilter={cardTypeFilter}
+        setCardTypeFilter={setCardTypeFilter}
+        setCardSetFilter={setCardSetFilter}
+        query={query}
+        setQuery={setQuery}
       />
+      {/* </div> */}
+
       <CollectionBuilder
         state={state}
         selected={selected}
@@ -125,7 +143,6 @@ function Collection({
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
-
       <CollectionDecks
         state={state}
         selected={selected}
@@ -180,7 +197,161 @@ function CollectionHeader({ onRegionButtonClick }) {
   }
 }
 
-// let allcar=[]
+function FilterBar({
+  cardSetFilter,
+  setCardSetFilter,
+  cardTypeFilter,
+  setCardTypeFilter,
+  query,
+  setQuery,
+}) {
+  const sets = [
+    "Unlimited",
+    "Awakening",
+    "Nightmare's Dawn",
+    "Promo",
+    "Voice of the Storms",
+    "Dream's End",
+  ];
+  const soundUrl = toggleFilterSound;
+  const [play] = useSound(soundUrl);
+
+  const types = ["magi", "creature", "relic", "spell"];
+  // const [filterBarOpen, setFilterBarOpen] = useState(false);
+
+  // const [query, setQuery] = useState("");
+  function handleResetFilters() {
+    play();
+    setCardSetFilter([]);
+    setCardTypeFilter([]);
+    setQuery("");
+  }
+
+  return (
+    <wrapper className={"newfilterbar"}>
+      {/* <span className={"filterLabel "}></span> */}
+      <p className="filterLabel">Filter by Set:</p>
+      <div className={"setSymbolsWrapper"}>
+        {sets.map((set) => (
+          <FilterSetIcons
+            set={set}
+            cardSetFilter={cardSetFilter}
+            setCardSetFilter={setCardSetFilter}
+          />
+        ))}
+      </div>
+      <p className="filterLabel">Filter by Type:</p>
+      <div className={"typeSymbolsWrapper"}>
+        {types.map((type) => (
+          <FilterTypeIcons
+            type={type}
+            cardTypeFilter={cardTypeFilter}
+            setCardTypeFilter={setCardTypeFilter}
+          />
+        ))}
+      </div>
+      <label className="searchLabel"></label>
+      <input
+        type="text"
+        className={"searchBarWrapper"}
+        placeholder="Type a card name..."
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          console.log(query);
+        }}
+      ></input>
+      <div
+        className={"XFilterBtn"}
+        // style={{
+        //   marginBottom: "5px",
+        //   backgroundImage: `url(${require("./img/x3.png")})`,
+        // }}
+        alt="X"
+        onClick={(e) => handleResetFilters()}
+      />
+      {/* </div> */}
+    </wrapper>
+  );
+}
+
+function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
+  // const [filterBarOpen, setFilterBarOpen] = useState(false);
+  const soundUrl = toggleFilterSound;
+  const [play] = useSound(soundUrl);
+
+  function handleFilterSet(id) {
+    play();
+    const value = id;
+    console.log(value);
+    if (!cardSetFilter.some((set) => set === value))
+      setCardSetFilter((cur) => [...cur, value]);
+
+    if (cardSetFilter.some((set) => set === value))
+      setCardSetFilter((cur) => (cur = cur.filter((curr) => curr !== set)));
+  }
+
+  // const handleCheckFilterActive = function (id) {
+  //   if (!setFilter.some((set) => set === id)) return true;
+  // };
+
+  let filename = set;
+  if (set === "Nightmare's Dawn") filename = "NightmaresDawn";
+  if (set === "Voice of the Storms") filename = "VoiceoftheStorms";
+  if (set === "Dream's End") filename = "DreamsEnd";
+  return (
+    <div
+      className={`setSymbolFilter ${
+        !cardSetFilter.some((sets) => sets === set) && "noFilter"
+      }`}
+      style={{
+        backgroundImage: `url(${require(`./img/setSymbols/${filename}.png`)})`,
+      }}
+      id={set}
+      alt={set}
+      onClick={(e) => handleFilterSet(e.target.id)}
+    />
+  );
+}
+
+function FilterTypeIcons({ type, cardTypeFilter, setCardTypeFilter }) {
+  // const [filterBarOpen, setFilterBarOpen] = useState(false);
+  const soundUrl = toggleFilterSound;
+  const [play] = useSound(soundUrl);
+
+  function handleFilterSet(id) {
+    play();
+    const value = id;
+    console.log(value);
+    if (!cardTypeFilter.some((typ) => typ === value))
+      setCardTypeFilter((cur) => [...cur, value]);
+
+    if (cardTypeFilter.some((set) => set === value))
+      setCardTypeFilter((cur) => (cur = cur.filter((curr) => curr !== type)));
+  }
+
+  // const handleCheckFilterActive = function (id) {
+  //   if (!setFilter.some((set) => set === id)) return true;
+  // };
+
+  let filename = type;
+  // if (set === "Nightmare's Dawn") filename = "NightmaresDawn";
+  // if (set === "Voice of the Storms") filename = "VoiceoftheStorms";
+  // if (set === "Dream's End") filename = "DreamsEnd";
+  return (
+    <div
+      className={`setSymbolFilter ${
+        !cardTypeFilter.some((sets) => sets === type) && "noFilter"
+      }`}
+      style={{
+        backgroundImage: `url(${require(`./img/typeSymbols/${filename}-inverted.png`)})`,
+      }}
+      id={type}
+      alt={type}
+      onClick={(e) => handleFilterSet(e.target.id)}
+    />
+  );
+}
 
 function CollectionContent({
   regionActive,
@@ -188,162 +359,204 @@ function CollectionContent({
   setSelected,
   cardsOnEditor,
   setCardsOnEditor,
+  cardSetFilter,
+  setCardSetFilter,
+  cardTypeFilter,
+  setCardTypeFilter,
+  query,
+  setQuery,
 }) {
   return (
-    <>
-      {/* {console.log(regionActive)} */}
-      {regions.map((region) => (
-        // regionActive === region &&
-        <div
-          className={`modal-collection-content content-${region} ${
-            regionActive !== region ? "hidden" : ""
-          }`}
-          key={`content-${region}`}
-        >
-          {Object.values(convertedMNDcards).map((card) => {
-            if (card.Type !== "magi") return;
-            // =====Render Magi First ====== //
-            return renderCollectionREGIONS(
-              card,
-              region,
-              selected,
-              setSelected,
-              cardsOnEditor,
-              setCardsOnEditor
-            );
-          })}
-          {/* // =====Render C R S ====== // */}
-          {Object.values(convertedMNDcards).map((card) => {
-            if (
-              card.Type === "magi" ||
-              card.Type === "relic" ||
-              card.Type === "spell"
+    <div className="modal-collection-content-wrapper">
+      <div className="content-wrapper">
+        {regions.map(
+          (region) =>
+            // regionActive === region &&
+            // <div
+            //   className={`modal-collection-content content-${region} ${
+            //     regionActive !== region ? "hidden" : ""
+            //   }`}
+            //   key={`content-${region}`}
+            // >
+            regionActive === region && (
+              <CollectionRegionTab region={region} regionActive={regionActive}>
+                {Object.values(convertedMNDcards).map((card) => {
+                  if (card.Type !== "magi") return;
+                  // =====Render Magi First ====== //
+                  return (
+                    <RenderCollectionREGIONS
+                      card={card}
+                      region={region}
+                      selected={selected}
+                      setSelected={setSelected}
+                      cardsOnEditor={cardsOnEditor}
+                      setCardsOnEditor={setCardsOnEditor}
+                      cardSetFilter={cardSetFilter}
+                      setCardSetFilter={setCardSetFilter}
+                      cardTypeFilter={cardTypeFilter}
+                      setCardTypeFilter={setCardTypeFilter}
+                      query={query}
+                      setQuery={setQuery}
+                    />
+                  );
+                })}
+                {/* // =====Render C R S ====== // */}
+                {Object.values(convertedMNDcards).map((card) => {
+                  if (
+                    card.Type === "magi" ||
+                    card.Type === "relic" ||
+                    card.Type === "spell"
+                  )
+                    return;
+                  return (
+                    <RenderCollectionREGIONS
+                      card={card}
+                      region={region}
+                      selected={selected}
+                      setSelected={setSelected}
+                      cardsOnEditor={cardsOnEditor}
+                      setCardsOnEditor={setCardsOnEditor}
+                      cardSetFilter={cardSetFilter}
+                      setCardSetFilter={setCardSetFilter}
+                      cardTypeFilter={cardTypeFilter}
+                      setCardTypeFilter={setCardTypeFilter}
+                      query={query}
+                      setQuery={setQuery}
+                    />
+                  );
+                })}
+                {Object.values(convertedMNDcards).map((card) => {
+                  if (
+                    card.Type === "magi" ||
+                    card.Type === "creature" ||
+                    card.Type === "spell"
+                  )
+                    return;
+                  return (
+                    <RenderCollectionREGIONS
+                      card={card}
+                      region={region}
+                      selected={selected}
+                      setSelected={setSelected}
+                      cardsOnEditor={cardsOnEditor}
+                      setCardsOnEditor={setCardsOnEditor}
+                      cardSetFilter={cardSetFilter}
+                      setCardSetFilter={setCardSetFilter}
+                      cardTypeFilter={cardTypeFilter}
+                      setCardTypeFilter={setCardTypeFilter}
+                      query={query}
+                      setQuery={setQuery}
+                    />
+                  );
+                })}
+
+                {Object.values(convertedMNDcards).map((card) => {
+                  if (
+                    card.Type === "magi" ||
+                    card.Type === "relic" ||
+                    card.Type === "creature"
+                  )
+                    return;
+                  return (
+                    <RenderCollectionREGIONS
+                      card={card}
+                      region={region}
+                      selected={selected}
+                      setSelected={setSelected}
+                      cardsOnEditor={cardsOnEditor}
+                      setCardsOnEditor={setCardsOnEditor}
+                      cardSetFilter={cardSetFilter}
+                      setCardSetFilter={setCardSetFilter}
+                      cardTypeFilter={cardTypeFilter}
+                      setCardTypeFilter={setCardTypeFilter}
+                      query={query}
+                      setQuery={setQuery}
+                    />
+                  );
+                })}
+              </CollectionRegionTab>
             )
-              return;
-            return renderCollectionREGIONS(
-              card,
-              region,
-              selected,
-              setSelected,
-              cardsOnEditor,
-              setCardsOnEditor
-            );
-          })}
-          {Object.values(convertedMNDcards).map((card) => {
-            if (
-              card.Type === "magi" ||
-              card.Type === "creature" ||
-              card.Type === "spell"
-            )
-              return;
-            return renderCollectionREGIONS(
-              card,
-              region,
-              selected,
-              setSelected,
-              cardsOnEditor,
-              setCardsOnEditor
-            );
-          })}
-          {Object.values(convertedMNDcards).map((card) => {
-            if (
-              card.Type === "magi" ||
-              card.Type === "relic" ||
-              card.Type === "creature"
-            )
-              return;
-            return renderCollectionREGIONS(
-              card,
-              region,
-              selected,
-              setSelected,
-              cardsOnEditor,
-              setCardsOnEditor
-            );
-          })}
-        </div>
-      ))}
-    </>
+        )}
+        {/* <div className="newfilterbar">
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      </div> */}
+      </div>
+      <FilterBar
+        cardSetFilter={cardSetFilter}
+        cardTypeFilter={cardTypeFilter}
+        setCardSetFilter={setCardSetFilter}
+        setCardTypeFilter={setCardTypeFilter}
+        query={query}
+        setQuery={setQuery}
+      />
+    </div>
   );
 }
 
+function CollectionRegionTab({ region, regionActive, children }) {
+  return (
+    <div
+      className={`modal-collection-content content-${region} 
+      `}
+      // ${regionActive !== region ? "hidden" : ""}
+      key={`content-${region}`}
+    >
+      {children}
+    </div>
+  );
+}
 /////////////
 
-function renderCollectionREGIONS(
+function RenderCollectionREGIONS({
   card,
   region,
   selected,
   setSelected,
   cardsOnEditor,
-  setCardsOnEditor
-) {
+  setCardsOnEditor,
+  cardSetFilter,
+  cardTypeFilter,
+  setCardSetFilter,
+  setCardTypeFilter,
+  query,
+  setQuery,
+}) {
   // Object.values(convertedMNDcards).map((card) => {
   let regexPatern = /[^A-Za-z0-9_]/g;
 
   if (card.Region !== region) return;
 
-  // ==== Special Rules for getting the correct URL =======//
+  // ===== Filter Bar on Collection ======
+  // if (cardSetFilter.some((set) => set !== card.Set)) return;
+  // if (CardSetFilter.includes("Awakening") && card.Set === "Awakening") return;
+  if (
+    cardSetFilter.length > 0 &&
+    cardSetFilter.every((set) => set !== card.Set)
+  )
+    return;
+  if (
+    cardTypeFilter.length > 0 &&
+    cardTypeFilter.every((type) => type !== card.Type)
+  )
+    return;
+  //   }
+  if (!card.Name.toLowerCase().replaceAll("_", " ").includes(query)) return;
+  // });
+  // if (card.Set !== "Awakening") return;
+  // console.log(filteredCard && filteredCard);
   if (
     card.Set === "UnreleasedPromos" ||
     card.Set === "Daybreak" ||
     card.Set === "Traitor's Reach"
+    // card === filteredCard
   )
     return;
 
-  if (card.url === "") {
-    if (card.Name.includes("spirit_of")) {
-      card.Name = card.Name.toLowerCase().replaceAll("_", "");
-      // console.log(card.Name);
-    }
+  // ==== Special Rules for getting the correct URL =======//
+  ////////////////
 
-    if (card.Set !== "Unlimited") {
-      card.Name = card.Name.toLowerCase().replaceAll(" ", "_");
-    }
-    card.Name = card.Name.replaceAll(" ", "_").replace(regexPatern, "");
-    ////////////
-
-    card.url = `https://lackeyccg.com/magination/medium/${card.Name}.jpg`;
-    ////////cl
-
-    let finalName = card.Name;
-
-    // card.url = images[finalName];
-    // console.log(card.Name, card.Type);
-    let prefix = `${card.Type[0].toLowerCase()}`;
-
-    if (card.Set === "Voice of the Storms") {
-      finalName = finalName.replaceAll("_", "");
-      finalName = `${finalName}_${card.Region[0].toLowerCase()}${prefix}_vs`;
-      // console.log(finalName);
-    }
-
-    if (card.Set === "Nightmare's Dawn") {
-      finalName = `${card.Region.toLowerCase()}_${finalName}`;
-      // console.log(card.Region);
-      if (card.Region === "Kybar's Teeth") {
-        finalName = `kybars_teeth_${card.Name.toLowerCase()}`;
-      }
-    }
-    //
-
-    if (card.Region === "Nar") {
-      finalName = `${card.Name.replaceAll("_", "")}_r${prefix}_vs`;
-    }
-
-    if (card.Set === "Unlimited" || card.Rarity === "Limited")
-      finalName = finalName[0].toUpperCase() + finalName.slice(1);
-    card.url = `https://lackeyccg.com/magination/medium/${finalName}.jpg`;
-
-    /////////////////////
-  }
+  ///////////////////////////
   let Type = card.Type.replace(regexPatern).toLowerCase();
-
-  ///////////To handle when magis are more than simple 'magi'
-  // let magiCheck = card.Type.slice(0, 4);
-  // if (magiCheck === "magi") card.Type = "magi";
-
-  // let relicCheck = card.Type.slice(0, 5);
-  // if (relicCheck === "relic") card.Type = "relic";
 
   /////////////
 
@@ -424,33 +637,6 @@ function CollectionBuilder({
   selectedID,
 }) {
   // console.log(card);
-
-  //     );
-  //////
-  // Function to check for elements with the same property and change the property in the clones
-  // const updateDuplicateProperty = (array, property) => {
-  //   const propertyCount = new Map();
-
-  //   for (const obj of array) {
-  //     const value = obj[property];
-
-  //     // Check if the property has been encountered before
-  //     if (propertyCount.has(value)) {
-  //       // Duplicate found, update the property in the clone
-  //       obj[property] = `${value}_clone${propertyCount.get(value) + 1}`;
-  //       propertyCount.set(value, propertyCount.get(value) + 1);
-  //     } else {
-  //       // First encounter of the property, add it to the map
-  //       propertyCount.set(value, 1);
-  //     }
-  //   }
-  // };
-
-  // // Update duplicates in the array
-  // updateDuplicateProperty(selected.crs, "id");
-
-  // Display the modified array
-  // console.log(selected.crs);
 
   //////////
   state.deckEditor.curMagi = selected.magi;
@@ -640,9 +826,9 @@ function CreateCard({
   const [play] = useSound(soundUrl);
 
   return (
-    <div cardtype={card.Type} key={card.Name} className="cardtest">
+    <div cardtype={card.Type} key={card.Name}>
       <img
-        className={`${card.Type === "magi" ? "magi" : "nonMagi"} ${
+        className={`cards ${card.Type === "magi" ? "magi" : "nonMagi"} ${
           builder ? "builder-collection-cards " : "collection-cards"
         }`}
         src={card.url}
@@ -660,3 +846,153 @@ function CreateCard({
   );
 }
 /////////////////////////////////////
+
+// function LoadingScreen() {
+//   // const progressBar = "progress-bar"[0];
+//   return (
+//     <div class="modal" id="modal-loadingScreen">
+//       <div class="modal-dialog">
+//         <div class="modal-loadingScreen-content">
+//           <div class="modal-loadingScreen-MNDLogo"></div>
+//           <div
+//             className="progress-bar"
+//             // style="--width: 10"
+//             data-label="Loading..."
+//           ></div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+const ProgressBar = ({ value, maxValue, duration }) => {
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    const calculatedPercentage = (value / maxValue) * 100;
+    setPercentage(calculatedPercentage);
+    console.log(calculatedPercentage);
+  }, [value, maxValue]);
+
+  const progressBarStyle = {
+    width: `${percentage}%`,
+    transition: `width ${duration}s ease`, // Use the provided duration for the transition
+  };
+  return (
+    //     <div class="modal" id="modal-loadingScreen">
+    //       <div class="modal-dialog">
+    //         <div class="modal-loadingScreen-content">
+    //           <div class="modal-loadingScreen-MNDLogo"></div>
+    //           <div
+    //             className="progress-bar"
+    //             // style="--width: 10"
+    //             data-label="Loading..."
+    //           ></div>
+    <div
+      // className={`modal ${percentage !== 100 && "hidden"}`}
+      id={"modal-loadingScreen"}
+    >
+      <div className="modal-loadingScreen-content">
+        <div className="progress-bar-container">
+          <div
+            label="Loading..."
+            // data-label="Loading..."
+            className="progress-bar1"
+            style={progressBarStyle}
+          />
+        </div>
+      </div>
+    </div>
+    //     <div class="modal-loadingScreen-MNDLogo"></div>
+    //     <div
+    //       label="Loading..."
+    //       className="progress-bar"
+    //       style={{ width: `${percentage}%` }}
+    //     />
+    //   </div>
+    // </div>
+  );
+};
+
+// const ProgressBar2 = ({ value, maxValue, duration }) => {
+//   const progressBar = document.getElementsByClassName("progress-bar")[0];
+
+//   const progressBarInterval = setInterval(() => {
+//     const computedStyle = getComputedStyle(progressBar);
+//     let width = parseFloat(computedStyle.getPropertyValue("--width")) || 0;
+//     if (width < 110) progressBar.style.setProperty("--width", width + 0.1);
+//     const modal_loadingScreen = document.getElementById("modal-loadingScreen");
+//     const modal_PlayScreen = document.getElementById("modal-PlayScreen");
+//     if (width >= 100) {
+//       clearInterval(progressBarInterval);
+//       modal_loadingScreen.classList.add("hidden");
+//       modal_PlayScreen.classList.remove("hidden");
+//     }
+//   }, 5);
+//   return (
+//     <div class="modal" id="modal-loadingScreen">
+//       <div class="modal-dialog">
+//         <div class="modal-loadingScreen-content">
+//           <div class="modal-loadingScreen-MNDLogo"></div>
+//           <div
+//             class="progress-bar"
+//             style={"--width: 10"}
+//             data-label="Loading..."
+//           ></div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+const ProgressBar3 = () => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const progressBarInterval = setInterval(() => {
+      if (width < 100) {
+        setWidth((prevWidth) => prevWidth + 0.2);
+      }
+
+      // const modalLoadingScreen = document.getElementById("modal-loadingScreen");
+      // const modalPlayScreen = document.getElementById("modal-PlayScreen");
+
+      if (width >= 55) {
+        clearInterval(progressBarInterval);
+        // modalLoadingScreen.classList.add("hidden");
+        // modalPlayScreen.classList.remove("hidden");
+      }
+    }, 5);
+
+    document.addEventListener("click", () => {
+      clearInterval(progressBarInterval);
+      setWidth((a) => {
+        if (a !== 100) a = 100;
+      });
+    });
+
+    return () => {
+      document.removeEventListener("click", clearInterval(progressBarInterval));
+      clearInterval(progressBarInterval);
+    };
+  }, [width]);
+
+  return (
+    width < 100 && (
+      <div class="modal" id="modal-loadingScreen">
+        <div class="modal-dialog">
+          <div class="modal-loadingScreen-content">
+            <div class="modal-loadingScreen-MNDLogo"></div>
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar"
+                data-label="Loading..."
+                style={{ width: `${width}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};

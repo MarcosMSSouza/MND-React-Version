@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { Options } from "./decks";
 import { state } from "./model";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useCallback, useReducer } from "react";
-import { convertedMNDcards } from "./cards";
+// import { useCallback, useReducer } from "react";
+// import { convertedMNDcards } from "./cards";
 
 // let copyOFactiveDeck = [...state.selectedDeck.crs];
 
@@ -18,8 +18,7 @@ export function Field({
   handleSetPSopen,
 }) {
   const [optionsOpen, setOptionsOpen] = useState(false);
-  // const [onPlayerHand1, setOnPlayerHand1] = useState([]);
-  // console.log("selected is ", selected);
+
   function handleSetOtionsOpen() {
     console.log(optionsOpen);
     setOptionsOpen((optionsOpen) => !optionsOpen);
@@ -42,7 +41,7 @@ export function Field({
   // const [state, dispatch] = useReducer(reducer, { tasks });
 
   const move = (results) => {
-    const { source, destination, type } = results;
+    const { source, destination } = results;
 
     const fonte = [
       ...(source.droppableId === "cardsOnHand"
@@ -62,13 +61,10 @@ export function Field({
     // console.log("ALVO", alvo);
     alvo.splice(destination.index, 0, removed);
 
-    // console.log("car", cardsOnGameArea1);
-    // console.log("cardsonhand", cardsOnHand);
     destination.droppableId === "cardsOnHand"
       ? setCardsOnHand(alvo)
       : setCardsOnGameArea1(alvo);
-    // console.log("FONTE", fonte);
-    // console.log(destination.droppableId);
+
     return;
   };
 
@@ -84,7 +80,7 @@ export function Field({
   };
 
   function onDragEnd(result) {
-    const { source, destination, type } = result;
+    const { source, destination } = result;
     // dropped outside the list
     if (!destination) return;
 
@@ -103,19 +99,16 @@ export function Field({
 
       // newState[sInd] = items;
       console.log({ source, destination });
-      console.log(cardsOnHand);
-      console.log(cardsOnGameArea1);
     } else {
       console.log({ destination });
 
       const resultado = result;
-      // console.log(resultado);
+
       move(resultado);
 
       // newState[sInd] = results[sInd];
       // newState[dInd] = results[dInd];
-      console.log(cardsOnHand);
-      console.log(cardsOnGameArea1);
+
       // console.log("cheguei até aqui");
       // setCardsOnHand(results);
     }
@@ -162,32 +155,41 @@ export function Field({
     setIsFieldCardOpen((cur) => !cur);
     handleMouseMove(e);
     setTargetSrc(e.target.src);
+    // FieldCardOpen(e);
     // console.log(isFieldCardOpen);
     // console.log("ativado", targetSrc);
   }
   function FieldCardOpen(e) {
-    // useEffect(() => {
-    //   // if (!isFieldCardOpen) return;
+    // console.log("isfieldcardopen? ", isFieldCardOpen);
+    useEffect(() => {
+      if (!isFieldCardOpen) return;
 
-    //   window.addEventListener("click", handleOutsideClick);
+      document.addEventListener("click", handleOutsideClick);
 
-    //   return () => {
-    //     window.removeEventListener("click", handleOutsideClick);
-    //   };
-    // }, []);
+      return () => {
+        document.removeEventListener("click", handleOutsideClick);
+      };
+    }, []);
 
     const handleOutsideClick = (event) => {
-      console.log("outside click");
       // Check if the click target is outside the modal
       // if (isFieldCardOpen && !event.target.closest("fieldCards")) {
-      if (!event.target.closest("fieldCards")) {
-        setIsFieldCardOpen(false);
+      console.log(event.target);
+      if (
+        event.target.closest(".zoomed-image") ||
+        event.target.closest(".zoomed-image-div") ||
+        event.target.closest(".fieldCards")
+      ) {
+        return;
       }
-      console.log(isFieldCardOpen);
+      console.log("outside click");
+      // console.log(isFieldCardOpen);
+      setIsFieldCardOpen(false);
     };
 
     return (
       isFieldCardOpen && (
+        // <span className="zoomed-image-div-background">
         <div
           className="zoomed-image-div"
           style={{ left: `${zoomPosition.x}px`, top: `${zoomPosition.y}px` }}
@@ -203,11 +205,11 @@ export function Field({
         <div class="main-container">
           {/* ///////////////// */}
           {/* <div class="relics-area relicsLeft2 dragarea"></div> */}
-          <RelicsArea classs={"relics-area relicsLeft2 dragarea"} />
+          <RelicsArea classs={"relics-area relicsLeft2"} />
           {/* <div class="magi-container2"></div> */}
           <MagiContainer deck={state.playerDecks.deck_2.magi} player={2} />
           {/* <div class="relics-area relicsRight2 dragarea"></div> */}
-          <RelicsArea classs={"relics-area relicsRight2 dragarea"} />
+          <RelicsArea classs={"relics-area relicsRight2 "} />
           {/* ======== P2 SIDE START=====  */}
           <section class="container player-side-2">
             <section class="gameArea2 dragarea"></section>
@@ -218,7 +220,7 @@ export function Field({
           </section>
 
           <div class="drawdeck2">
-            <div class="card">DRAW 2</div>
+            <div class="card">P2 Deck</div>
           </div>
           <DiscardPile classs={"discard2"}>
             <p>P2 Discard</p>
@@ -285,10 +287,10 @@ export function Field({
             <FieldCardOpen />
           </section>
 
-          <div class="relics-area relicsLeft1 dragarea"></div>
+          <div class="relics-area relicsLeft1 "></div>
 
           <MagiContainer deck={selected.magi} player={1} />
-          <div class="relics-area relicsRight1 dragarea"></div>
+          <div class="relics-area relicsRight1"></div>
           <FieldDeck
             classs={"drawdeck"}
             player={1}
@@ -422,10 +424,10 @@ function FieldDeck({
     //   cardToDraw.id = `${cardToDraw.id}C2`;
     // }
     ///
-    console.log("resta no deck", state.selectedDeck.crs);
-    console.log("card to draw => ", ...cardToDraw);
+    // console.log("resta no deck", state.selectedDeck.crs);
+    // console.log("card to draw => ", ...cardToDraw);
     const newHand = [...cardsOnHand, ...cardToDraw];
-    console.log(newHand);
+    // console.log(newHand);
     // setOnPlayerHand1((a) => newHand);
     state.playerHand1 = newHand;
     console.log("card draw ", cardToDraw);
@@ -445,11 +447,15 @@ function FieldDeck({
         // console.log(onPlayerHand1);
       }}
     >
-      <div class="card">
-        {state.selectedDeck.crs?.length === undefined
-          ? "No deck selected!"
-          : state.selectedDeck.crs.length + "\ncards left"}
-        {/* copyOFactiveDeck.length + "\ncards left"} */}
+      <div class="drawdeck1-innverDiv">
+        <span>
+          {" "}
+          {state.selectedDeck.crs?.length === undefined
+            ? "No deck selected!"
+            : state.selectedDeck.crs.length + "\ncards left"}
+          {/* copyOFactiveDeck.length + "\ncards left"} */}
+        </span>
+        <p>.Click to draw.</p>
       </div>
     </div>
   );
@@ -591,7 +597,7 @@ function GameArea({ classs, handleDragDrop, cardsOnGameArea1 }) {
 }
 
 function MagiContainer({ classs, deck, player }) {
-  const playerNumber = player;
+  // const playerNumber = player;
 
   // const magisP1 = state.selectedDeck.magi;
   // console.log(selected?.magi[0]);
@@ -657,7 +663,7 @@ function SelectFieldDeck({ selected, setSelected }) {
   }
   return (
     <button
-      class="console_button"
+      className="console_button"
       type="button"
       id="console-Deck_1"
       onClick={() => {

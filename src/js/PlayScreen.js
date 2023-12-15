@@ -81,11 +81,8 @@ function ShowMagiWhenSelectingDeck({ selected }) {
   if (!magis) return;
   return magis.map((magi, i) => {
     return (
-      <div
-        className={` PSmagi PSmagi-pile-${i} draggable=false `}
-        key={`psmagi${i}`}
-      >
-        <img src={magi.url} alt={magi.Name} />
+      <div className={` PSmagi-pile-${i} draggable=false `} key={`psmagi${i}`}>
+        <img className={"PSmagi"} src={magi.url} alt={magi.Name} />
       </div>
     );
   });
