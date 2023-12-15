@@ -26,24 +26,10 @@ export function CollectionDecks({
   setCardsOnEditor,
 }) {
   function handleSelectDeck(id) {
-    // console.log(setSelected);
-    console.log(id);
-
-    console.log(state.playerDecks[id]);
     setSelected(state.playerDecks[id]);
-    console.log("SELECTED", selected);
-    console.log("CARDS ON EDITOR ", cardsOnEditor);
-    // setSelected(state.playerDecks[id]);
 
-    // selectedID = id;
-    // setSelectedID(selectedID);
-    // console.log(state.playerDecks[id]);
-    console.log(selected);
-    // setSelected(state.playerDecks[id]);
     let onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
-    // console.log(state.deckEditor.wholedeck);
-    console.log("test", cardsOnEditor);
   }
 
   // function handleOptions() {
@@ -223,31 +209,6 @@ function DeleteDeck({
   setCardsOnEditor,
   handleSelectDeck,
 }) {
-  // function removeSelectedDeck() {
-  //   let id = selected.id;
-  //   console.log(selected);
-  //   console.log(id);
-  //   state.playerDecks[id].magi = "";
-  //   state.playerDecks[id].crs = "";
-  //   state.playerDecks[id].name = "";
-
-  //   // handleSelectDeck(id);
-  //   handleSelectDeck(id);
-  //   let onEditor = [
-  //     ...state.playerDecks[id].magi,
-  //     ...state.playerDecks[id].crs,
-  //   ];
-  //   console.log(onEditor);
-
-  //   let firstNamedDeck = Object.values(state.playerDecks).find(
-  //     (deck) => deck.name
-  //   );
-  //   console.log(selected);
-  //   console.log(firstNamedDeck);
-  //   setSelected(firstNamedDeck);
-  //   console.log(selected);
-  //   setCardsOnEditor(onEditor);
-  //   console.log(selected);
   // }
   function removeSelectedDeck() {
     let id = selected.id;
@@ -264,9 +225,7 @@ function DeleteDeck({
     let firstNamedDeck = Object.values(state.playerDecks).find(
       (deck) => deck.name
     );
-    console.log(firstNamedDeck);
-    console.log(selected);
-    console.log(firstNamedDeck.id);
+
     console.log("REMOVESELECTEDDECK CALLED");
     setSelected(firstNamedDeck);
     handleSelectDeck(firstNamedDeck.id);
@@ -289,50 +248,6 @@ function DeleteDeck({
   );
 }
 
-// function DeleteDeck({
-//   selected,
-//   setSelected,
-//   setSelectedID,
-//   setCardsOnEditor,
-//   handleSelectDeck,
-// }) {
-//   function removeSelectedDeck() {
-//     let id = selected.id;
-//     console.log(id);
-//     state.playerDecks[id].magi = "";
-//     state.playerDecks[id].crs = "";
-//     state.playerDecks[id].name = "";
-
-//     let firstNamedDeck = Object.values(state.playerDecks).find(
-//       (deck) => deck.name
-//     );
-
-//     handleSelectDeck(firstNamedDeck.id);
-//     let onEditor = [
-//       ...state.playerDecks[firstNamedDeck.id].magi,
-//       ...state.playerDecks[firstNamedDeck.id].crs,
-//     ];
-//     console.log(onEditor);
-
-//     setCardsOnEditor(onEditor);
-//     // setSelected((a) => firstNamedDeck);
-//     // console.log(selected);
-//     // console.log(firstNamedDeck);
-//     // console.log(selected);
-//     // console.log(selected);
-//   }
-//   const soundUrl = hoveringSystemBtns;
-//   const [play] = useSound(soundUrl);
-//   return (
-//     <button
-//       className="console_button"
-//       id="editDeck-btn"
-//       type="button"
-//       onClick={() => removeSelectedDeck()}
-//       onMouseEnter={play}
-//     >
-//       Delete Deck
-//     </button>
 //   );
 // }
 /////////////
@@ -368,16 +283,17 @@ export function DeckBtn({
   return (
     <div
       className={`deck-btn ${deckRegion} ${PSdeck ? "PSdeckBtn" : ""} ${
-        id === selected.id ? "selected" : ""
+        id === selected?.id ? "selected" : ""
       } `}
       id={id}
       onClick={(e) => {
         play();
-        console.log(e.target.id);
+        console.log(e.target);
         // console.log(handleSelectDeck);
 
         // onSelectDeck(e.target.id);
         handleSelectDeck(e.target.id);
+        console.log("hi");
       }}
       onMouseEnter={play2}
       // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
@@ -390,8 +306,8 @@ export function DeckBtn({
       >
         {deckName}
       </p>
-      <div className="deck-btns-container">
-        {/* {!PSdeck && (
+      {/* <div className="deck-btns-container"> */}
+      {/* {!PSdeck && (
           <>
             {id === selected.id && (
               <>
@@ -405,13 +321,13 @@ export function DeckBtn({
             )}
           </>
         )} */}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
 //   );
 export function addDeckRegionImg(deck) {
-  if (!deck.magi) return;
+  if (!deck?.magi) return;
   let curDeck = deck.magi;
 
   let magiTypes = curDeck.map((magi) => {

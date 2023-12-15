@@ -66,9 +66,8 @@ export default function App() {
         handleSetPSopen={handleSetPSopen}
         handleFieldOpen={handleFieldOpen}
       />
-      {/* <ProgressBar value={100} maxValue={100} duration={5} /> */}
-      {/* <ProgressBar2 /> */}
-      <ProgressBar3 />
+
+      <ProgressBar />
       <Collection
         pSopen={pSopen}
         regionActive={regionActive}
@@ -114,11 +113,6 @@ function Collection({
       key={"col"}
     >
       <CollectionHeader onRegionButtonClick={onRegionButtonClick} />
-
-      {/* <FilterBar
-        cardSetFilter={cardSetFilter}
-        setCardSetFilter={setCardSetFilter}
-      /> */}
 
       <CollectionContent
         regionActive={regionActive}
@@ -254,7 +248,7 @@ function FilterBar({
       <input
         type="text"
         className={"searchBarWrapper"}
-        placeholder="Type a card name..."
+        placeholder="Search cards..."
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
@@ -639,10 +633,10 @@ function CollectionBuilder({
   // console.log(card);
 
   //////////
-  state.deckEditor.curMagi = selected.magi;
-  state.deckEditor.curCrs = selected.crs;
+  state.deckEditor.curMagi = selected?.magi;
+  state.deckEditor.curCrs = selected?.crs;
 
-  let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
+  let onEditor = [...state.deckEditor?.curMagi, ...state.deckEditor?.curCrs];
 
   // }
   /////////
@@ -727,11 +721,8 @@ function CreateCard({
   // console.log(updateCardsOnEditor);
 
   function handleAddtoEditor() {
-    // console.log(state);
     let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-    // console.log(onEditor);
-    // console.log("HANDLEADDTOEDITOR CHAMADO");
-    // console.log(state.deckEditor.wholeDeck);
+
     state.deckEditor.wholeDeck = onEditor;
     setCardsOnEditor(onEditor);
     // console.log(cardsOnEditor);
@@ -746,54 +737,34 @@ function CreateCard({
     if (card.Type !== "magi" && countSingle === 3) return;
 
     ////////////////
-    // console.log(cardsOnEditor);
-    // let deck = state.playerDecks[selected]
+
     addCardsToEditor();
-    // onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-    // setCardsOnEditor(onEditor);
-    // console.log(cardsOnEditor);
-    // let selectedDeck = [...selected.magi, ...selected.crs];
 
     addDeckRegionImg(selected);
-    // console.log(updateCardsOnEditor);
-    //
   }
-  // function handleRemovefromEditor(card) {
-  //   removeCardsFromEditor();
-  //   let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
-  //   setCardsOnEditor(onEditor);
-  // }
+
   function removeCardsFromEditor(card) {
     // console.log(card);
     if (card.Type === "magi") {
-      // selected.magi = [...selected.magi, card];
-      // let cardToRemove = state.deckEditor.curMagi.some(
-      //   (car) => car.Name === card.Name && card
-      // console.log(state.deckEditor.curMagi);
       let filteredMagi = state.deckEditor.curMagi.filter(
         (car) => car.Name !== card.Name
       );
-      // console.log("magi", filteredMagi);
-      // state.deckEditor.curMagi = filtered;
+
       let onEditor = [...filteredMagi, ...state.deckEditor.curCrs];
       console.log(card, "removed from Editor");
       selected.magi = filteredMagi;
-      // console.log(onEditor);
+
       setCardsOnEditor(onEditor);
-      // console.log("removeCardsFromEditor CHAMADO");
     } else {
-      // console.log(state.deckEditor.curCrs);
       let filteredCrs = state.deckEditor.curCrs.filter(
         (car) => car.id !== card.id
       );
-      // console.log("crs", filteredCrs);
-      // state.deckEditor.curMagi = filtered;
+
       let onEditor = [...state.deckEditor.curMagi, ...filteredCrs];
       console.log(card + " removed from Editor");
       selected.crs = filteredCrs;
-      // console.log(onEditor);
+
       setCardsOnEditor(onEditor);
-      // console.log(onEditor);
     }
   }
 
@@ -825,127 +796,31 @@ function CreateCard({
   const soundUrl = hoveringcardSound;
   const [play] = useSound(soundUrl);
 
+  // card.url = `url(${require(`./img/cardback.jpg`)})`;
+
   return (
-    <div cardtype={card.Type} key={card.Name}>
-      <img
-        className={`cards ${card.Type === "magi" ? "magi" : "nonMagi"} ${
-          builder ? "builder-collection-cards " : "collection-cards"
-        }`}
-        src={card.url}
-        id={card.id}
-        key={card.Name}
-        dataset={card.Name}
-        alt={card.Name}
-        value={card}
-        onClick={() => {
-          builder ? removeCardsFromEditor(card) : handleAddtoEditor();
-        }}
-        onMouseEnter={play}
-      />
-    </div>
+    // <div cardtype={card.Type} key={card.Name}>
+    <img
+      className={`cards ${card.Type === "magi" ? "magi" : "nonMagi"} ${
+        builder ? "builder-collection-cards " : "collection-cards"
+      }`}
+      src={card.url}
+      id={card.id}
+      key={card.Name}
+      dataset={card.Name}
+      alt={card.Name}
+      value={card}
+      onClick={() => {
+        builder ? removeCardsFromEditor(card) : handleAddtoEditor();
+      }}
+      onMouseEnter={play}
+    />
+    // </div>
   );
 }
 /////////////////////////////////////
 
-// function LoadingScreen() {
-//   // const progressBar = "progress-bar"[0];
-//   return (
-//     <div class="modal" id="modal-loadingScreen">
-//       <div class="modal-dialog">
-//         <div class="modal-loadingScreen-content">
-//           <div class="modal-loadingScreen-MNDLogo"></div>
-//           <div
-//             className="progress-bar"
-//             // style="--width: 10"
-//             data-label="Loading..."
-//           ></div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-const ProgressBar = ({ value, maxValue, duration }) => {
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    const calculatedPercentage = (value / maxValue) * 100;
-    setPercentage(calculatedPercentage);
-    console.log(calculatedPercentage);
-  }, [value, maxValue]);
-
-  const progressBarStyle = {
-    width: `${percentage}%`,
-    transition: `width ${duration}s ease`, // Use the provided duration for the transition
-  };
-  return (
-    //     <div class="modal" id="modal-loadingScreen">
-    //       <div class="modal-dialog">
-    //         <div class="modal-loadingScreen-content">
-    //           <div class="modal-loadingScreen-MNDLogo"></div>
-    //           <div
-    //             className="progress-bar"
-    //             // style="--width: 10"
-    //             data-label="Loading..."
-    //           ></div>
-    <div
-      // className={`modal ${percentage !== 100 && "hidden"}`}
-      id={"modal-loadingScreen"}
-    >
-      <div className="modal-loadingScreen-content">
-        <div className="progress-bar-container">
-          <div
-            label="Loading..."
-            // data-label="Loading..."
-            className="progress-bar1"
-            style={progressBarStyle}
-          />
-        </div>
-      </div>
-    </div>
-    //     <div class="modal-loadingScreen-MNDLogo"></div>
-    //     <div
-    //       label="Loading..."
-    //       className="progress-bar"
-    //       style={{ width: `${percentage}%` }}
-    //     />
-    //   </div>
-    // </div>
-  );
-};
-
-// const ProgressBar2 = ({ value, maxValue, duration }) => {
-//   const progressBar = document.getElementsByClassName("progress-bar")[0];
-
-//   const progressBarInterval = setInterval(() => {
-//     const computedStyle = getComputedStyle(progressBar);
-//     let width = parseFloat(computedStyle.getPropertyValue("--width")) || 0;
-//     if (width < 110) progressBar.style.setProperty("--width", width + 0.1);
-//     const modal_loadingScreen = document.getElementById("modal-loadingScreen");
-//     const modal_PlayScreen = document.getElementById("modal-PlayScreen");
-//     if (width >= 100) {
-//       clearInterval(progressBarInterval);
-//       modal_loadingScreen.classList.add("hidden");
-//       modal_PlayScreen.classList.remove("hidden");
-//     }
-//   }, 5);
-//   return (
-//     <div class="modal" id="modal-loadingScreen">
-//       <div class="modal-dialog">
-//         <div class="modal-loadingScreen-content">
-//           <div class="modal-loadingScreen-MNDLogo"></div>
-//           <div
-//             class="progress-bar"
-//             style={"--width: 10"}
-//             data-label="Loading..."
-//           ></div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-const ProgressBar3 = () => {
+const ProgressBar = () => {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
@@ -967,7 +842,8 @@ const ProgressBar3 = () => {
     document.addEventListener("click", () => {
       clearInterval(progressBarInterval);
       setWidth((a) => {
-        if (a !== 100) a = 100;
+        // if (a !== 100) a = 100;
+        // return a + 50;
       });
     });
 

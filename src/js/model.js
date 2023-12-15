@@ -62,7 +62,7 @@ export const state = {
     },
     deck_3: {
       id: "deck_3",
-      name: " test Deck",
+      name: " Paradwyn's Deck",
       magi: [
         convertedMNDcards.iain,
         convertedMNDcards.kiersta,

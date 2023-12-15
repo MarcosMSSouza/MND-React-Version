@@ -20,7 +20,6 @@ export function Field({
   const [optionsOpen, setOptionsOpen] = useState(false);
 
   function handleSetOtionsOpen() {
-    console.log(optionsOpen);
     setOptionsOpen((optionsOpen) => !optionsOpen);
 
     // return <Options optionsOpen={optionsOpen} />;
@@ -358,7 +357,7 @@ function FieldSystemButton({
 }) {
   return (
     <button
-      class="console_button"
+      class="console_button console_field_button"
       type="button"
       // id="btn-play"
       onClick={() => {
@@ -403,25 +402,7 @@ function FieldDeck({
 
     console.log(cardsOnHand, cardToDraw);
     // let copyCounter = 0;
-    // let samename = [];
-    // cardsOnHand.forEach((card) =>
-    //   card.Name === cardToDraw.Name ? samename.push(cardToDraw) : ""
-    // );
-    // console.log(samename);
 
-    // if (copyCounter === 1) {
-    //   cardToDraw.id = `${cardToDraw.id}C1`;
-    //   console.log(cardToDraw.id);
-    // }
-    // if (copyCounter === 2) {
-    //   cardToDraw.id = `${cardToDraw.id}C2`;
-    //   console.log(cardToDraw.id);
-    // }
-    // if (copyCounter === 1) {
-    //   cardToDraw.id = `${cardToDraw.id}C1`;
-    // }
-    // if (copyCounter === 2) {
-    //   cardToDraw.id = `${cardToDraw.id}C2`;
     // }
     ///
     // console.log("resta no deck", state.selectedDeck.crs);
@@ -599,16 +580,10 @@ function GameArea({ classs, handleDragDrop, cardsOnGameArea1 }) {
 function MagiContainer({ classs, deck, player }) {
   // const playerNumber = player;
 
-  // const magisP1 = state.selectedDeck.magi;
-  // console.log(selected?.magi[0]);
-  // console.log(deck?.magi);
-  // let magipile = deck.magi;
-  // console.log(deck);
-
   return (
     <div className={`magi-container-${player}`}>
       <div className={"magi-pile"} draggable="false">
-        <img src={deck[0].url} alt="" />
+        <img src={deck[0]?.url} alt="" />
       </div>
     </div>
   );
@@ -656,10 +631,6 @@ function SelectFieldDeck({ selected, setSelected }) {
     console.log("handleResetFieldDeck clicado!");
     state.selectedDeck.magi = selected.magi;
     state.selectedDeck.crs = selected.crs;
-    // console.log(state.selectedDeck.crs);
-    // console.log(selected.crs);
-    // console.log(state.playerDecks.deck_1);
-    // setSelected(state.playerDecks.deck_1);
   }
   return (
     <button
@@ -667,10 +638,10 @@ function SelectFieldDeck({ selected, setSelected }) {
       type="button"
       id="console-Deck_1"
       onClick={() => {
-        handleResetFieldDeck();
+        // handleResetFieldDeck();
       }}
     >
-      <p>Deck 1</p>
+      <p>placeholder</p>
     </button>
   );
 }

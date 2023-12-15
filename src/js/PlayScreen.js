@@ -75,7 +75,7 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
 }
 
 function ShowMagiWhenSelectingDeck({ selected }) {
-  let magis = selected.magi;
+  let magis = selected?.magi;
   // PSmagisArea.innerHTML = "";
   // console.log(magi.url);
   if (!magis) return;
@@ -104,7 +104,7 @@ function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
         <div className="PSmagisArea">
           <ShowMagiWhenSelectingDeck selected={selected} />
         </div>
-        <h1 className="PStextArea totalCards">{deck.crs.length} - Cards</h1>
+        <h1 className="PStextArea totalCards">{deck?.crs.length} - Cards</h1>
       </div>
       <div className="PlayScreen-RightSection-buttonsArea">
         <button
