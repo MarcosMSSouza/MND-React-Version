@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MND-React-Version/static/css/main.fec18fcc.css",
-    "main.js": "/MND-React-Version/static/js/main.70092860.js",
+    "main.css": "/MND-React-Version/static/css/main.ee96f7dc.css",
+    "main.js": "/MND-React-Version/static/js/main.e1243375.js",
     "static/js/845.e07860f5.chunk.js": "/MND-React-Version/static/js/845.e07860f5.chunk.js",
     "static/media/moonlands-map3.jpg": "/MND-React-Version/static/media/moonlands-map3.8640482c112e7442a28e.jpg",
     "static/media/Logo - large scan, updated by Foghammer, edited by Zucriy Amsuna.png": "/MND-React-Version/static/media/Logo - large scan, updated by Foghammer, edited by Zucriy Amsuna.b34f231d90e9daf0c1ed.png",
@@ -18,7 +18,6 @@
     "static/media/fancyborder-2.jpg": "/MND-React-Version/static/media/fancyborder-2.2f4d3d6f26270cb0b581.jpg",
     "static/media/Universal.png": "/MND-React-Version/static/media/Universal.b0c179e45da72b6a6c33.png",
     "static/media/Bograth.png": "/MND-React-Version/static/media/Bograth.816f939318e05290485e.png",
-    "static/media/magiPortrait.png": "/MND-React-Version/static/media/magiPortrait.b20ea792676541d3b784.png",
     "static/media/cogwheel2.png": "/MND-React-Version/static/media/cogwheel2.d13fefe937e0229344f5.png",
     "static/media/Core.png": "/MND-React-Version/static/media/Core.458110140dded057027b.png",
     "static/media/Weave.png": "/MND-React-Version/static/media/Weave.d8023ccfbd661e57e421.png",
@@ -55,12 +54,12 @@
     "static/media/hoveringcardSound.mp3": "/MND-React-Version/static/media/hoveringcardSound.da5f791815bb29d51740.mp3",
     "static/media/hoveringDeckBtns.mp3": "/MND-React-Version/static/media/hoveringDeckBtns.45994b0c7c4c614b34d7.mp3",
     "index.html": "/MND-React-Version/index.html",
-    "main.fec18fcc.css.map": "/MND-React-Version/static/css/main.fec18fcc.css.map",
-    "main.70092860.js.map": "/MND-React-Version/static/js/main.70092860.js.map",
+    "main.ee96f7dc.css.map": "/MND-React-Version/static/css/main.ee96f7dc.css.map",
+    "main.e1243375.js.map": "/MND-React-Version/static/js/main.e1243375.js.map",
     "845.e07860f5.chunk.js.map": "/MND-React-Version/static/js/845.e07860f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fec18fcc.css",
-    "static/js/main.70092860.js"
+    "static/css/main.ee96f7dc.css",
+    "static/js/main.e1243375.js"
   ]
 }
