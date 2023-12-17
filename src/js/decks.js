@@ -268,6 +268,7 @@ export function DeckBtn({
   // console.log(state.deckEditor.wholedeck);
   // console.log("test", cardsOnEditor);
   let deckName = deck.name;
+
   let deckRegion = addDeckRegionImg(deck);
 
   // console.log(selected.id);
@@ -281,6 +282,7 @@ export function DeckBtn({
   const [play2] = useSound(soundUrl2);
 
   return (
+    // <div className="bgtests">
     <div
       className={`deck-btn ${deckRegion} ${PSdeck ? "PSdeckBtn" : ""} ${
         id === selected?.id ? "selected" : ""
@@ -288,7 +290,7 @@ export function DeckBtn({
       id={id}
       onClick={(e) => {
         play();
-        console.log(e.target);
+        // console.log(e.target);
         // console.log(handleSelectDeck);
 
         // onSelectDeck(e.target.id);
@@ -323,6 +325,7 @@ export function DeckBtn({
         )} */}
       {/* </div> */}
     </div>
+    // </div>
   );
 }
 //   );
@@ -331,6 +334,7 @@ export function addDeckRegionImg(deck) {
   let curDeck = deck.magi;
 
   let magiTypes = curDeck.map((magi) => {
+    // console.log(magi);
     return magi.Region === "Kybar's Teeth" ? "Kybar" : magi.Region;
   });
   // console.log(magiTypes);

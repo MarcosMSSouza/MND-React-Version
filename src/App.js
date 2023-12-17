@@ -1,6 +1,6 @@
 import "./App.css";
 import { convertedMNDcards } from "./js/cards";
-import { useState, useEffect, Children } from "react";
+import { useState, useEffect } from "react";
 import useSound from "use-sound";
 // import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";

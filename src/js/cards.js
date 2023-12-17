@@ -1,6 +1,7 @@
 // import foop from '../../staic/*.jpg';
 // import * as images from '../../src/img/cards/*.jpg';
-
+// import { cardTexts } from "./cardTexts";
+import { cardTexts2 } from "./cardTexts2";
 /////////////////////////////////////////
 const newMNDcards = [
   {
@@ -13211,6 +13212,11 @@ const newMNDcards = [
 /////////////////////////////////
 
 // card.Name = card.Name.toLowerCase().replace(' ', '_');
+const AllcardTexts = cardTexts2.reduce((obj, card, i) => {
+  obj[card.Name] = card;
+
+  return obj;
+}, {});
 
 // ==========Extract the correct Type Specialtype properties=======
 const getSpecialType = function (card) {
@@ -13238,7 +13244,7 @@ const getSpecialType = function (card) {
 const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   let regexPatern = /[^A-Za-z0-9]/g;
 
-  obj[card.Name.toLowerCase().replaceAll(" ", "_")] = card;
+  obj[card.Name] = card;
   card.id = (card.Type + i).replace(regexPatern, "");
 
   if (!card.url) card.url = "";
@@ -13249,7 +13255,9 @@ const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   let types = getSpecialType(card);
   card.Type = types[0];
   card.SpecialType = types[1].trim();
-  //
+  // card.Text = AllcardTexts[card.Name]?.Combined;
+  card.Text = AllcardTexts[card.Name]?.Text;
+
   // card.Type = types[0];
   // console.log(card.SpecialType);
   // card.Type.replace(regexPatern, "").toLowerCase();
@@ -13258,24 +13266,25 @@ const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
 
 // ======Set the rules and exceptions for the Urls to work on Lackeyccg=====
 Object.values(convertedMNDcards).forEach((card) => {
+  let tempName = card.Name.replaceAll(" ", "_");
   let regexPatern = /[^A-Za-z0-9_]/g;
 
   if (card.url === "") {
-    if (card.Name.includes("spirit_of")) {
-      card.Name = card.Name.toLowerCase().replaceAll("_", "");
+    if (tempName.includes("spirit_of")) {
+      tempName = tempName.toLowerCase().replaceAll("_", "");
       // console.log(card.Name);
     }
 
     if (card.Set !== "Unlimited") {
-      card.Name = card.Name.toLowerCase().replaceAll(" ", "_");
+      tempName = tempName.toLowerCase().replaceAll(" ", "_");
     }
-    card.Name = card.Name.replaceAll(" ", "_").replace(regexPatern, "");
+    tempName = tempName.replaceAll(" ", "_").replace(regexPatern, "");
     ////////////
 
-    card.url = `https://lackeyccg.com/magination/medium/${card.Name}.jpg`;
+    card.url = `https://lackeyccg.com/magination/medium/${tempName}.jpg`;
     ////////cl
 
-    let finalName = card.Name;
+    let finalName = tempName;
 
     // card.url = images[finalName];
     // console.log(card.Name, card.Type);
@@ -13297,13 +13306,13 @@ Object.values(convertedMNDcards).forEach((card) => {
       finalName = `${card.Region.toLowerCase()}_${finalName}`;
       // console.log(card.Region);
       if (card.Region === "Kybar's Teeth") {
-        finalName = `kybars_teeth_${card.Name.toLowerCase()}`;
+        finalName = `kybars_teeth_${tempName.toLowerCase()}`;
       }
     }
     //
 
     if (card.Region === "Nar") {
-      finalName = `${card.Name.replaceAll("_", "")}_r${prefix}_vs`;
+      finalName = `${tempName.replaceAll("_", "")}_r${prefix}_vs`;
     }
 
     if (card.Set === "Unlimited" || card.Rarity === "Limited")
@@ -13314,4 +13323,6 @@ Object.values(convertedMNDcards).forEach((card) => {
   }
 });
 
+console.log(AllcardTexts.Sorreah.Text);
+console.log(convertedMNDcards.Kalius);
 export { convertedMNDcards };

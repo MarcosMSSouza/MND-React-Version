@@ -4,8 +4,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  --Arderialimg: url(/src/img/regionSymbols/Arderial.png);
+  --Coreimg: url(/src/img/regionSymbols/Core.png);
+  --Bograthimg: url(/src/img/regionSymbols/Bograth.png);
+  --Caldimg: url(/src/img/regionSymbols/Cald.png);
+  --Orotheimg: url(/src/img/regionSymbols/Orothe.png);
+  --Underneathimg: url(/src/img/regionSymbols/Underneath.png);
+  --Paradwynimg: url(/src/img/regionSymbols/Paradwyn.png);
+  --Kybarsteethimg: url(/src/img/regionSymbols/Kybar\'s\ Teeth.png);
+  --Narimg: url(/src/img/regionSymbols/Nar.png);
+  --Weaveimg: url(/src/img/regionSymbols/Weave.png);
+  --Universalimg: url(/src/img/regionSymbols/Universal.png);
+  --Naroomimg: url(/src/img/regionSymbols/Naroom.png);
+  --dReshimg: url(/src/img/regionSymbols/d\'Resh.png);
+}
+
 * {
-  --coreimg: url(/src/img/regionSymbols/Core.png);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -697,7 +712,7 @@
   height: 4rem;
   width: 7rem;
 
-  margin: 0.5em;
+  margin: 1.5em;
 
   border: 5px var(--reds);
   /* border: 5px green; */
@@ -856,6 +871,30 @@
     /* background-color: palevioletred; */
   }
 }
+
+/* @media (max-height: 400px) {
+  .modal-collection {
+
+  }
+  .modal-collection-content {
+
+  }
+  .newfilterbar {
+    max-width: 84%;
+  }
+  .borderGlow {
+    justify-self: center;
+ 
+    min-width: 50em;
+    min-height: 30rem;
+  }
+  #modal-PlayScreen {
+    display: flex;
+    justify-content: center;
+    background-size: 100% 100%;
+    align-items: center;
+  }
+} */
 
 .region-btn p {
   font-family: "Parchment MF", sans-serif;
@@ -1179,6 +1218,16 @@ content-ar .colwrapper {
   transform: translateY(-2px);
 }
 
+.CardPower:focus-visible {
+  /* --color-1: #bb2916;
+  --color-2: #2c5fd4; */
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateX(-22px);
+  transition: --color-1 1000ms, --color02 1000ms;
+}
+
 .deck-btn:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
@@ -1266,9 +1315,12 @@ content-ar .colwrapper {
   outline: solid 7px rgb(21, 179, 21);
   /* outline-style: 25px; */
   /* border-width: 7px; */
-
-  animation: glowSelected alternate 3s ease infinite;
-  animation: border 12s linear infinite;
+  /* border-radius: 10px; */
+  border-width: 5px;
+  /* height: 300px; */
+  background-size: 100% 100%;
+  /* animation: playGlowtest alternate 13s ease infinite; */
+  animation: border 10s linear infinite;
 }
 
 .playGlowtest {
@@ -1496,6 +1548,7 @@ content-ar .colwrapper {
       rgba(255, 255, 255, 0.8) 100%
     ),
     url("/src/img/regionSymbols/Underneath.png");
+
   /* opacity: 0.5; */
   background-position: center;
 }
@@ -1506,13 +1559,25 @@ content-ar .colwrapper {
   /* background-image: var(--coreimg); */
   background-image: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0) 50%,
+      rgba(252, 249, 249, 0) 50%,
       rgba(255, 255, 255, 0.8) 100%
     ),
-    url("/src/img/regionSymbols/Core.png");
-  /* opacity: 0.5; */
+    var(--Coreimg);
+
   background-position: center;
 }
+
+/* .bgtests {
+
+  position: relative;
+  background-size: cover;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(252, 249, 249, 0) 50%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  z-index: 1000000;
+} */
 
 /* .Core {
   background-size: cover;
@@ -1617,7 +1682,7 @@ content-ar .colwrapper {
   height: 95px;
   width: 160px;
   min-height: 90px;
-  box-sizing: content-box;
+  /* box-sizing: content-box; */
   justify-content: center;
   margin-top: 5px;
   margin-bottom: 8px;
@@ -1636,6 +1701,7 @@ content-ar .colwrapper {
   will-change: box-shadow, transform;
   cursor: pointer;
   background-color: rgb(3, 8, 77);
+  /* background-image: ; */
 }
 
 .deck-btn h1 {
@@ -1827,11 +1893,11 @@ content-ar .colwrapper {
 }
 
 .gameAreaCardDiv:hover {
-  /* border: solid 7px rgb(221, 192, 28); */
   filter: drop-shadow(0 0 10px #e9e51f);
   animation: border 5s linear infinite;
   /* overflow: hidden; */
   /* border-width: 5px; */
+  /* border: solid 7px rgb(221, 192, 28); */
   /* margin: 3px; */
   /* transition: border-width 0.3s ease-in-out; */
 
@@ -1882,9 +1948,109 @@ content-ar .colwrapper {
   overflow: hidden;
   transition: opacity 0.3s linear 2s;
   /* transition: height 1.3s ease; */
+  z-index: 1;
+}
+
+.gameArea-cardOpen-1 {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 250px; /* Adjust the width of the zoomed container as needed */
+  /* height: 127%; */
+  border: 1px solid #0a0a0a;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* display: none; */
+  /* transition: transform 0.1s ease-in-out; */
+  /* transition: transform 0.4s ease-in-out, opacity 2.3s ease-in-out; */
+  /* opacity: 0; */
+  /* overflow: hidden; */
+  /* transition: height 0.3s ease; */
+  overflow: hidden;
+  transition: opacity 0.3s linear 2s;
+  /* transition: height 1.3s ease; */
+  cursor: pointer;
+}
+
+.CardText {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background-color: var(--CreatureColor);
+  width: 222px;
+  height: 132px;
+  /* right: 16px; */
+
+  text-align: justify;
+  text-justify: distribute-all-lines;
+  /* border: 2px solid blue; */
+  /* line-height: 1.2; */
+
+  border-radius: 15px;
+  /* padding: 5px; */
+  bottom: 0;
+  margin-bottom: 11px;
+  /* opacity: 0.5; */
+  cursor: pointer;
+  /* background-image: unset; */
+}
+.CardTextBG {
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid fuchsia; */
+  /* height: 30px; */
+  /* width: 100%; */
+  /* margin: 5px; */
+  /* margin-top: 2px; */
+  border-radius: 15px;
+  /* background-color: fuchsia; */
+}
+
+.CardText button {
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  background-color: #f6ec5fab;
+
+  margin: 1px;
+  cursor: pointer;
+}
+.CardTextBG p {
+  /* background-color: #f6ec5fbd; */
+  font-size: 12px;
+  /* opacity: 0.7; */
+  /* max-height: 130px; */
+  font-family: "Arial MT Medium", "JetBrains Mono", monospace;
+}
+
+.cardText-PowerName {
+  /* font-size: 18px; */
+  font-weight: bolder;
+}
+
+.cardText-restOfText {
+  height: 90%;
+}
+
+.CardPower {
+  /* border: 3px solid; */
+  border-color: red;
+}
+
+.CardEffect {
+  border: 3px solid;
+  border-color: rgb(0, 0, 0);
 }
 
 .zoomed-image {
+  width: 100%;
+
+  height: auto;
+  /* transform-origin: 0 0; */
+}
+.zoomed-gameAreaCard-image {
   width: 100%;
 
   height: auto;
@@ -2069,4 +2235,21 @@ content-ar .colwrapper {
 #Unlimited {
   height: 25px;
   width: 40px;
+}
+.FieldCard-EnergyCounter {
+  display: flex;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  border: black 2px solid;
+  /* bottom: 0; */
+  margin-top: 90px;
+
+  font-size: 30px;
+  position: absolute;
+  background-color: var(--CreatureColor);
+  width: 35px;
+  height: 35px;
+  font-family: "Arial MT Medium", "JetBrains Mono", monospace;
 }
