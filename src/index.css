@@ -130,15 +130,47 @@
 .log {
   grid-area: i;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Arial MT Medium", "JetBrains Mono", monospace;
   color: #fff;
   align-self: center;
-  width: 130px;
+  width: 150px;
   height: 60%;
   border: solid var(--reds);
   background-color: var(--yellows);
   border-radius: 10px;
+  overflow-y: scroll;
+}
+.logWrapper {
+  display: flex;
+  flex-direction: column;
+  /* padding: 5px; */
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.logBit {
+  border: 3px solid var(--reds);
+  font-size: 15px;
+  margin: 5px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  background-color: rgb(223, 70, 70);
+  transition: height 1.3s ease;
+
+  /* Apply the animation to an element with the "fade-in" class */
+  /* animation: fadeIn 1s ease-in-out; */
+}
+
+.logWrapper :first-child {
+  animation: fadeIn 1s ease-in-out;
 }
 
 .menu {
@@ -169,7 +201,7 @@
 
   width: 90%;
   align-self: flex-end;
-  justify-content: center;
+
   align-items: center;
   border-radius: 10px;
   border-top: solid 2px var(--reds);
@@ -1870,6 +1902,21 @@ content-ar .colwrapper {
   box-shadow: 4px 3px 10px #000000;
 }
 
+.hand-cards2 {
+  display: flex;
+  justify-content: center;
+  height: 140px;
+  width: 100px;
+  margin: 5px;
+  /* border: solid 2px black; */
+  /* transform-origin: 0 0; */
+  border-radius: 10px;
+  /* box-shadow: 4px 3px 10px #000000; */
+  background-image: url("./img/cardback.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 .gameAreaCardDiv {
   display: flex;
   align-items: center;
@@ -1878,7 +1925,7 @@ content-ar .colwrapper {
   height: 130px;
   width: 110px;
   border-radius: 30%;
-  margin: 4px;
+  margin: 6px;
   /* opacity: 1;  */
   box-shadow: 7px 4px 15px #000000;
   overflow: hidden;
@@ -1909,6 +1956,8 @@ content-ar .colwrapper {
   height: 200px;
   width: 120px;
   scale: 1.5;
+  /* overflow: hidden; */
+  /* pointer-events: none; */
   /* border: solid var(--blues); */
 }
 
@@ -1971,7 +2020,7 @@ content-ar .colwrapper {
   overflow: hidden;
   transition: opacity 0.3s linear 2s;
   /* transition: height 1.3s ease; */
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .CardText {
@@ -1993,7 +2042,7 @@ content-ar .colwrapper {
   bottom: 0;
   margin-bottom: 11px;
   /* opacity: 0.5; */
-  cursor: pointer;
+  /* cursor: pointer; */
   /* background-image: unset; */
 }
 .CardTextBG {
@@ -2015,10 +2064,10 @@ content-ar .colwrapper {
   background-color: #f6ec5fab;
 
   margin: 1px;
-  cursor: pointer;
 }
-.CardTextBG p {
+.cardText-restOfText {
   /* background-color: #f6ec5fbd; */
+  height: 90%;
   font-size: 12px;
   /* opacity: 0.7; */
   /* max-height: 130px; */
@@ -2026,17 +2075,15 @@ content-ar .colwrapper {
 }
 
 .cardText-PowerName {
-  /* font-size: 18px; */
+  font-size: 14px;
   font-weight: bolder;
+  font-family: "Arial MT Medium", "JetBrains Mono", monospace;
 }
 
-.cardText-restOfText {
-  height: 90%;
-}
-
-.CardPower {
+.CardPowerBtn {
   /* border: 3px solid; */
   border-color: red;
+  cursor: pointer;
 }
 
 .CardEffect {
@@ -2252,4 +2299,9 @@ content-ar .colwrapper {
   width: 35px;
   height: 35px;
   font-family: "Arial MT Medium", "JetBrains Mono", monospace;
+}
+
+.onP2Side {
+  /* margin: -100px; */
+  border: 2px solid fuchsia;
 }

@@ -64,6 +64,7 @@ export function FieldCreateCard({
   card,
   class1,
   class2,
+  class3,
   handleMouseEnter,
   handleMouseMove,
   handleMouseLeave,
@@ -71,28 +72,35 @@ export function FieldCreateCard({
   handleFieldCardOpen,
   setIsFieldCardOpen,
   onGameArea,
+  onP1Side,
+  index,
 }) {
   // console.log(card);
 
   // const playerNumber = player;
   return (
     <div
+      index={index}
       cardtype={card.Type}
       key={card.Name}
-      className={`${class2} ${onGameArea && card.Type}`}
+      name={card.Name}
+      className={`${class2} ${class3} ${onGameArea && card.Type}`}
+      onClick={(e) => {
+        console.log(card);
+        !handCards && onP1Side && handleFieldCardOpen(e, card);
+      }}
     >
       <img
+        index={index}
         className={class1}
         name={card.Name}
         src={card.url}
         id={card.id}
+        // style={{ pointerEvents: "none" }}
         // dataset={card.Name}
         alt={card.Name}
         // value={card}
-        onClick={(e) => {
-          console.log(card);
-          !handCards && handleFieldCardOpen(e, card);
-        }}
+
         onMouseEnter={(e) => {
           handCards && handleMouseEnter(e);
         }}
@@ -104,7 +112,13 @@ export function FieldCreateCard({
         }}
       />
       {!handCards && (
-        <div className={"FieldCard-EnergyCounter"}>{card.Energy}</div>
+        <div
+          className={"FieldCard-EnergyCounter"}
+          style={{ pointerEvents: "none" }}
+          cardEnergy={card.Energy}
+        >
+          {card.Energy}
+        </div>
       )}
     </div>
   );
@@ -116,8 +130,9 @@ export function FieldCardOpen({
   zoomPositionGameAreaCard,
   gameCardTarget,
   openGameAreaCard,
+  setLogActions,
 }) {
-  console.log(gameCardTarget);
+  console.log(isFieldCardOpen);
   const handleOutsideClick = (event) => {
     // console.log(event.target);
     if (
@@ -168,16 +183,9 @@ export function FieldCardOpen({
   let secondPowerText = restOfP2Text?.slice(p2firstSlice + 2);
   // let restOfP1Text = gameCardTarget.Text?.slice(firstSlice + 1, secondSlice);
 
-  function handleGameAreaCardOpen(power) {
-    // console.log("power used!");
-    // let secondslice = gameCardTarget?.Text.indexOf(":");
-    // let powerName = gameCardTarget.Text.slice(0, secondslice + 1);
-
+  function handleGameAreaCardOpen(power, isPower, setLogActions) {
     console.log(power);
-    // console.log(powerName1);
-    // console.log(firstPowerText);
-    // console.log(powerName2);
-    // console.log(restOfP2Text);
+    isPower && setLogActions((a) => [`${power} was used`, ...a]);
   }
 
   return (
@@ -192,6 +200,7 @@ export function FieldCardOpen({
       >
         <img
           // src={gameCardTargetSrc}.url.url
+
           src={gameCardTarget.url}
           alt="Zoomed"
           className="zoomed-gameAreaCard-image "
@@ -203,12 +212,14 @@ export function FieldCardOpen({
               handleGameAreaCardOpen={handleGameAreaCardOpen}
               powerName={powerName1}
               powerText={firstPowerText}
+              setLogActions={setLogActions}
             />
             {powerName2 && (
               <PowerButton
                 handleGameAreaCardOpen={handleGameAreaCardOpen}
                 powerName={powerName2}
                 powerText={secondPowerText}
+                setLogActions={setLogActions}
               />
             )}
           </div>
@@ -219,9 +230,14 @@ export function FieldCardOpen({
   );
 }
 
-function PowerButton({ powerName, powerText, handleGameAreaCardOpen }) {
+function PowerButton({
+  powerName,
+  powerText,
+  handleGameAreaCardOpen,
+  setLogActions,
+}) {
   const finalPowerName = powerName.slice(8, powerName.length - 1);
-  console.log(powerName);
+  // console.log(powerName);
   const isPower = powerName.slice(0, 5) === "Power";
   // console.log(isPower);
   const soundUrl = powerUsed;
@@ -230,15 +246,40 @@ function PowerButton({ powerName, powerText, handleGameAreaCardOpen }) {
 
   return (
     <button
-      className={isPower ? "CardPower" : "CardEffect"}
+      className={isPower ? "CardPowerBtn" : "CardEffect"}
       value={finalPowerName}
       onClick={(e) => {
         isPower && play();
-        handleGameAreaCardOpen(e.target.closest("button").value);
+        handleGameAreaCardOpen(
+          e.target.closest("button").value,
+          isPower,
+          setLogActions
+        );
       }}
     >
       <p className="cardText-PowerName">{powerName}</p>
       <p className="cardText-restOfText">{powerText}</p>
     </button>
+  );
+}
+
+export function Log({ logActions, setLogActions }) {
+  return (
+    <section className="log">
+      <h1>LOG</h1>
+      <div className="logWrapper">
+        {logActions.map((action, i) => {
+          return <LogBit action={action} key={i} />;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function LogBit({ action, key }) {
+  return (
+    <div className="logBit" id={key}>
+      {action}
+    </div>
   );
 }

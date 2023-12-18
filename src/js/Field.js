@@ -1,11 +1,16 @@
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import useSound from "use-sound";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Options } from "./decks";
 import { state } from "./model";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { PlayerHand, FieldCreateCard, FieldCardOpen } from "./FieldMovingParts";
+import {
+  PlayerHand,
+  FieldCreateCard,
+  FieldCardOpen,
+  Log,
+} from "./FieldMovingParts";
 import { convertedMNDcards } from "./cards";
 // import { reorder, move, onDragEnd } from "./dragNdrop";
 // import { useCallback, useReducer } from "react";
@@ -36,9 +41,80 @@ export function Field({
   ///////////////
 
   const [cardsOnHand, setCardsOnHand] = useState(state.playerHand1);
-  const [cardsOnGameArea1, setCardsOnGameArea1] = useState(
-    state.playerDecks.deck_2.crs
-  );
+  const [cardsOnGameArea1, setCardsOnGameArea1] = useState([
+    convertedMNDcards["Balamant"],
+
+    convertedMNDcards["Weebo"],
+    convertedMNDcards.Eebit,
+    convertedMNDcards["Giant Carillion"],
+    convertedMNDcards["Furok"],
+  ]);
+  const [cardsOnGameArea2, setCardsOnGameArea2] = useState([
+    convertedMNDcards["Corathan"],
+
+    convertedMNDcards["Core Hyren"],
+    convertedMNDcards.Severos,
+    convertedMNDcards.Szalak,
+    convertedMNDcards["Ugger"],
+  ]);
+
+  const [cardsOnEnemyHand, setCardsOnEnemyHand] = useState([
+    "1",
+    "2",
+    3,
+    4,
+    5,
+    6,
+    7,
+  ]);
+
+  const prevcardsOnHand = React.useRef(cardsOnHand);
+  const prevcardsOnGameArea1 = React.useRef(cardsOnGameArea1);
+
+  //=====Update LOG when cards are played ====//
+  useEffect(() => {
+    // console.log("cardsOnHand mudou");
+    const addedItemOnHand = cardsOnHand.find(
+      (item) => !prevcardsOnHand.current.includes(item)
+    );
+    const removedItemOnHand = prevcardsOnHand.current?.find(
+      (item) => !cardsOnHand.includes(item)
+    );
+    const addedItemOnGameArea = cardsOnGameArea1.find(
+      (item) => !prevcardsOnGameArea1.current.includes(item)
+    );
+    const removedItemOnGameArea = prevcardsOnGameArea1.current?.find(
+      (item) => !cardsOnGameArea1.includes(item)
+    );
+
+    if (removedItemOnGameArea) {
+      // console.log("Item added:", addedItem);
+      setLogActions((logbit) => [
+        `${addedItemOnHand.Name} left the field`,
+        ...logbit,
+      ]);
+    }
+
+    if (addedItemOnHand && !removedItemOnGameArea) {
+      setLogActions((logbit) => [
+        `${addedItemOnHand.Name} was drawn`,
+        ...logbit,
+      ]);
+    }
+
+    if (addedItemOnGameArea) {
+      // console.log("Item removed:", removedItem);
+      setLogActions((logbit) => [
+        `${removedItemOnHand.Name} was played`,
+        ...logbit,
+      ]);
+      // setLogActions((a) => [power, ...a]);
+    }
+    prevcardsOnHand.current = cardsOnHand;
+    prevcardsOnGameArea1.current = cardsOnGameArea1;
+  }, [cardsOnHand, cardsOnGameArea1]);
+
+  const [logActions, setLogActions] = useState(["Game has started!"]);
 
   const move = (results) => {
     const { source, destination } = results;
@@ -68,7 +144,7 @@ export function Field({
   };
 
   const reorder = (droppableId, startIndex, endIndex) => {
-    console.log(droppableId, startIndex, endIndex);
+    // console.log(droppableId, startIndex, endIndex);
     const result = [
       ...(droppableId === "cardsOnHand" ? cardsOnHand : cardsOnGameArea1),
     ];
@@ -83,7 +159,7 @@ export function Field({
     // dropped outside the list
     if (!destination) return;
 
-    console.log(source.droppableId, destination.droppableId);
+    // console.log(source.droppableId, destination.droppableId);
     if (source.droppableId === destination.droppableId) {
       const reorderedArray = reorder(
         source.droppableId,
@@ -151,16 +227,18 @@ export function Field({
   const [openGameAreaCard, setOpenGameAreaCard] = useState("");
 
   function handleFielCardOpen(e, card) {
+    console.log(e.target);
     setOpenGameAreaCard(card);
     const rect = e.target.getBoundingClientRect();
-
+    let name = e.target.closest(".gameAreaCardDiv").getAttribute("name");
+    console.log(name);
     const x = rect.right - 160;
     const y = -200;
     setZoomPositionGameAreaCard({ x, y });
     setIsFieldCardOpen((cur) => !cur);
-    setGameCardTarget(convertedMNDcards[e.target.name]);
-    // console.log(e.target);
-    // console.log(isFieldCardOpen);
+    // setGameCardTarget(convertedMNDcards[e.target.name]);
+    setGameCardTarget(convertedMNDcards[name]);
+    // console.log(gameCardTarget);
   }
   /////Fieldcardopen///////
   return (
@@ -176,11 +254,18 @@ export function Field({
           <RelicsArea classs={"relics-area relicsRight2 "} />
           {/* ======== P2 SIDE START=====  */}
           <section class="container player-side-2">
-            <section class="gameArea2 dragarea"></section>
-            {/* <GameArea classs={"gameArea2 dragarea"} /> */}
+            <DragDropContext onDragEnd={onDragEnd}>
+              {/* <section class="gameArea2 dragarea"></section> */}
+              <GameArea2 class1={"gameArea2"} gameArray={cardsOnGameArea2} />
 
-            <section class="player2-hand Hand dragarea"></section>
-            {/* <PlayerHand classs={"player2-hand Hand dragarea"} player={2} /> */}
+              {/* <section class="player2-hand Hand dragarea"></section> */}
+
+              <PlayerHand2
+                class1={"player2-hand Hand"}
+                gameArray={cardsOnEnemyHand}
+              />
+              {/* <PlayerHand classs={"player2-hand Hand dragarea"} player={2} /> */}
+            </DragDropContext>
           </section>
 
           <div class="drawdeck2">
@@ -189,7 +274,7 @@ export function Field({
           <DiscardPile classs={"discard2"}>
             <p>P2 Discard</p>
           </DiscardPile>
-          <section class="log">LOG</section>
+          <Log logActions={logActions} setLogActions={setLogActions} />
           {/* //  ============== p1 SIDE START ===========  */}
           <section class="container player-side-1">
             <DragDropContext onDragEnd={onDragEnd}>
@@ -200,7 +285,7 @@ export function Field({
               >
                 {(provided) => (
                   <section
-                    className={"gameArea1 dragarea"}
+                    className={"gameArea1"}
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -221,12 +306,14 @@ export function Field({
                           >
                             <FieldCreateCard
                               onGameArea={true}
+                              onP1Side={true}
                               state={state}
                               card={card}
                               class1={"fieldCards"}
                               class2={"gameAreaCardDiv"}
                               handleFieldCardOpen={handleFielCardOpen}
                               setIsFieldCardOpen={setIsFieldCardOpen}
+                              // setLogActions={setLogActions}
                             />
                           </span>
                         )}
@@ -254,6 +341,7 @@ export function Field({
               zoomPositionGameAreaCard={zoomPositionGameAreaCard}
               gameCardTarget={gameCardTarget}
               openGameAreaCard={openGameAreaCard}
+              setLogActions={setLogActions}
             />
           </section>
 
@@ -425,24 +513,88 @@ function DiscardPile({ children, classs }) {
 
 /////fieldcreatecard///////
 
-function GameArea({ classs, handleDragDrop, cardsOnGameArea1 }) {
+// function GameArea({ class1, handleDragDrop, gameArray }) {
+//   // console.log(cardsOnGameArea1);
+//   return (
+//     <Droppable droppableId={gameArray} type="group" direction="horizontal">
+//       {(provided) => (
+//         <section
+//           className={class1}
+//           {...provided.droppableProps}
+//           ref={provided.innerRef}
+//         >
+//           {gameArray?.map((card, index) => {
+//             return (
+//               <Draggable draggableId={card.id} key={card.id} index={index}>
+//                 {(provided) => (
+//                   <span
+//                     className={class1}
+//                     {...provided.dragHandleProps}
+//                     {...provided.draggableProps}
+//                     ref={provided.innerRef}
+//                   >
+//                     <FieldCreateCard
+//                       state={state}
+//                       card={card}
+//                       class1={"fieldCards"}
+//                       class2={"gameAreaCardDiv"}
+//                     />
+//                   </span>
+//                 )}
+//               </Draggable>
+//             );
+//           })}
+//         </section>
+//       )}
+//     </Droppable>
+//   );
+// }
+
+function GameArea2({ class1, handleDragDrop, gameArray }) {
   // console.log(cardsOnGameArea1);
-  cardsOnGameArea1?.map((card, index) => {
-    return (
-      <Draggable draggableId={card.id} key={card.id} index={index}>
-        {(provided) => (
-          <div
-            // className="store-container"
-            {...provided.dragHandleProps}
-            {...provided.draggableProps}
-            ref={provided.innerRef}
-          >
-            <FieldCreateCard state={state} card={card} />
-          </div>
-        )}
-      </Draggable>
-    );
-  });
+  return (
+    <section className={class1}>
+      {gameArray?.map((card, index) => {
+        return (
+          // <span className={class1}>
+          <span>
+            <FieldCreateCard
+              index={index}
+              state={state}
+              card={card}
+              class1={"fieldCards"}
+              class2={"gameAreaCardDiv"}
+              class3={"onP2Side"}
+            />
+          </span>
+        );
+      })}
+    </section>
+  );
+}
+
+function PlayerHand2({ class1, handleDragDrop, gameArray }) {
+  // console.log(cardsOnGameArea1);
+  return (
+    <section className={class1}>
+      {gameArray?.map((card, index) => {
+        return (
+          // <span className={class1}>
+          <span>
+            {/* <FieldCreateCard
+              index={index}
+              state={state}
+              card={card}
+              class1={"hand-cards"}
+              class2={"gameAreaCardDiv"}
+              class3={"onP2Side"}
+            /> */}
+            <div className="hand-cards2" alt="handcards2" />
+          </span>
+        );
+      })}
+    </section>
+  );
 }
 
 function MagiContainer({ classs, deck, player }) {
@@ -487,19 +639,9 @@ function drawfromDeck() {
 
   // console.log("drawn card", state.selectedDeck.crs.splice(random, 1));
   return state.selectedDeck.crs.splice(random, 1);
-  // console.log(copyOFactiveDeck);
-
-  // return copyOFactiveDeck.splice(random, 1);
-
-  // deck.innerHTML = `${state.selectedDeck.crs.length} \ncards left`;
 }
 
 function SelectFieldDeck({ selected, setSelected }) {
-  // function handleResetFieldDeck() {
-  //   console.log("handleResetFieldDeck clicado!");
-  //   state.selectedDeck.magi = selected.magi;
-  //   state.selectedDeck.crs = selected.crs;
-  // }
   return (
     <button
       className="console_button"
