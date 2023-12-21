@@ -73,6 +73,7 @@ export function FieldCreateCard({
   setIsFieldCardOpen,
   onGameArea,
   onP1Side,
+  onP2Side,
   index,
 }) {
   // console.log(card);
@@ -87,7 +88,7 @@ export function FieldCreateCard({
       className={`${class2} ${class3} ${onGameArea && card.Type}`}
       onClick={(e) => {
         console.log(card);
-        !handCards && onP1Side && handleFieldCardOpen(e, card);
+        onP1Side && handleFieldCardOpen(e, card);
       }}
     >
       <img
@@ -111,7 +112,7 @@ export function FieldCreateCard({
           handCards && handleMouseLeave(e);
         }}
       />
-      {!handCards && (
+      {onP1Side || onP2Side ? (
         <div
           className={"FieldCard-EnergyCounter"}
           style={{ pointerEvents: "none" }}
@@ -119,7 +120,7 @@ export function FieldCreateCard({
         >
           {card.Energy}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -132,7 +133,7 @@ export function FieldCardOpen({
   openGameAreaCard,
   setLogActions,
 }) {
-  console.log(isFieldCardOpen);
+  // console.log(isFieldCardOpen);
   const handleOutsideClick = (event) => {
     // console.log(event.target);
     if (
@@ -159,34 +160,30 @@ export function FieldCardOpen({
   // console.log(gameCardTarget);
   let cardTextBGregion = gameCardTarget?.Region;
   ///////////===Card Powers====//////
-  let firstSlice = gameCardTarget.Text?.indexOf(":");
-  let powerName1 = gameCardTarget.Text?.slice(0, firstSlice + 1);
 
-  let restOfText = gameCardTarget.Text?.slice(firstSlice + 1);
+  const [powerName1, firstPowerText, powerName2, secondPowerText] =
+    getCardPowerNames(gameCardTarget);
 
-  // let secondPower = restOfText.indexOf("Power");
-  let secondSlice = restOfText?.indexOf("Power");
+  // class AllCreaturePowers {
+  //   vitalize() {
+  //     console.log("Vitalize was used!!!!");
+  //   }
 
-  let firstPowerText =
-    secondSlice !== -1 ? restOfText?.slice(0, secondSlice) : restOfText;
+  //   stomp() {
+  //     console.log("Stomp was used!!!!");
+  //   }
+  // }
 
-  // let secondPowerText = restOfText?.slice(secondSlice);
+  // function handleGameAreaCardOpen(power, isPower, setLogActions) {
+  //   isPower && setLogActions((action) => [`${power} was used`, ...action]);
+  //   const powerName = power.toLowerCase();
 
-  // let p2firstSlice = secondPowerText?.indexOf(":");
-  // let powerName2 = secondPowerText?.slice(0, p2firstSlice + 1);
-  // let restOfP2Text = secondPowerText?.slice(p2firstSlice + 2);
-  // console.log(restOfText);
-  let restOfP2Text = restOfText?.slice(secondSlice);
+  //   let powers = new AllCreaturePowers();
 
-  let p2firstSlice = restOfP2Text?.indexOf(":");
-  let powerName2 = restOfP2Text?.slice(0, p2firstSlice + 1);
-  let secondPowerText = restOfP2Text?.slice(p2firstSlice + 2);
-  // let restOfP1Text = gameCardTarget.Text?.slice(firstSlice + 1, secondSlice);
-
-  function handleGameAreaCardOpen(power, isPower, setLogActions) {
-    console.log(power);
-    isPower && setLogActions((a) => [`${power} was used`, ...a]);
-  }
+  //   const hasFunction = powerName in powers;
+  //   // console.log(hasFunction);
+  //   hasFunction && powers[powerName]();
+  // }
 
   return (
     isFieldCardOpen && (
@@ -242,7 +239,7 @@ function PowerButton({
   // console.log(isPower);
   const soundUrl = powerUsed;
   // const volume = 0.2;
-  const [play] = useSound(soundUrl, { volume: 0.3 });
+  const [play] = useSound(soundUrl, { volume: 0.2 });
 
   return (
     <button
@@ -282,4 +279,119 @@ function LogBit({ action, key }) {
       {action}
     </div>
   );
+}
+
+export function getMagiPowerNames(gameCardTarget) {
+  console.log(gameCardTarget);
+  let firstSlice = gameCardTarget.Text?.indexOf("-");
+  console.log(firstSlice);
+  // let firstSlice =
+  //   gameCardTarget.Text && getHowManyColons(gameCardTarget.Text, ":");
+  // getHowManyColons(gameCardTarget.Text);
+  // let powerName1 = gameCardTarget.Text?.slice(0, firstSlice + 1);
+  let powerName0 = gameCardTarget.Text.slice(firstSlice - 7).trim();
+  let powerName1 = powerName0.slice(0, powerName0.indexOf(":") + 1);
+  // console.log(slice1);
+  // let powerName1 = sliceA.slice(2, sliceB)
+  // console.log(powerOrEffect1);
+  // console.log(powerName1);
+  let restOfText = gameCardTarget.Text?.slice(firstSlice + 1);
+  let secondSlice =
+    restOfText?.indexOf("Power -") !== -1
+      ? restOfText?.indexOf("Power -")
+      : restOfText?.indexOf("Effect -");
+
+  console.log(restOfText.slice(restOfText.indexOf(":") + 2, secondSlice));
+  let restOfP2Text = restOfText?.slice(secondSlice);
+
+  let p2firstSlice = restOfP2Text?.indexOf(":");
+  console.log(restOfText);
+  let firstPowerText =
+    secondSlice !== -1
+      ? restOfText.slice(restOfText.indexOf(":") + 2, secondSlice)
+      : restOfText.slice(restOfText.indexOf(":") + 2);
+
+  // console.log(powerCost);
+
+  let powerName2 = restOfP2Text?.slice(0, p2firstSlice + 1);
+  // let whichisPower2 = powerName2.includes("Power -");
+  let secondPowerText = restOfP2Text?.slice(p2firstSlice + 2);
+
+  ////Power Cost ///////
+  let whichisPower = powerName1.includes("Power -")
+    ? firstPowerText
+    : powerName2.includes("Power -") && secondPowerText;
+  console.log(whichisPower);
+  let powerCost =
+    whichisPower &&
+    whichisPower?.slice(
+      whichisPower?.indexOf("(") + 1,
+      whichisPower?.indexOf(")")
+    );
+  console.log(whichisPower, powerCost);
+  // console.log(powerOrEffect1);
+  console.log(powerName1);
+  console.log(firstPowerText);
+  // console.log(powerOrEffect2);
+  console.log(powerName2);
+  console.log(secondPowerText);
+  return [
+    powerCost,
+    // powerOrEffect1,
+    powerName1,
+    firstPowerText,
+    // powerOrEffect2,
+    powerName2,
+    secondPowerText,
+  ];
+}
+// let powerName11 = getHowManyColons(gameCardTarget.Text);
+
+export function getCardPowerNames(gameCardTarget) {
+  let firstSlice = gameCardTarget.Text?.indexOf(":");
+
+  // let firstSlice =
+  //   gameCardTarget.Text && getHowManyColons(gameCardTarget.Text, ":");
+  // getHowManyColons(gameCardTarget.Text);
+  let powerName1 = gameCardTarget.Text?.slice(0, firstSlice + 1);
+  console.log(powerName1);
+  let restOfText = gameCardTarget.Text?.slice(firstSlice + 1);
+
+  let secondSlice =
+    restOfText?.indexOf("Power -") !== -1
+      ? restOfText?.indexOf("Power -")
+      : restOfText?.indexOf("Effect -");
+
+  let firstPowerText =
+    secondSlice !== -1 ? restOfText?.slice(0, secondSlice) : restOfText;
+
+  let restOfP2Text = restOfText?.slice(secondSlice);
+
+  let p2firstSlice = restOfP2Text?.indexOf(":");
+  let powerName2 = restOfP2Text?.slice(0, p2firstSlice + 1);
+  let secondPowerText = restOfP2Text?.slice(p2firstSlice + 2);
+
+  console.log(powerName1);
+  return [powerName1, firstPowerText, powerName2, secondPowerText];
+}
+
+class AllCreaturePowers {
+  vitalize() {
+    console.log("Vitalize was used!!!!");
+  }
+
+  stomp() {
+    console.log("Stomp was used!!!!");
+  }
+}
+
+export function handleGameAreaCardOpen(power, isPower, setLogActions) {
+  console.log(power, isPower);
+  isPower && setLogActions((action) => [`${power} was used`, ...action]);
+  const powerName = power.toLowerCase();
+
+  let powers = new AllCreaturePowers();
+
+  const hasFunction = powerName in powers;
+  hasFunction && powers[powerName]();
 }

@@ -201,7 +201,7 @@ export const cardTexts2 = [
     Energy: 9,
     Rarity: "Rare",
     Format: "Restricted",
-    Text: "Effect - Underbrush: Whenever a Spell or Power adds energy to Forest Hyren, add one additional energy to Forest Hyren. Power - Energy Transfer: (5) Choose any one Creature in play. Add seven energy to the chosen Creature. Naroom Shadow Magi may play Fores",
+    Text: "Effect - Underbrush: Whenever a Spell or Power adds energy to Forest Hyren, add one additional energy to Forest Hyren. Power - Energy Transfer: (5) Choose any one Creature in play. Add seven energy to the chosen Creature. Naroom Shadow Magi may play Forest Hyren.",
   },
   {
     Name: "Forest Jile",
@@ -3637,7 +3637,7 @@ export const cardTexts2 = [
     Region: "Core",
     Energy: 16,
     Rarity: "Uncommon",
-    Text: "ENERGIZE: (6). STARTING: Garadan, Orok, Shadow Rain. Power - Tainted Touch: (2). Choose one non-Core Magi in play. Until the end of your next turn, the chosen Magi is a Core Shadow Magi of his or her original region. That Magi may still play Creatures and",
+    Text: "ENERGIZE: (6). STARTING: Garadan, Orok, Shadow Rain. Power - Tainted Touch: (2). Choose one non-Core Magi in play. Until the end of your next turn, the chosen Magi is a Core Shadow Magi of his or her original region. That Magi may still play Creatures and Spells of his or her original region with a regional penalty of one. Naroom magi must pay an additional penalty of one.",
   },
   {
     Name: "Abraxin's Crown",
@@ -7296,7 +7296,7 @@ export const cardTexts2 = [
     Energy: 9,
     Rarity: "Limited",
     Format: "Restricted",
-    Text: "Effect - Underbrush: Whenever a Spell or Power adds energy to Forest Hyren, add one additional energy to Forest Hyren. Power - Energy Transfer: (5) Choose any one other Creature in play. Add seven energy to the chosen Creature. Naroom Shadow Magi may play",
+    Text: "Effect - Underbrush: Whenever a Spell or Power adds energy to Forest Hyren, add one additional energy to Forest Hyren. Power - Energy Transfer: (5) Choose any one other Creature in play. Add seven energy to the chosen Creature. Naroom Shadow Magi may play Forest Hyren.",
   },
   {
     Name: "Furlosk (BG)",
@@ -7543,7 +7543,7 @@ export const cardTexts2 = [
     Region: "Arderial",
     Energy: 14,
     Rarity: "Limited",
-    Text: "ENERGIZE: (5). STARTING: Ayebaw, Brannix, Shooting Star. Effect - Allies: When you reveal Niffer, choose any one region. Niffer is from the chosen region as well as Arderial. Niffer cannot play cards that are not Arderial, Universal, or of her chosen regi",
+    Text: "ENERGIZE: (5). STARTING: Ayebaw, Brannix, Shooting Star. Effect - Allies: When you reveal Niffer, choose any one region. Niffer is from the chosen region as well as Arderial. Niffer cannot play cards that are not Arderial, Universal, or of her chosen region. Effect - Overwrite: When you play a Spell, you may discard two energy from Niffer to change any one region named in the Spell to any other region.",
   },
   {
     Name: "Pyte",
@@ -9381,7 +9381,7 @@ export const cardTexts2 = [
     Region: "Arderial",
     Energy: 2,
     Rarity: "Common",
-    Text: "[ERRATA] Power - Healing Rain: Choose any one Creature or Magi in play. Move up to two energy from Cloud Narth to the chosen Creature or Magi. Discard Cloud Narth from play. Power - Healing Storm: Choose any one Creature or Magi in play, and a Pharan you ",
+    Text: "Power - Healing Rain: Choose any one Creature or Magi in play. Move up to two energy from Cloud Narth to the chosen Creature or Magi. Discard Cloud Narth from play. Power - Healing Storm: Choose any one Creature or Magi in play, and a Pharan you ",
   },
   {
     Name: "Colossus",
@@ -9518,7 +9518,7 @@ export const cardTexts2 = [
     Energy: 4,
     Rarity: "Common",
     Format: "Restricted",
-    Text: "[ERRATA] Effect - Retrieve: As a defending Creature removes energy from Furok, place half of that energy, rounded up, back on your Magi.",
+    Text: "Effect - Retrieve: As a defending Creature removes energy from Furok, place half of that energy, rounded up, back on your Magi.",
   },
   {
     Name: "Giant Carillion",
@@ -13184,7 +13184,7 @@ export const cardTexts2 = [
     Energy: 15,
     Rarity: "Rare",
     Format: "Restricted",
-    Text: "ENERGIZE: (5). STARTING: Szhar, Oasis, Sandshape. Power - déjEvu: (2) Discard a card from your hand. The next time this turn one of your Spells or Powers removes energy from an opposing Creature, choose another Creature in play. Remove an equal amount of",
+    Text: "ENERGIZE: (5). STARTING: Szhar, Oasis, Sandshape. Power - déjá Vu: (2) Discard a card from your hand. The next time this turn one of your Spells or Powers removes energy from an opposing Creature, choose another Creature in play. Remove an equal amount of energy from the chosen creature.",
   },
   {
     Name: "Dey",

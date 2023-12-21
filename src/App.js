@@ -6,14 +6,15 @@ import useSound from "use-sound";
 import { state } from "./js/model";
 // import regionPng from "./img/regionSymbols/Arderial.png";
 // import {  } from "./js/decks";
-import { PlayScreen } from "./js/PlayScreen";
+import { PlayScreen, ProgressBar } from "./js/PlayScreen";
 import { Field } from "./js/Field";
 import { CollectionDecks, addDeckRegionImg } from "./js/decks";
 // const imagens = require.context("./img/regionSymbols", true);
 // const imageList = imagens.keys().map((image) => imagens(image));
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
-import toggleFilterSound from "./sounds/toggleFilterSound.wav";
+
 import changingPage from "./sounds/changingPage.mp3";
+import { FilterBar } from "./js/Filterbar";
 // import { Options, optionsOpen } from "./js/decks";
 
 const regions = [
@@ -191,162 +192,7 @@ function CollectionHeader({ onRegionButtonClick }) {
   }
 }
 
-function FilterBar({
-  cardSetFilter,
-  setCardSetFilter,
-  cardTypeFilter,
-  setCardTypeFilter,
-  query,
-  setQuery,
-}) {
-  const sets = [
-    "Unlimited",
-    "Awakening",
-    "Nightmare's Dawn",
-    "Promo",
-    "Voice of the Storms",
-    "Dream's End",
-  ];
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
-
-  const types = ["magi", "creature", "relic", "spell"];
-  // const [filterBarOpen, setFilterBarOpen] = useState(false);
-
-  // const [query, setQuery] = useState("");
-  function handleResetFilters() {
-    play();
-    setCardSetFilter([]);
-    setCardTypeFilter([]);
-    setQuery("");
-  }
-
-  return (
-    <wrapper className={"newfilterbar"}>
-      {/* <span className={"filterLabel "}></span> */}
-      <p className="filterLabel">Filter by Set:</p>
-      <div className={"setSymbolsWrapper"}>
-        {sets.map((set) => (
-          <FilterSetIcons
-            set={set}
-            cardSetFilter={cardSetFilter}
-            setCardSetFilter={setCardSetFilter}
-          />
-        ))}
-      </div>
-      <p className="filterLabel">Filter by Type:</p>
-      <div className={"typeSymbolsWrapper"}>
-        {types.map((type) => (
-          <FilterTypeIcons
-            type={type}
-            cardTypeFilter={cardTypeFilter}
-            setCardTypeFilter={setCardTypeFilter}
-          />
-        ))}
-      </div>
-      <label className="searchLabel"></label>
-      <input
-        type="text"
-        className={"searchBarWrapper"}
-        placeholder="Search cards..."
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          console.log(query);
-        }}
-      ></input>
-      <div
-        className={"XFilterBtn"}
-        // style={{
-        //   marginBottom: "5px",
-        //   backgroundImage: `url(${require("./img/x3.png")})`,
-        // }}
-        alt="X"
-        onClick={(e) => handleResetFilters()}
-      />
-      {/* </div> */}
-    </wrapper>
-  );
-}
-
-function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
-  // const [filterBarOpen, setFilterBarOpen] = useState(false);
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
-
-  function handleFilterSet(id) {
-    play();
-    const value = id;
-    console.log(value);
-    if (!cardSetFilter.some((set) => set === value))
-      setCardSetFilter((cur) => [...cur, value]);
-
-    if (cardSetFilter.some((set) => set === value))
-      setCardSetFilter((cur) => (cur = cur.filter((curr) => curr !== set)));
-  }
-
-  // const handleCheckFilterActive = function (id) {
-  //   if (!setFilter.some((set) => set === id)) return true;
-  // };
-
-  let filename = set;
-  if (set === "Nightmare's Dawn") filename = "NightmaresDawn";
-  if (set === "Voice of the Storms") filename = "VoiceoftheStorms";
-  if (set === "Dream's End") filename = "DreamsEnd";
-  return (
-    <div
-      className={`setSymbolFilter ${
-        !cardSetFilter.some((sets) => sets === set) && "noFilter"
-      }`}
-      style={{
-        backgroundImage: `url(${require(`./img/setSymbols/${filename}.png`)})`,
-      }}
-      id={set}
-      alt={set}
-      onClick={(e) => handleFilterSet(e.target.id)}
-    />
-  );
-}
-
-function FilterTypeIcons({ type, cardTypeFilter, setCardTypeFilter }) {
-  // const [filterBarOpen, setFilterBarOpen] = useState(false);
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
-
-  function handleFilterSet(id) {
-    play();
-    const value = id;
-    console.log(value);
-    if (!cardTypeFilter.some((typ) => typ === value))
-      setCardTypeFilter((cur) => [...cur, value]);
-
-    if (cardTypeFilter.some((set) => set === value))
-      setCardTypeFilter((cur) => (cur = cur.filter((curr) => curr !== type)));
-  }
-
-  // const handleCheckFilterActive = function (id) {
-  //   if (!setFilter.some((set) => set === id)) return true;
-  // };
-
-  let filename = type;
-  // if (set === "Nightmare's Dawn") filename = "NightmaresDawn";
-  // if (set === "Voice of the Storms") filename = "VoiceoftheStorms";
-  // if (set === "Dream's End") filename = "DreamsEnd";
-  return (
-    <div
-      className={`setSymbolFilter ${
-        !cardTypeFilter.some((sets) => sets === type) && "noFilter"
-      }`}
-      style={{
-        backgroundImage: `url(${require(`./img/typeSymbols/${filename}-inverted.png`)})`,
-      }}
-      id={type}
-      alt={type}
-      onClick={(e) => handleFilterSet(e.target.id)}
-    />
-  );
-}
-
+/////// FILBER BAR //////////
 function CollectionContent({
   regionActive,
   selected,
@@ -819,56 +665,3 @@ function CreateCard({
   );
 }
 /////////////////////////////////////
-
-const ProgressBar = () => {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const progressBarInterval = setInterval(() => {
-      if (width < 100) {
-        setWidth((prevWidth) => prevWidth + 0.2);
-      }
-
-      // const modalLoadingScreen = document.getElementById("modal-loadingScreen");
-      // const modalPlayScreen = document.getElementById("modal-PlayScreen");
-
-      if (width >= 55) {
-        clearInterval(progressBarInterval);
-        // modalLoadingScreen.classList.add("hidden");
-        // modalPlayScreen.classList.remove("hidden");
-      }
-    }, 5);
-
-    document.addEventListener("click", () => {
-      clearInterval(progressBarInterval);
-      setWidth((a) => {
-        // if (a !== 100) a = 100;
-        // return a + 50;
-      });
-    });
-
-    return () => {
-      document.removeEventListener("click", clearInterval(progressBarInterval));
-      clearInterval(progressBarInterval);
-    };
-  }, [width]);
-
-  return (
-    width < 100 && (
-      <div class="modal" id="modal-loadingScreen">
-        <div class="modal-dialog">
-          <div class="modal-loadingScreen-content">
-            <div class="modal-loadingScreen-MNDLogo"></div>
-            <div className="progress-bar-container">
-              <div
-                className="progress-bar"
-                data-label="Loading..."
-                style={{ width: `${width}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  );
-};

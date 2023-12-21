@@ -3,6 +3,7 @@ import { DeckBtn, addDeckRegionImg } from "./decks";
 import useSound from "use-sound";
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
+import { useState, useEffect } from "react";
 
 export function PlayScreen({
   selected,
@@ -135,3 +136,56 @@ function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
     </section>
   );
 }
+
+export const ProgressBar = () => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const progressBarInterval = setInterval(() => {
+      if (width < 100) {
+        setWidth((prevWidth) => prevWidth + 0.2);
+      }
+
+      // const modalLoadingScreen = document.getElementById("modal-loadingScreen");
+      // const modalPlayScreen = document.getElementById("modal-PlayScreen");
+
+      if (width >= 55) {
+        clearInterval(progressBarInterval);
+        // modalLoadingScreen.classList.add("hidden");
+        // modalPlayScreen.classList.remove("hidden");
+      }
+    }, 5);
+
+    document.addEventListener("click", () => {
+      clearInterval(progressBarInterval);
+      setWidth((a) => {
+        // if (a !== 100) a = 100;
+        // return a + 50;
+      });
+    });
+
+    return () => {
+      document.removeEventListener("click", clearInterval(progressBarInterval));
+      clearInterval(progressBarInterval);
+    };
+  }, [width]);
+
+  return (
+    width < 100 && (
+      <div class="modal" id="modal-loadingScreen">
+        <div class="modal-dialog">
+          <div class="modal-loadingScreen-content">
+            <div class="modal-loadingScreen-MNDLogo"></div>
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar"
+                data-label="Loading..."
+                style={{ width: `${width}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};

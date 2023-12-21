@@ -37,7 +37,7 @@ export const state = {
         convertedMNDcards.Jip,
         convertedMNDcards.Grow,
         convertedMNDcards.Equilibrate,
-        convertedMNDcards.Weebo,
+        // convertedMNDcards.Weebo,
         convertedMNDcards["Energy Band"],
         convertedMNDcards["Forest Blessing"],
       ],
@@ -46,8 +46,8 @@ export const state = {
       id: "deck_2",
       name: "deck 2",
       magi: [
-        convertedMNDcards.Warrada,
         convertedMNDcards.Hrada,
+        convertedMNDcards.Warrada,
         convertedMNDcards.Trygar,
       ],
       crs: [
