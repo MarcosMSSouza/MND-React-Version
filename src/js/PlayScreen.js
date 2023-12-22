@@ -30,7 +30,6 @@ export function PlayScreen({
           />
           <RightScreenSection
             selected={selected}
-            // setSelected={setSelected}
             handleSetPSopen={handleSetPSopen}
             handleFieldOpen={handleFieldOpen}
           />
@@ -42,7 +41,6 @@ export function PlayScreen({
 
 function LeftScreenSection({ selected, handleSelectDeck }) {
   const PSdeck = true;
-  // const numOfDecks = 9;
   return (
     <section className="modal-PlayScreen-LeftSection">
       <h1 className="PStextArea">. Select a deck .</h1>
@@ -77,8 +75,6 @@ function LeftScreenSection({ selected, handleSelectDeck }) {
 
 function ShowMagiWhenSelectingDeck({ selected }) {
   let magis = selected?.magi;
-  // PSmagisArea.innerHTML = "";
-  // console.log(magi.url);
   if (!magis) return;
   return magis.map((magi, i) => {
     return (
@@ -146,22 +142,14 @@ export const ProgressBar = () => {
         setWidth((prevWidth) => prevWidth + 0.2);
       }
 
-      // const modalLoadingScreen = document.getElementById("modal-loadingScreen");
-      // const modalPlayScreen = document.getElementById("modal-PlayScreen");
-
       if (width >= 55) {
         clearInterval(progressBarInterval);
-        // modalLoadingScreen.classList.add("hidden");
-        // modalPlayScreen.classList.remove("hidden");
       }
     }, 5);
 
     document.addEventListener("click", () => {
       clearInterval(progressBarInterval);
-      setWidth((a) => {
-        // if (a !== 100) a = 100;
-        // return a + 50;
-      });
+      setWidth((a) => {});
     });
 
     return () => {

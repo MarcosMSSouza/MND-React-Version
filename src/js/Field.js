@@ -18,11 +18,6 @@ import {
   getMagiPowerNames,
 } from "./FieldMovingParts";
 import powerUsed from "../sounds/powerUsed.wav";
-// import { reorder, move, onDragEnd } from "./dragNdrop";
-// import { useCallback, useReducer } from "react";
-// import { convertedMNDcards } from "./cards";
-
-// let copyOFactiveDeck = [...state.selectedDeck.crs];
 
 export function Field({
   selected,
@@ -35,8 +30,6 @@ export function Field({
 
   function handleSetOtionsOpen() {
     setOptionsOpen((optionsOpen) => !optionsOpen);
-
-    // return <Options optionsOpen={optionsOpen} />;
   }
 
   const soundUrl = hoveringSystemBtns;
@@ -44,7 +37,6 @@ export function Field({
 
   const soundUrl2 = switchingGameSections;
   const [play2] = useSound(soundUrl2);
-  ///////////////
 
   const [cardsOnHand, setCardsOnHand] = useState(state.playerHand1);
   const [cardsOnGameArea1, setCardsOnGameArea1] = useState([
@@ -74,7 +66,6 @@ export function Field({
 
   //=====Update LOG when cards are played ====//
   useEffect(() => {
-    // console.log("cardsOnHand mudou");
     const addedItemOnHand = cardsOnHand.find(
       (item) => !prevcardsOnHand.current.includes(item)
     );
@@ -89,7 +80,6 @@ export function Field({
     );
 
     if (removedItemOnGameArea) {
-      // console.log("Item added:", addedItem);
       setLogActions((logbit) => [
         `${addedItemOnHand.Name} left the field`,
         ...logbit,
@@ -104,12 +94,10 @@ export function Field({
     }
 
     if (addedItemOnGameArea) {
-      // console.log("Item removed:", removedItem);
       setLogActions((logbit) => [
         `${removedItemOnHand.Name} was played`,
         ...logbit,
       ]);
-      // setLogActions((a) => [power, ...a]);
     }
     prevcardsOnHand.current = cardsOnHand;
     prevcardsOnGameArea1.current = cardsOnGameArea1;
@@ -145,7 +133,6 @@ export function Field({
   };
 
   const reorder = (droppableId, startIndex, endIndex) => {
-    // console.log(droppableId, startIndex, endIndex);
     const result = [
       ...(droppableId === "cardsOnHand" ? cardsOnHand : cardsOnGameArea1),
     ];
@@ -157,10 +144,9 @@ export function Field({
 
   function onDragEnd(result) {
     const { source, destination } = result;
-    // dropped outside the list
+
     if (!destination) return;
 
-    // console.log(source.droppableId, destination.droppableId);
     if (source.droppableId === destination.droppableId) {
       const reorderedArray = reorder(
         source.droppableId,
@@ -171,7 +157,6 @@ export function Field({
         ? setCardsOnHand(reorderedArray)
         : setCardsOnGameArea1(reorderedArray);
 
-      // newState[sInd] = items;
       console.log({ source, destination });
     } else {
       console.log({ destination });
@@ -204,10 +189,8 @@ export function Field({
     console.log(rect);
     const x = rect.right - 120;
     const y = -150;
-    // - 150
 
     setZoomPosition({ x, y });
-    // console.log(zoomPosition);
   };
 
   const handleMouseLeave = () => {
@@ -226,17 +209,6 @@ export function Field({
     );
   };
 
-  // const ImageZoom = () => {
-  //   return (
-  //     <div
-  //       className={`zoomed-image-div ${isZoomed && "show"}`}
-  //       style={{ left: `${zoomPosition.x}px`, top: `${zoomPosition.y}px` }}
-  //     >
-  //       <img src={targetSrc} alt="Zoomed" className="zoomed-image" />
-  //     </div>
-  //   );
-  // };
-
   const [gameCardTarget, setGameCardTarget] = useState("");
   const [openGameAreaCard, setOpenGameAreaCard] = useState("");
 
@@ -250,21 +222,12 @@ export function Field({
     const y = -200;
     setZoomPositionGameAreaCard({ x, y });
     setIsFieldCardOpen((cur) => !cur);
-    // setGameCardTarget(convertedMNDcards[e.target.name]);
     setGameCardTarget(convertedMNDcards[name]);
-    // console.log(gameCardTarget);
   }
-  /////Fieldcardopen///////
   return (
     fieldOpen && (
       <>
         <div class="main-container">
-          {/* ///////////////// */}
-          {/* <div class="relics-area relicsLeft2 dragarea"></div> */}
-          {/* <RelicsArea classs={"relics-area relicsSide-2"} /> */}
-          {/* <div class="magi-container2"></div> */}
-          {/* <MagiContainer deck={state.playerDecks.deck_2.magi} player={2} /> */}
-
           <div class="relics-area relicsSide-2 ">
             {" "}
             <MagiContainer
@@ -273,12 +236,10 @@ export function Field({
               setLogActions={setLogActions}
             />
           </div>
-          {/* <div class="relics-area relicsRight2 dragarea"></div> */}
-          {/* <RelicsArea classs={"relics-area relicsRight2 "} /> */}
+
           {/* ======== P2 SIDE START=====  */}
           <section class="container player-side-2">
             <DragDropContext onDragEnd={onDragEnd}>
-              {/* <section class="gameArea2 dragarea"></section> */}
               <GameArea2
                 class1={"gameArea2"}
                 gameArray={cardsOnGameArea2}
@@ -287,13 +248,10 @@ export function Field({
                 handleMouseLeave={handleMouseLeave}
               />
 
-              {/* <section class="player2-hand Hand dragarea"></section> */}
-
               <PlayerHand2
                 class1={"player2-hand Hand"}
                 gameArray={cardsOnEnemyHand}
               />
-              {/* <PlayerHand classs={"player2-hand Hand dragarea"} player={2} /> */}
             </DragDropContext>
           </section>
 
@@ -304,7 +262,7 @@ export function Field({
             <p>P2 Discard</p>
           </DiscardPile>
           <Log logActions={logActions} setLogActions={setLogActions} />
-          {/* //  ============== p1 SIDE START ===========  */}
+          {/* //  ======= P1 SIDE START ==========  */}
           <section class="container player-side-1">
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable
@@ -318,8 +276,6 @@ export function Field({
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    {/* {onPlayerHand1?.map((card, index) => ( */}
-                    {/* {console.log(cardsOnGameArea1)} */}
                     {cardsOnGameArea1?.map((card, index) => (
                       <Draggable
                         draggableId={card.id}
@@ -328,7 +284,6 @@ export function Field({
                       >
                         {(provided) => (
                           <span
-                            // className="store-container"
                             {...provided.dragHandleProps}
                             {...provided.draggableProps}
                             ref={provided.innerRef}
@@ -342,7 +297,6 @@ export function Field({
                               class2={"gameAreaCardDiv"}
                               handleFieldCardOpen={handleFielCardOpen}
                               setIsFieldCardOpen={setIsFieldCardOpen}
-                              // setLogActions={setLogActions}
                             />
                           </span>
                         )}
@@ -355,12 +309,10 @@ export function Field({
               <PlayerHand
                 classs={"player1-hand Hand"}
                 player={1}
-                // onPlayerHand1={onPlayerHand1}
                 cardsOnHand={cardsOnHand}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseMove={handleMouseMove}
                 handleMouseLeave={handleMouseLeave}
-                // handleDragDrop={onDragEnd}
               />
             </DragDropContext>
             <ImageZoom />
@@ -383,15 +335,12 @@ export function Field({
             />
           </div>
 
-          {/* <MagiContainer deck={selected.magi} player={1} /> */}
-          {/* <div class="relics-area relicsRight1"></div> */}
           <FieldDeck
             classs={"drawdeck"}
             player={1}
             selected={selected}
             setSelected={setSelected}
             cardsOnHand={cardsOnHand}
-            // setOnPlayerHand1={setOnPlayerHand1}
             setCardsOnHand={setCardsOnHand}
           >
             <p>CLICK HERE TO DRAW!</p>
@@ -424,9 +373,7 @@ export function Field({
                 <p>OPTIONS</p>
               </FieldSystemButton>
               <h1>---------</h1>
-              {/* <button class="console_button" type="button" id="console-Deck_1">
-                <p>Deck 1</p>
-              </button> */}
+
               <SelectFieldDeck selected={selected} setSelected={setSelected} />
               <button class="console_button" type="button" id="console-Deck_2">
                 <p>placeholder</p>
@@ -454,7 +401,6 @@ function FieldSystemButton({
     <button
       class="console_button console_field_button"
       type="button"
-      // id="btn-play"
       onClick={() => {
         onclicksound();
         onclick();
@@ -478,37 +424,19 @@ function FieldDeck({
   setCardsOnHand,
 }) {
   const playerNumber = player;
-  // playerNumber === 1 && setSelected(state.playerDecks.deck_1);
-  // console.log("selected is ", selected);
-  // console.log(selected);
-  // console.log(state.selectedDeck);
 
-  // playerNumber === 1 && console.log("FIELDDECK RENDERIZADO");
   playerNumber === 1 && (state.selectedDeck.magi = selected.magi);
   playerNumber === 1 && (state.selectedDeck.crs = selected.crs);
 
   const handleDrawCard = function () {
     const cardToDraw = drawfromDeck();
-    ///changeIDforCopies
-    // let copyCounter = 0;
-    // cardsOnHand.forEach((card) => {
-    //   if (card.Name === cardToDraw.Name) copyCounter++;
-    // });
 
     console.log(cardsOnHand, cardToDraw);
-    // let copyCounter = 0;
 
-    // }
-    ///
-    // console.log("resta no deck", state.selectedDeck.crs);
-    // console.log("card to draw => ", ...cardToDraw);
     const newHand = [...cardsOnHand, ...cardToDraw];
-    // console.log(newHand);
-    // setOnPlayerHand1((a) => newHand);
     state.playerHand1 = newHand;
     console.log("card draw ", cardToDraw);
     setCardsOnHand(newHand);
-    // console.log(onPlayerHand1);
   };
 
   return (
@@ -519,8 +447,6 @@ function FieldDeck({
         if (state.selectedDeck.crs.length === 0) return;
         handleDrawCard();
         console.log(state.selectedDeck);
-        // setOnPlayerHand1([...onPlayerHand1, cardDrawn]);
-        // console.log(onPlayerHand1);
       }}
     >
       <div class="drawdeck1-innverDiv">
@@ -529,7 +455,6 @@ function FieldDeck({
           {state.selectedDeck.crs?.length === undefined
             ? "No deck selected!"
             : state.selectedDeck.crs.length + "\ncards left"}
-          {/* copyOFactiveDeck.length + "\ncards left"} */}
         </span>
         <p>.Click to draw.</p>
       </div>
@@ -545,47 +470,6 @@ function DiscardPile({ children, classs }) {
   );
 }
 
-////////playerhand //////////
-
-/////fieldcreatecard///////
-
-// function GameArea({ class1, handleDragDrop, gameArray }) {
-//   // console.log(cardsOnGameArea1);
-//   return (
-//     <Droppable droppableId={gameArray} type="group" direction="horizontal">
-//       {(provided) => (
-//         <section
-//           className={class1}
-//           {...provided.droppableProps}
-//           ref={provided.innerRef}
-//         >
-//           {gameArray?.map((card, index) => {
-//             return (
-//               <Draggable draggableId={card.id} key={card.id} index={index}>
-//                 {(provided) => (
-//                   <span
-//                     className={class1}
-//                     {...provided.dragHandleProps}
-//                     {...provided.draggableProps}
-//                     ref={provided.innerRef}
-//                   >
-//                     <FieldCreateCard
-//                       state={state}
-//                       card={card}
-//                       class1={"fieldCards"}
-//                       class2={"gameAreaCardDiv"}
-//                     />
-//                   </span>
-//                 )}
-//               </Draggable>
-//             );
-//           })}
-//         </section>
-//       )}
-//     </Droppable>
-//   );
-// }
-
 function GameArea2({
   class1,
   handleDragDrop,
@@ -596,12 +480,10 @@ function GameArea2({
 }) {
   let onP2Side = true;
   const handCards = true;
-  // console.log(cardsOnGameArea1);
   return (
     <section className={class1}>
       {gameArray?.map((card, index) => {
         return (
-          // <span className={class1}>
           <span>
             <FieldCreateCard
               index={index}
@@ -624,21 +506,11 @@ function GameArea2({
 }
 
 function PlayerHand2({ class1, handleDragDrop, gameArray }) {
-  // console.log(cardsOnGameArea1);
   return (
     <section className={class1}>
       {gameArray?.map((card, index) => {
         return (
-          // <span className={class1}>
           <span>
-            {/* <FieldCreateCard
-              index={index}
-              state={state}
-              card={card}
-              class1={"hand-cards"}
-              class2={"gameAreaCardDiv"}
-              class3={"onP2Side"}
-            /> */}
             <div className="hand-cards2" alt="handcards2" />
           </span>
         );
@@ -654,35 +526,20 @@ function MagiContainer({
   gameCardTarget,
   setLogActions,
 }) {
-  // const playerNumber = player;
-  // const [powerName1, firstPowerText, powerName2, secondPowerText] =
-  //   getCardPowerNames(deck[0]);
-
   console.log(deck[0]);
-  // console.log(powerName1, powerName2);
   const [powerCost, powerName1, firstPowerText, powerName2, secondPowerText] =
     getMagiPowerNames(deck[0]);
 
-  // const isPower = powerName1 === "Power";
   console.log(powerName1);
   return (
     <>
       <section className={`magiSide-${player}`}>
-        {/* <section className={`magiSide-1`}> */}
         {<img className={`magiPileHover-${player}`} src={deck[0].url} alt="" />}
         <div className={`magi-container-${player}`}>
           <div className={"magi-pile"} draggable="false">
             <img src={deck[0]?.url} alt="" />
           </div>
-          {/* {player === 1 && (
-            <img
-              className={`magiPileHover${player}`}
-              src={deck[0].url}
-              alt=""
-            />
-          )} */}
         </div>
-        {/* </section> */}
         <MagiPowerButton
           deck={deck[0]}
           powerCost={powerCost}
@@ -698,7 +555,6 @@ function MagiContainer({
         <MagiPowerButton
           deck={deck[0]}
           powerCost={powerCost}
-          // isPower={isPower}
           powerName={powerName2}
           downBtn={"downBtn"}
           powerText={secondPowerText}
@@ -713,7 +569,6 @@ function MagiContainer({
 
 function MagiPowerButton({
   deck,
-  // isPower,
   powerCost,
   topBtn,
   downBtn,
@@ -724,14 +579,10 @@ function MagiPowerButton({
   player,
 }) {
   const finalPowerName = powerName.slice(8, powerName.length - 1);
-  // console.log(powerName);
   const isPower = powerName.slice(0, 5) === "Power";
   console.log(isPower);
   const soundUrl = powerUsed;
-  // const volume = 0.2;
   const [play] = useSound(soundUrl, { volume: 0.2 });
-
-  // powerCost = Number(powerCost);
 
   if (isPower && isNaN(powerCost) && powerCost !== "X") powerCost = 0;
   return powerName ? (
@@ -750,18 +601,13 @@ function MagiPowerButton({
       }}
     >
       <p>{isPower ? powerCost : "ef."}</p>
-      {/* {<p className="cardText-restOfText">{powerText}</p>} */}
-      {/* <span className="magiPower1">{deck[0].Text}</span> */}
       <span className={`magiPowerSpan-${player}`}>
         <p className="cardText-PowerName">{powerName}</p>
         <p className="cardText-restOfText">{powerText}</p>
-        {/* <p>{powerName2}</p>
-        <p>{secondPowerText}</p> */}
       </span>
     </div>
   ) : null;
 }
-// `magi-pile-${playerNumber}`
 function RelicsArea({ classs }) {
   return <div className={classs}></div>;
 }
@@ -786,11 +632,8 @@ function drawfromDeck() {
   )
     return;
 
-  // let hand = document.querySelector(".player1-hand");
-  // let selectedDeck = state.selectedDeck.crs;
   let random = generateRandomNumbers();
 
-  // console.log("drawn card", state.selectedDeck.crs.splice(random, 1));
   return state.selectedDeck.crs.splice(random, 1);
 }
 
@@ -800,9 +643,7 @@ function SelectFieldDeck({ selected, setSelected }) {
       className="console_button"
       type="button"
       id="console-Deck_1"
-      onClick={() => {
-        // handleResetFieldDeck();
-      }}
+      onClick={() => {}}
     >
       <p>placeholder</p>
     </button>

@@ -5,16 +5,9 @@ import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import { useState } from "react";
-// import { useSoundDeckSelected, useHoveringSystemBtns } from "./Sounds";
-// import Checkbox from "@mui/material/checkbox";
-
-// import decksView from "./js/views/decksView";
 
 export let selectedID;
 
-// export let optionsOpen = true;
-// let optionsOpen = true;
-//   }
 export function CollectionDecks({
   state,
   regionImg,
@@ -32,11 +25,6 @@ export function CollectionDecks({
     setCardsOnEditor(onEditor);
   }
 
-  // function handleOptions() {
-  //   !optionsOpen
-
-  // }
-  // let deckRegion = addDeckRegionImg(deck);
   const soundUrl = switchingGameSections;
   const [play] = useSound(soundUrl);
 
@@ -61,7 +49,7 @@ export function CollectionDecks({
         handleSelectDeck={handleSelectDeck}
       />
 
-      {/* <!-- //////// DECKS CONTAINER ///////////// --> */}
+      {/* <!-- /////// DECKS CONTAINER ///////// --> */}
       <div className="new-decks-container">
         {Object.values(state.playerDecks).map(
           (deck, i) =>
@@ -101,7 +89,6 @@ export function CollectionDecks({
             console.log(optionsOpen);
             play();
             setOptionsOpen((optionsOpen) => !optionsOpen);
-            // optionsOpen = !optionsOpen;
           }}
         ></button>
       </div>
@@ -110,16 +97,11 @@ export function CollectionDecks({
 }
 
 export function Options({ optionsOpen, setOptionsOpen }) {
-  // let optionsOpen;
-  // console.log(optionsOpen);
-
   return (
     optionsOpen && (
       <div className="modal-options">
         <h1>OPTIONS (placeholder)</h1>
         <div className="options-content">
-          {/* <Checkbox /> */}
-
           <h2>placeholder</h2>
           <p>
             Some basic rules for the editor: For the magis, (the red border
@@ -133,21 +115,6 @@ export function Options({ optionsOpen, setOptionsOpen }) {
     )
   );
 }
-// const label = { inputProps: { "aria-label": "Checkbox demo" } };
-// function Checkbox() {
-//   const [isChecked, setIsChecked] = useState(false);
-//   <div
-//     name="demo-checkbox"
-//     checked={isChecked}
-//     size={24}
-//     label="I agree to self-isolate"
-//     onChange={() => setIsChecked(!isChecked)}
-//     // onMouseDown={playActive}
-//     // onMouseUp={() => {
-//     //   isChecked ? playOff() : playOn();
-//     // }}
-//   />;
-// }
 
 function NewDeck({
   setSelected,
@@ -166,8 +133,6 @@ function NewDeck({
     let id = firstNamelessDeck.id;
     firstNamelessDeck.name = id;
     console.log(id);
-    // setSelectedID(primeirodecksemnome.id);
-    // setSelected(primeirodecksemnome.id);
     console.log("checkPrimeirodecksemnome chamado");
     handleSelectDeck(id);
     let onEditor = [
@@ -181,8 +146,6 @@ function NewDeck({
 
   const soundUrl2 = hoveringSystemBtns;
   const [play2] = useSound(soundUrl2);
-  // const playDeckSelectedSound = useSoundDeckSelected;
-  // const playHoveringSystemBtns = useHoveringSystemBtns;
 
   return (
     <button
@@ -191,8 +154,6 @@ function NewDeck({
       type="button"
       onClick={() => {
         play();
-        // playDeckSelectedSound();
-        // playDeckSelectedSound();
         checkPrimeirodecksemnome();
       }}
       onMouseEnter={play2}
@@ -209,7 +170,6 @@ function DeleteDeck({
   setCardsOnEditor,
   handleSelectDeck,
 }) {
-  // }
   function removeSelectedDeck() {
     let id = selected.id;
     console.log(selected);
@@ -218,7 +178,6 @@ function DeleteDeck({
     state.playerDecks[id].crs = [];
     state.playerDecks[id].name = "";
 
-    // handleSelectDeck(id);
     let onEditor = [];
     console.log(onEditor);
 
@@ -248,10 +207,6 @@ function DeleteDeck({
   );
 }
 
-//   );
-// }
-/////////////
-
 export function DeckBtn({
   deck,
   i,
@@ -262,19 +217,11 @@ export function DeckBtn({
   cardsOnEditor,
   setCardsOnEditor,
 }) {
-  // console.log(handleSelectDeck);
-
-  // setSelected(state.playerDecks[id]);
-  // console.log(state.deckEditor.wholedeck);
-  // console.log("test", cardsOnEditor);
   let deckName = deck.name;
 
   let deckRegion = addDeckRegionImg(deck);
 
-  // console.log(selected.id);
-
   let id = `deck_${i}`;
-  // console.log(id);
   const soundUrl = deckSelected;
   const [play] = useSound(soundUrl);
 
@@ -282,7 +229,6 @@ export function DeckBtn({
   const [play2] = useSound(soundUrl2);
 
   return (
-    // <div className="bgtests">
     <div
       className={`deck-btn ${deckRegion} ${PSdeck ? "PSdeckBtn" : ""} ${
         id === selected?.id ? "selected" : ""
@@ -290,88 +236,30 @@ export function DeckBtn({
       id={id}
       onClick={(e) => {
         play();
-        // console.log(e.target);
-        // console.log(handleSelectDeck);
-
-        // onSelectDeck(e.target.id);
         handleSelectDeck(e.target.id);
         console.log("hi");
       }}
       onMouseEnter={play2}
-      // style={{ backgroundImage: 'url("/src/img/regionSymbols/Core.png")' }}
     >
       <h1 style={{ pointerEvents: "none" }}>{!deckRegion && "no magi"}</h1>
-      {/* <p className="deck-title" style={{ pointerEvents: "none" }}> */}
+
       <p
         className={`${PSdeck ? "PSdeck-title" : "deck-title"}`}
         style={{ pointerEvents: "none" }}
       >
         {deckName}
       </p>
-      {/* <div className="deck-btns-container"> */}
-      {/* {!PSdeck && (
-          <>
-            {id === selected.id && (
-              <>
-                <SaveBtn
-                  id={id}
-                  cardsOnEditor={cardsOnEditor}
-                  setCardsOnEditor={setCardsOnEditor}
-                />
-                <EditBtn />
-              </>
-            )}
-          </>
-        )} */}
-      {/* </div> */}
     </div>
-    // </div>
   );
 }
-//   );
 export function addDeckRegionImg(deck) {
   if (!deck?.magi) return;
   let curDeck = deck.magi;
 
   let magiTypes = curDeck.map((magi) => {
-    // console.log(magi);
     return magi.Region === "Kybar's Teeth" ? "Kybar" : magi.Region;
   });
-  // console.log(magiTypes);
 
   let deckRegion = magiTypes[0] === magiTypes[1] ? magiTypes[0] : magiTypes[2];
-  // console.log(deckRegion);
   return magiTypes.length > 2 ? deckRegion : magiTypes[0];
 }
-// }
-
-// function SaveBtn({ id, selected, cardsOnEditor, setCardsOnEditor }) {
-//   // console.log("SAVE btn clicked");
-//   function handleSaveDeck() {
-//     selected.playerDecks[id] = state.playerDecks[id].magi;
-//   }
-//   return (
-//     <button
-//       className="deck-inner-btn save-btn "
-//       onClick={() => {
-//         handleSaveDeck();
-//       }}
-//     >
-//       SAVE
-//     </button>
-//   );
-// }
-
-// function EditBtn() {
-//   return <button className="deck-inner-btn edit-btn ">EDIT</button>;
-// }
-
-// function handleAddtoEditor(card, selected, setSelected) {
-//   // let deck = state.playerDecks[selected];
-//   if (card.Type === "magi") selected.magi = [...selected.magi, card];
-//   else selected.crs = [...selected.crs, card];
-
-//   setSelected((selected) => selected);
-//   console.log(selected);
-//   // card.Type === 'magi' &&
-// }

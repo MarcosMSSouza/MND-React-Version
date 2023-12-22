@@ -550,12 +550,12 @@
   display: flex;
   /* justify-content: center; */
   align-items: center;
-  width: 35%;
+  width: 40%;
   height: 50px;
   background-color: #000000;
   border-radius: 1.5em;
   overflow: hidden;
-  padding: 10px;
+  padding: 6px;
   margin-bottom: 15vh;
 }
 
@@ -565,7 +565,7 @@
   font-family: "Parchment MF", sans-serif;
   letter-spacing: 3px;
   height: 2.5em;
-  /* background-color: rgb(15, 15, 9); */
+
   background: var(--golden);
   border-radius: 1.5em;
   /* color: rgb(15, 15, 9); */
@@ -1982,13 +1982,6 @@ content-ar .colwrapper {
 .gameAreaCardDiv:hover {
   filter: drop-shadow(0 0 10px #e9e51f);
   animation: border 5s linear infinite;
-  /* overflow: hidden; */
-  /* border-width: 5px; */
-  /* border: solid 7px rgb(221, 192, 28); */
-  /* margin: 3px; */
-  /* transition: border-width 0.3s ease-in-out; */
-
-  /* border-radius: 10px; */
 }
 
 .fieldCards {
@@ -1996,26 +1989,8 @@ content-ar .colwrapper {
   height: 200px;
   width: 120px;
   scale: 1.5;
-  /* overflow: hidden; */
-  /* pointer-events: none; */
-  /* border: solid var(--blues); */
 }
 
-/* .hand-cards:hover {
-  /* border-radius: 15px; 
-  position: relative;
-  transform: scale(2.5) translateY(-40px) translateX(40px);
-} 
-*/
-/* 
-.image-container {
-  position: relative;
-}
-
-.original-image {
-  max-width: 100%;
-  height: auto;
-} */
 .fieldCard-StartingEnergy {
   display: flex;
   color: rgb(0, 0, 0);
@@ -2439,55 +2414,20 @@ content-ar .colwrapper {
   /* transition: height 1.3s ease; */
 }
 
-/* .filterWrapper {
-  position: fixed;
-  background-color: var(--yellows);
-  flex-direction: column;
-  width: 70px;
-  height: 60px;
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 3px solid var(--reds);
-  border-radius: 6px;
-  margin-top: 110px;
-  transition: width 0.3s ease, height 0.3s ease;
- 
-} */
-
-/* .filterWrapper {
-  display: flex;
-
-  width: 70px;
-  height: 250px;
-  overflow: hidden;
-} */
-
 .newfilterbar {
   grid-area: b;
   display: flex;
   position: sticky;
-  /* position: absolute; */
   top: 0;
   flex-direction: row;
-  /* flex-wrap: flex-end; */
   justify-content: center;
   align-items: center;
   background-color: var(--blues);
-  /* border-bottom: solid 2px var(--reds); */
-  /* border-left: none;
-  border-bottom: none; */
-  /* margin-bottom: 1; */
+
   padding: 5px;
   justify-content: center;
   max-height: 50px;
   width: 100%;
-  /* z-index: 10000; */
-  /* align-self: flex-end; */
-  /* display: none; */
-  /* z-index: -1; */
 }
 
 .setSymbolsWrapper {
@@ -2501,8 +2441,6 @@ content-ar .colwrapper {
   align-items: center;
   width: 300px;
   max-height: 40px;
-  /* height: 100px; */
-  /* max-height: 50px; */
 }
 .typeSymbolsWrapper {
   display: flex;
@@ -2515,10 +2453,6 @@ content-ar .colwrapper {
   align-items: center;
   width: 200px;
   max-height: 40px;
-  /* padding-top: 20px; */
-  /* padding-bottom: 20px; */
-  /* height: 100px; */
-  /* max-height: 50px; */
 }
 
 .searchLabel {
@@ -2575,28 +2509,18 @@ content-ar .colwrapper {
 
 .searchBarWrapper {
   display: flex;
-  /* flex-direction: row; */
   border: 2px solid rgb(20, 0, 204);
   background-color: white;
-  /* overflow: hidden; */
   border-radius: 25px;
-  /* justify-content: space-evenly; */
-  /* align-items: center; */
+
   width: 220px;
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* text-align: center; */
-  /* align-items: center; */
-  /* text-align: justify; */
-  /* height: 50px; */
+
   min-height: 35px;
   font-size: 30px;
   font-family: "Parchment MF", "Arial MT Medium", sans-serif;
   font-weight: bold;
   padding-left: 20px;
   margin-left: 5px;
-  /* text-align: center; */
-  /* justify-content: center; */
 }
 
 #Promo {
@@ -2610,6 +2534,5 @@ content-ar .colwrapper {
 }
 
 .onP2Side {
-  /* margin: -100px; */
   border: 2px solid fuchsia;
 }

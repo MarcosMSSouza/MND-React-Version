@@ -1,6 +1,5 @@
 import { convertedMNDcards } from "./cards.js"; ///////////////
-import cloneDeep from "lodash/cloneDeep";
-// import { MAGI } from './cards.js'; ///////////////
+// import cloneDeep from "lodash/cloneDeep";
 
 export const state = {
   playerHand1: [],
@@ -70,9 +69,9 @@ export const state = {
       ],
       crs: [
         convertedMNDcards.Lahalou,
-        convertedMNDcards.Janx,
-        convertedMNDcards["Jungle Hyren"],
-        convertedMNDcards.Terkoz,
+        convertedMNDcards["Jungle Jile"],
+        convertedMNDcards["Inyx"],
+        convertedMNDcards["Tropical Plith"],
         convertedMNDcards["Ookami's Drums"],
         convertedMNDcards.Bloom,
       ],
@@ -81,7 +80,7 @@ export const state = {
       id: "deck_4",
       name: " Arderial",
       magi: [
-        convertedMNDcards.Kalius,
+        convertedMNDcards.Niffer,
         convertedMNDcards.Sorreah,
         convertedMNDcards.Elios,
       ],
@@ -102,28 +101,5 @@ export const state = {
     deck_7: { id: "deck_7", name: "", magi: [], crs: [] },
     deck_8: { id: "deck_8", name: "", magi: [], crs: [] },
     deck_9: { id: "deck_9", name: "", magi: [], crs: [] },
-    // deck_6: {},
-    // deck_7: {},
-    // deck_8: {},
-    // deck_9: {},
   },
 };
-
-///////////////PROGRESS BAR //////////////
-
-// const progressBar = document.getElementsByClassName("progress-bar")[0];
-
-// const progressBarInterval = setInterval(() => {
-//   const computedStyle = getComputedStyle(progressBar);
-//   let width = parseFloat(computedStyle.getPropertyValue("--width")) || 0;
-//   if (width < 110) progressBar.style.setProperty("--width", width + 0.1);
-//   const modal_loadingScreen = document.getElementById("modal-loadingScreen");
-//   const modal_PlayScreen = document.getElementById("modal-PlayScreen");
-//   if (width >= 100) {
-//     clearInterval(progressBarInterval);
-//     modal_loadingScreen.classList.add("hidden");
-//     modal_PlayScreen.classList.remove("hidden");
-//   }
-// }, 5);
-
-// console.log(cloneDeep);

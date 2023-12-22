@@ -9,7 +9,6 @@ import powerUsed from "../sounds/powerUsed.wav";
 export function PlayerHand({
   classs,
   player,
-  // onPlayerHand1,
   handleMouseEnter,
   handleMouseMove,
   handleMouseLeave,
@@ -18,7 +17,6 @@ export function PlayerHand({
 }) {
   const handCards = true;
   return (
-    // <DragDropContext onDragEnd={handleDragDrop}>
     <Droppable droppableId="cardsOnHand" type="group" direction="horizontal">
       {(provided) => (
         <section
@@ -26,14 +24,11 @@ export function PlayerHand({
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          {/* {onPlayerHand1?.map((card, index) => ( */}
           {cardsOnHand.map((card, index) => {
-            // setIDforCopies.push(card);
             return (
               <Draggable draggableId={card.id} key={card.id} index={index}>
                 {(provided) => (
                   <div
-                    // className="store-container"
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                     ref={provided.innerRef}
@@ -56,7 +51,6 @@ export function PlayerHand({
         </section>
       )}
     </Droppable>
-    // </DragDropContext>
   );
 }
 
@@ -76,9 +70,6 @@ export function FieldCreateCard({
   onP2Side,
   index,
 }) {
-  // console.log(card);
-
-  // const playerNumber = player;
   return (
     <div
       index={index}
@@ -97,11 +88,7 @@ export function FieldCreateCard({
         name={card.Name}
         src={card.url}
         id={card.id}
-        // style={{ pointerEvents: "none" }}
-        // dataset={card.Name}
         alt={card.Name}
-        // value={card}
-
         onMouseEnter={(e) => {
           handCards && handleMouseEnter(e);
         }}
@@ -133,9 +120,7 @@ export function FieldCardOpen({
   openGameAreaCard,
   setLogActions,
 }) {
-  // console.log(isFieldCardOpen);
   const handleOutsideClick = (event) => {
-    // console.log(event.target);
     if (
       event.target.closest(".gameArea-cardOpen-1") ||
       event.target.closest(".zoomed-gameAreaCard-image") ||
@@ -143,8 +128,6 @@ export function FieldCardOpen({
     ) {
       return;
     }
-    // console.log("outside click");
-    // console.log(isFieldCardOpen);
     setIsFieldCardOpen(false);
   };
 
@@ -157,37 +140,14 @@ export function FieldCardOpen({
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [isFieldCardOpen]);
-  // console.log(gameCardTarget);
   let cardTextBGregion = gameCardTarget?.Region;
   ///////////===Card Powers====//////
 
   const [powerName1, firstPowerText, powerName2, secondPowerText] =
     getCardPowerNames(gameCardTarget);
 
-  // class AllCreaturePowers {
-  //   vitalize() {
-  //     console.log("Vitalize was used!!!!");
-  //   }
-
-  //   stomp() {
-  //     console.log("Stomp was used!!!!");
-  //   }
-  // }
-
-  // function handleGameAreaCardOpen(power, isPower, setLogActions) {
-  //   isPower && setLogActions((action) => [`${power} was used`, ...action]);
-  //   const powerName = power.toLowerCase();
-
-  //   let powers = new AllCreaturePowers();
-
-  //   const hasFunction = powerName in powers;
-  //   // console.log(hasFunction);
-  //   hasFunction && powers[powerName]();
-  // }
-
   return (
     isFieldCardOpen && (
-      // <span className="zoomed-image-div-background">
       <div
         className="gameArea-cardOpen-1"
         style={{
@@ -196,8 +156,6 @@ export function FieldCardOpen({
         }}
       >
         <img
-          // src={gameCardTargetSrc}.url.url
-
           src={gameCardTarget.url}
           alt="Zoomed"
           className="zoomed-gameAreaCard-image "
@@ -221,7 +179,6 @@ export function FieldCardOpen({
             )}
           </div>
         </div>
-        {/* </div> */}
       </div>
     )
   );
@@ -234,11 +191,8 @@ function PowerButton({
   setLogActions,
 }) {
   const finalPowerName = powerName.slice(8, powerName.length - 1);
-  // console.log(powerName);
   const isPower = powerName.slice(0, 5) === "Power";
-  // console.log(isPower);
   const soundUrl = powerUsed;
-  // const volume = 0.2;
   const [play] = useSound(soundUrl, { volume: 0.2 });
 
   return (
@@ -285,16 +239,10 @@ export function getMagiPowerNames(gameCardTarget) {
   console.log(gameCardTarget);
   let firstSlice = gameCardTarget.Text?.indexOf("-");
   console.log(firstSlice);
-  // let firstSlice =
-  //   gameCardTarget.Text && getHowManyColons(gameCardTarget.Text, ":");
-  // getHowManyColons(gameCardTarget.Text);
-  // let powerName1 = gameCardTarget.Text?.slice(0, firstSlice + 1);
+
   let powerName0 = gameCardTarget.Text.slice(firstSlice - 7).trim();
   let powerName1 = powerName0.slice(0, powerName0.indexOf(":") + 1);
-  // console.log(slice1);
-  // let powerName1 = sliceA.slice(2, sliceB)
-  // console.log(powerOrEffect1);
-  // console.log(powerName1);
+
   let restOfText = gameCardTarget.Text?.slice(firstSlice + 1);
   let secondSlice =
     restOfText?.indexOf("Power -") !== -1
@@ -311,10 +259,7 @@ export function getMagiPowerNames(gameCardTarget) {
       ? restOfText.slice(restOfText.indexOf(":") + 2, secondSlice)
       : restOfText.slice(restOfText.indexOf(":") + 2);
 
-  // console.log(powerCost);
-
   let powerName2 = restOfP2Text?.slice(0, p2firstSlice + 1);
-  // let whichisPower2 = powerName2.includes("Power -");
   let secondPowerText = restOfP2Text?.slice(p2firstSlice + 2);
 
   ////Power Cost ///////
@@ -335,24 +280,12 @@ export function getMagiPowerNames(gameCardTarget) {
   // console.log(powerOrEffect2);
   console.log(powerName2);
   console.log(secondPowerText);
-  return [
-    powerCost,
-    // powerOrEffect1,
-    powerName1,
-    firstPowerText,
-    // powerOrEffect2,
-    powerName2,
-    secondPowerText,
-  ];
+  return [powerCost, powerName1, firstPowerText, powerName2, secondPowerText];
 }
-// let powerName11 = getHowManyColons(gameCardTarget.Text);
 
 export function getCardPowerNames(gameCardTarget) {
   let firstSlice = gameCardTarget.Text?.indexOf(":");
 
-  // let firstSlice =
-  //   gameCardTarget.Text && getHowManyColons(gameCardTarget.Text, ":");
-  // getHowManyColons(gameCardTarget.Text);
   let powerName1 = gameCardTarget.Text?.slice(0, firstSlice + 1);
   console.log(powerName1);
   let restOfText = gameCardTarget.Text?.slice(firstSlice + 1);

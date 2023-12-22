@@ -2,20 +2,13 @@ import "./App.css";
 import { convertedMNDcards } from "./js/cards";
 import { useState, useEffect } from "react";
 import useSound from "use-sound";
-// import { renderColDecksss } from "./js/decks";
 import { state } from "./js/model";
-// import regionPng from "./img/regionSymbols/Arderial.png";
-// import {  } from "./js/decks";
 import { PlayScreen, ProgressBar } from "./js/PlayScreen";
 import { Field } from "./js/Field";
 import { CollectionDecks, addDeckRegionImg } from "./js/decks";
-// const imagens = require.context("./img/regionSymbols", true);
-// const imageList = imagens.keys().map((image) => imagens(image));
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
-
 import changingPage from "./sounds/changingPage.mp3";
 import { FilterBar } from "./js/Filterbar";
-// import { Options, optionsOpen } from "./js/decks";
 
 const regions = [
   "Arderial",
@@ -33,7 +26,6 @@ const regions = [
   "Universal",
 ];
 
-// let selectedteste;
 export default function App() {
   const [selected, setSelected] = useState(state.playerDecks.deck_1);
   state.deckEditor.wholeDeck = [
@@ -76,8 +68,6 @@ export default function App() {
         selected={selected}
         setSelected={setSelected}
         handleSetPSopen={handleSetPSopen}
-        // setSelectedID={setSelectedID}
-        // selectedID={selectedID}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
@@ -128,7 +118,6 @@ function Collection({
         query={query}
         setQuery={setQuery}
       />
-      {/* </div> */}
 
       <CollectionBuilder
         state={state}
@@ -172,13 +161,7 @@ function CollectionHeader({ onRegionButtonClick }) {
         <div
           className="region-btn"
           role="button"
-          id={
-            region
-            // region === "D'resh"
-            //   ? (region = "D'resh")
-            //   ? (region = "Kybar's Teeth")
-            //   : region
-          }
+          id={region}
           key={region}
           onClick={(e) => {
             play();
@@ -192,7 +175,6 @@ function CollectionHeader({ onRegionButtonClick }) {
   }
 }
 
-/////// FILBER BAR //////////
 function CollectionContent({
   regionActive,
   selected,
@@ -211,13 +193,6 @@ function CollectionContent({
       <div className="content-wrapper">
         {regions.map(
           (region) =>
-            // regionActive === region &&
-            // <div
-            //   className={`modal-collection-content content-${region} ${
-            //     regionActive !== region ? "hidden" : ""
-            //   }`}
-            //   key={`content-${region}`}
-            // >
             regionActive === region && (
               <CollectionRegionTab region={region} regionActive={regionActive}>
                 {Object.values(convertedMNDcards).map((card) => {
@@ -317,9 +292,6 @@ function CollectionContent({
               </CollectionRegionTab>
             )
         )}
-        {/* <div className="newfilterbar">
-        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      </div> */}
       </div>
       <FilterBar
         cardSetFilter={cardSetFilter}
@@ -338,14 +310,12 @@ function CollectionRegionTab({ region, regionActive, children }) {
     <div
       className={`modal-collection-content content-${region} 
       `}
-      // ${regionActive !== region ? "hidden" : ""}
       key={`content-${region}`}
     >
       {children}
     </div>
   );
 }
-/////////////
 
 function RenderCollectionREGIONS({
   card,
@@ -361,14 +331,10 @@ function RenderCollectionREGIONS({
   query,
   setQuery,
 }) {
-  // Object.values(convertedMNDcards).map((card) => {
   let regexPatern = /[^A-Za-z0-9_]/g;
 
   if (card.Region !== region) return;
 
-  // ===== Filter Bar on Collection ======
-  // if (cardSetFilter.some((set) => set !== card.Set)) return;
-  // if (CardSetFilter.includes("Awakening") && card.Set === "Awakening") return;
   if (
     cardSetFilter.length > 0 &&
     cardSetFilter.every((set) => set !== card.Set)
@@ -379,42 +345,28 @@ function RenderCollectionREGIONS({
     cardTypeFilter.every((type) => type !== card.Type)
   )
     return;
-  //   }
+
   if (!card.Name.toLowerCase().replaceAll("_", " ").includes(query)) return;
-  // });
-  // if (card.Set !== "Awakening") return;
-  // console.log(filteredCard && filteredCard);
+
   if (
     card.Set === "UnreleasedPromos" ||
     card.Set === "Daybreak" ||
     card.Set === "Traitor's Reach"
-    // card === filteredCard
   )
     return;
 
-  // ==== Special Rules for getting the correct URL =======//
-  ////////////////
+  // ==== Special Rules for getting the correct URL ====//
 
-  ///////////////////////////
   let Type = card.Type.replace(regexPatern).toLowerCase();
 
-  /////////////
-
   if (card.Region.includes("/")) return;
-  ////////////// TEST FOR DUAL REGION /////////////////////
 
-  ///////////////////////////////////////////////
   function addCardsToEditor() {
-    // let onEditor = [...selected.magi, ...selected.crs];
-    // setCardsOnEditor(onEditor);
-    // console.log(setCardsOnEditor);
     let shallowIDCopy = {};
 
     if (card.Type === "magi") {
       selected.magi = [...selected.magi, card];
       state.deckEditor.curMagi = selected.magi;
-      // console.log(card.Type.slice(0, 4));
-      // console.log(state.deckEditor.curMagi);
     } else {
       if (card.Type !== "magi") {
         let copyCounter = 0;
@@ -423,11 +375,10 @@ function RenderCollectionREGIONS({
             copyCounter++;
           }
         });
-        // console.log(crsCount);
 
         if (copyCounter === 3) return;
         shallowIDCopy = Object.assign({}, card);
-        // shallowIDCopy.id = `${card.id}C${copyCounter > 0 ? copyCounter : ""}`;
+
         shallowIDCopy.id = `${card.id}${
           copyCounter > 0 ? `C${copyCounter}` : ""
         }`;
@@ -435,11 +386,9 @@ function RenderCollectionREGIONS({
         selected.crs = [shallowIDCopy, ...selected.crs];
       }
 
-      // selected.crs = [shallowIDCopy, ...selected.crs];
       if (!shallowIDCopy.id) selected.crs = [card, ...selected.crs];
 
       state.deckEditor.curCrs = selected.crs;
-      // console.log(state.deckEditor.curCrs);
     }
     const onEditor = [...selected.magi, ...selected.crs];
     setCardsOnEditor(onEditor);
@@ -456,14 +405,11 @@ function RenderCollectionREGIONS({
         selected={selected}
         setSelected={setSelected}
         addCardsToEditor={addCardsToEditor}
-        // removeCardsFromEditor={removeCardsFromEditor}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
       />
     </>
   );
-
-  //////ok//////////
 }
 
 function CollectionBuilder({
@@ -476,20 +422,12 @@ function CollectionBuilder({
 
   selectedID,
 }) {
-  // console.log(card);
-
-  //////////
   state.deckEditor.curMagi = selected?.magi;
   state.deckEditor.curCrs = selected?.crs;
 
   let onEditor = [...state.deckEditor?.curMagi, ...state.deckEditor?.curCrs];
 
-  // }
-  /////////
-  // setCardsOnEditor(selected);
-  // console.log(selectedDeck);
   const builder = true;
-  // setCardsOnEditor(selectedDeck);
 
   return (
     <div className="modal modal-collection-builder">
@@ -503,7 +441,6 @@ function CollectionBuilder({
             builder={builder}
             selected={selected}
             setSelected={setSelected}
-            // removeCardsFromEditor={removeCardsFromEditor}
             selectedID={selectedID}
             cardsOnEditor={cardsOnEditor}
             setCardsOnEditor={setCardsOnEditor}
@@ -513,7 +450,7 @@ function CollectionBuilder({
     </div>
   );
 }
-// selectedID;
+
 function TypeCounters({ onEditor }) {
   let magi = 0;
   let relics = 0;
@@ -525,7 +462,7 @@ function TypeCounters({ onEditor }) {
     if (card.Type === "relic") relics++;
     if (card.Type === "spell") spells++;
   });
-  ////
+
   return (
     <div className="editorfont-title">
       <p className="editor-title">DECK EDITOR</p>
@@ -542,13 +479,7 @@ function TypeCounters({ onEditor }) {
         <div className="editor-type-img editor-type-img-spell">
           <p>{spells}</p>
         </div>
-
-        {/* <img className="deck-editor-img-test" alt="no"></img>
-        <img className="deck-editor-img-test" alt="no"></img>
-        <img className="deck-editor-img-test" alt="no"></img> */}
       </div>
-
-      {/* <p className="TypeCounters">{`M = ${magi} / C = ${creatures} / R = ${relics} / S = ${spells}`}</p> */}
     </div>
   );
 }
@@ -557,32 +488,25 @@ function CreateCard({
   card,
   builder,
   selected,
-  // selectedID,
+
   setSelected,
   addCardsToEditor,
   cardsOnEditor,
   setCardsOnEditor,
-  // removeCardsFromEditor,
 }) {
-  // console.log(updateCardsOnEditor);
-
   function handleAddtoEditor() {
     let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
 
     state.deckEditor.wholeDeck = onEditor;
     setCardsOnEditor(onEditor);
-    // console.log(cardsOnEditor);
-    // console.log("teste 1");
+
     let [countSingle, countTotal] = checkCardCopies(card);
-    // console.log(countSingle, countTotal);
+
     console.log(countSingle, countTotal);
 
-    // console.log(magiCheck);
     if ((card.Type === "magi" && countSingle === 1) || countTotal === 3) return;
     console.log(countSingle, countTotal);
     if (card.Type !== "magi" && countSingle === 3) return;
-
-    ////////////////
 
     addCardsToEditor();
 
@@ -590,7 +514,6 @@ function CreateCard({
   }
 
   function removeCardsFromEditor(card) {
-    // console.log(card);
     if (card.Type === "magi") {
       let filteredMagi = state.deckEditor.curMagi.filter(
         (car) => car.Name !== card.Name
@@ -615,12 +538,10 @@ function CreateCard({
   }
 
   function checkCardCopies(cardtomove) {
-    // let builderCollectionCards = document.querySelectorAll(
-
     let magiCount = [0, 0];
     let crsCount = [0, 0];
     console.log(selected);
-    // if (selected.magi === "" || selected.crs === "") return [0, 0];
+
     if (cardtomove.Type === "magi") {
       selected.magi.forEach((card) => {
         if (card.Type === "magi") magiCount[1]++;
@@ -637,15 +558,11 @@ function CreateCard({
 
       return crsCount;
     }
-    ///ID////
   }
   const soundUrl = hoveringcardSound;
   const [play] = useSound(soundUrl);
 
-  // card.url = `url(${require(`./img/cardback.jpg`)})`;
-
   return (
-    // <div cardtype={card.Type} key={card.Name}>
     <img
       className={`cards ${card.Type === "magi" ? "magi" : "nonMagi"} ${
         builder ? "builder-collection-cards " : "collection-cards"
@@ -661,7 +578,6 @@ function CreateCard({
       }}
       onMouseEnter={play}
     />
-    // </div>
   );
 }
 /////////////////////////////////////

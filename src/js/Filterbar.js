@@ -64,20 +64,14 @@ export function FilterBar({
       ></input>
       <div
         className={"XFilterBtn"}
-        // style={{
-        //   marginBottom: "5px",
-        //   backgroundImage: `url(${require("./img/x3.png")})`,
-        // }}
         alt="X"
         onClick={(e) => handleResetFilters()}
       />
-      {/* </div> */}
     </wrapper>
   );
 }
 
 export function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
-  // const [filterBarOpen, setFilterBarOpen] = useState(false);
   const soundUrl = toggleFilterSound;
   const [play] = useSound(soundUrl);
 
@@ -91,10 +85,6 @@ export function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
     if (cardSetFilter.some((set) => set === value))
       setCardSetFilter((cur) => (cur = cur.filter((curr) => curr !== set)));
   }
-
-  // const handleCheckFilterActive = function (id) {
-  //   if (!setFilter.some((set) => set === id)) return true;
-  // };
 
   let filename = set;
   if (set === "Nightmare's Dawn") filename = "NightmaresDawn";
@@ -116,7 +106,6 @@ export function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
 }
 
 export function FilterTypeIcons({ type, cardTypeFilter, setCardTypeFilter }) {
-  // const [filterBarOpen, setFilterBarOpen] = useState(false);
   const soundUrl = toggleFilterSound;
   const [play] = useSound(soundUrl);
 

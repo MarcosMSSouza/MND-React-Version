@@ -10106,13 +10106,14 @@ const newMNDcards = [
     Format: "Restricted",
   },
   {
-    Name: "Tropicalj Plith",
+    Name: "Tropical Plith",
     Set: "Voice of the Storms",
     Type: "Creature",
     Region: "Paradwyn",
     Energy: 4,
     Rarity: "Common",
     Format: "Restricted",
+    url: "https://lackeyccg.com/magination/medium/tropicaljplith_pc_vs.jpg",
   },
   {
     Name: "Tropical Rain",
@@ -13184,34 +13185,6 @@ const newMNDcards = [
 
 //////////////////////
 
-// console.log(MAGI);
-// console.log(convertedMNDcards);
-
-////////////////
-
-// const fs = require('fs');
-
-// //////////
-// const XLSX = require('xlsx');
-
-// const result = XLSX.readFile('MNDcardsList.xlsx');
-
-// const sheet = result.Sheets['allsets'];
-
-// const jsonTESTE = XLSX.utils.sheet_to_json(sheet);
-
-// fs.writeFile('NEW FILE FS.json', JSON.stringify(jsonTESTE), err => {
-//   if (err) throw err;
-//   console.log('dataSaved');
-// });
-
-// console.log(jsonTESTE[0]);
-
-// alt shift F = auto formater
-
-/////////////////////////////////
-
-// card.Name = card.Name.toLowerCase().replace(' ', '_');
 const AllcardTexts = cardTexts2.reduce((obj, card, i) => {
   obj[card.Name] = card;
 
@@ -13248,9 +13221,7 @@ const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   card.id = (card.Type + i).replace(regexPatern, "");
 
   if (!card.url) card.url = "";
-  // card.Name = card.Name.toLowerCase();
 
-  // card.Type = card.Type.toLowerCase().replace("-", "").trim();
   card.Type = card.Type.toLowerCase().replace("-", "").trim();
   let types = getSpecialType(card);
   card.Type = types[0];
@@ -13258,9 +13229,6 @@ const convertedMNDcards = newMNDcards.reduce((obj, card, i) => {
   // card.Text = AllcardTexts[card.Name]?.Combined;
   card.Text = AllcardTexts[card.Name]?.Text;
 
-  // card.Type = types[0];
-  // console.log(card.SpecialType);
-  // card.Type.replace(regexPatern, "").toLowerCase();
   return obj;
 }, {});
 
