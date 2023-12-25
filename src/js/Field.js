@@ -2,7 +2,7 @@ import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import useSound from "use-sound";
 import React, { useState, useEffect } from "react";
-import { Options } from "./decks";
+import { Options, volume } from "./decks";
 import { state } from "./model";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import {
@@ -25,20 +25,31 @@ export function Field({
   handleFieldOpen,
   fieldOpen,
   handleSetPSopen,
+  optionsOpen,
+  setOptionsOpen,
+  scaleValue,
+  setScaleValue,
+  checked,
+  setChecked,
 }) {
-  const [optionsOpen, setOptionsOpen] = useState(false);
-
+  // const [optionsOpen, setOptionsOpen] = useState(false);
   function handleSetOtionsOpen() {
     setOptionsOpen((optionsOpen) => !optionsOpen);
   }
 
-  const soundUrl = hoveringSystemBtns;
-  const [play] = useSound(soundUrl);
+  const [play] = useSound(hoveringSystemBtns, { volume });
 
-  const soundUrl2 = switchingGameSections;
-  const [play2] = useSound(soundUrl2);
+  const [play2] = useSound(switchingGameSections, { volume });
 
   const [cardsOnHand, setCardsOnHand] = useState(state.playerHand1);
+
+  const [enemyMagis, setEnemyMagis] = useState([
+    convertedMNDcards.Lanyx,
+    convertedMNDcards.Morag,
+    convertedMNDcards.Qwade,
+    convertedMNDcards.Warrada,
+    convertedMNDcards.Barak,
+  ]);
   const [cardsOnGameArea1, setCardsOnGameArea1] = useState([
     convertedMNDcards["Balamant"],
 
@@ -79,23 +90,25 @@ export function Field({
       (item) => !cardsOnGameArea1.includes(item)
     );
 
+    // let player = e.target.closest(".container").getAttribute("player");
+
     if (removedItemOnGameArea) {
       setLogActions((logbit) => [
-        `${addedItemOnHand.Name} left the field`,
+        { player: 1, action: `${addedItemOnHand.Name} left the field` },
         ...logbit,
       ]);
     }
 
     if (addedItemOnHand && !removedItemOnGameArea) {
       setLogActions((logbit) => [
-        `${addedItemOnHand.Name} was drawn`,
+        { player: 1, action: `${addedItemOnHand.Name} was drawn` },
         ...logbit,
       ]);
     }
 
     if (addedItemOnGameArea) {
       setLogActions((logbit) => [
-        `${removedItemOnHand.Name} was played`,
+        { player: 1, action: `${removedItemOnHand.Name} was played` },
         ...logbit,
       ]);
     }
@@ -103,7 +116,9 @@ export function Field({
     prevcardsOnGameArea1.current = cardsOnGameArea1;
   }, [cardsOnHand, cardsOnGameArea1]);
 
-  const [logActions, setLogActions] = useState(["Game has started!"]);
+  const [logActions, setLogActions] = useState([
+    { player: "1", action: "Game has started!" },
+  ]);
 
   const move = (results) => {
     const { source, destination } = results;
@@ -212,7 +227,7 @@ export function Field({
   const [gameCardTarget, setGameCardTarget] = useState("");
   const [openGameAreaCard, setOpenGameAreaCard] = useState("");
 
-  function handleFielCardOpen(e, card) {
+  function handleFieldCardOpen(e, card) {
     console.log(e.target);
     setOpenGameAreaCard(card);
     const rect = e.target.getBoundingClientRect();
@@ -231,14 +246,14 @@ export function Field({
           <div class="relics-area relicsSide-2 ">
             {" "}
             <MagiContainer
-              deck={state.playerDecks.deck_2.magi}
+              deck={enemyMagis}
               player={2}
               setLogActions={setLogActions}
             />
           </div>
 
           {/* ======== P2 SIDE START=====  */}
-          <section class="container player-side-2">
+          <section class="container player-side-2" player={1}>
             <DragDropContext onDragEnd={onDragEnd}>
               <GameArea2
                 class1={"gameArea2"}
@@ -263,7 +278,7 @@ export function Field({
           </DiscardPile>
           <Log logActions={logActions} setLogActions={setLogActions} />
           {/* //  ======= P1 SIDE START ==========  */}
-          <section class="container player-side-1">
+          <section class="container player-side-1 " player={1}>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable
                 droppableId="cardsOnGameArea1"
@@ -295,7 +310,7 @@ export function Field({
                               card={card}
                               class1={"fieldCards"}
                               class2={"gameAreaCardDiv"}
-                              handleFieldCardOpen={handleFielCardOpen}
+                              handleFieldCardOpen={handleFieldCardOpen}
                               setIsFieldCardOpen={setIsFieldCardOpen}
                             />
                           </span>
@@ -378,7 +393,14 @@ export function Field({
               <button class="console_button" type="button" id="console-Deck_2">
                 <p>placeholder</p>
               </button>
-              <Options optionsOpen={optionsOpen} />
+              <Options
+                optionsOpen={optionsOpen}
+                setOptionsOpen={setOptionsOpen}
+                scaleValue={scaleValue}
+                setScaleValue={setScaleValue}
+                checked={checked}
+                setChecked={setChecked}
+              />
             </div>
           </section>
           <DiscardPile classs={"discard"}>
@@ -526,6 +548,8 @@ function MagiContainer({
   gameCardTarget,
   setLogActions,
 }) {
+  // console.log(deck);
+  // if (deck === undefined || !deck) return;
   console.log(deck[0]);
   const [powerCost, powerName1, firstPowerText, powerName2, secondPowerText] =
     getMagiPowerNames(deck[0]);
@@ -578,13 +602,19 @@ function MagiPowerButton({
   setLogActions,
   player,
 }) {
+  // if (volume > 0.2) {
+  //   volume = 0.2;
+  // }
+  const [play] = useSound(
+    powerUsed,
+    volume > 0.2 ? { volume: 0.2 } : { volume: 0 }
+  );
+  if (!deck) return;
   const finalPowerName = powerName.slice(8, powerName.length - 1);
   const isPower = powerName.slice(0, 5) === "Power";
   console.log(isPower);
-  const soundUrl = powerUsed;
-  const [play] = useSound(soundUrl, { volume: 0.2 });
 
-  if (isPower && isNaN(powerCost) && powerCost !== "X") powerCost = 0;
+  if (isPower && powerCost.length > 4) powerCost = 0;
   return powerName ? (
     <div
       className={`MagiBtn ${topBtn ? "topBtn" : "downBtn"} btn${player} ${
@@ -594,9 +624,11 @@ function MagiPowerButton({
       onClick={(e) => {
         isPower && play();
         handleGameAreaCardOpen(
+          e,
           e.target.closest("div").getAttribute("value"),
           isPower,
-          setLogActions
+          setLogActions,
+          player
         );
       }}
     >

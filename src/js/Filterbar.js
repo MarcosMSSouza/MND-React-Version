@@ -1,5 +1,6 @@
 import toggleFilterSound from "../sounds/toggleFilterSound.wav";
 import useSound from "use-sound";
+import { volume } from "./decks";
 
 export function FilterBar({
   cardSetFilter,
@@ -17,8 +18,8 @@ export function FilterBar({
     "Voice of the Storms",
     "Dream's End",
   ];
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
+
+  const [play] = useSound(toggleFilterSound, { volume });
 
   const types = ["magi", "creature", "relic", "spell"];
 
@@ -72,8 +73,7 @@ export function FilterBar({
 }
 
 export function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
+  const [play] = useSound(toggleFilterSound, { volume });
 
   function handleFilterSet(id) {
     play();
@@ -106,8 +106,7 @@ export function FilterSetIcons({ set, cardSetFilter, setCardSetFilter }) {
 }
 
 export function FilterTypeIcons({ type, cardTypeFilter, setCardTypeFilter }) {
-  const soundUrl = toggleFilterSound;
-  const [play] = useSound(soundUrl);
+  const [play] = useSound(toggleFilterSound, { volume });
 
   function handleFilterSet(id) {
     play();

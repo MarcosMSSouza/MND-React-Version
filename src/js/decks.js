@@ -4,9 +4,12 @@ import deckSelected from "../sounds/deckSelected.mp3";
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringDeckBtns from "../sounds/hoveringDeckBtns.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
-import { useState } from "react";
-
+import React, { useState } from "react";
+import introMusic from "../sounds/StickerbushSymphony.mp3";
 export let selectedID;
+// import React from "react";
+
+export let volume = 1;
 
 export function CollectionDecks({
   state,
@@ -17,6 +20,12 @@ export function CollectionDecks({
   setSelectedID,
   cardsOnEditor,
   setCardsOnEditor,
+  optionsOpen,
+  setOptionsOpen,
+  scaleValue,
+  setScaleValue,
+  checked,
+  setChecked,
 }) {
   function handleSelectDeck(id) {
     setSelected(state.playerDecks[id]);
@@ -25,16 +34,21 @@ export function CollectionDecks({
     setCardsOnEditor(onEditor);
   }
 
-  const soundUrl = switchingGameSections;
-  const [play] = useSound(soundUrl);
+  const [play] = useSound(switchingGameSections, { volume });
 
-  const soundUrl2 = hoveringSystemBtns;
-  const [play2] = useSound(soundUrl2);
-  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [play2] = useSound(hoveringSystemBtns, { volume });
+
   return (
     <div className="modal-collection-decks">
       <div className="decks-title">DECKS</div>
-      <Options optionsOpen={optionsOpen} />
+      <Options
+        optionsOpen={optionsOpen}
+        setOptionsOpen={setOptionsOpen}
+        scaleValue={scaleValue}
+        setScaleValue={setScaleValue}
+        checked={checked}
+        setChecked={setChecked}
+      />
 
       <NewDeck
         setSelectedID={setSelectedID}
@@ -86,7 +100,6 @@ export function CollectionDecks({
           className="optionsBtn"
           onMouseEnter={play2}
           onClick={() => {
-            console.log(optionsOpen);
             play();
             setOptionsOpen((optionsOpen) => !optionsOpen);
           }}
@@ -96,25 +109,76 @@ export function CollectionDecks({
   );
 }
 
-export function Options({ optionsOpen, setOptionsOpen }) {
+export const Options = ({
+  optionsOpen,
+  setOptionsOpen,
+  scaleValue,
+  setScaleValue,
+  checked,
+  setChecked,
+}) => {
+  // const [values, setValues] = useState(50);
+  // console.log(scaleValue);
+  // const [checked, setChecked] = useState(true);
+  function handleToggleChange(checkbox) {
+    // checkbox.checked = !checkbox.checked;
+    if (volume === 1) {
+      volume = 0;
+      setChecked(false);
+    } else {
+      volume = 1;
+      setChecked(true);
+    }
+    console.log(checked);
+  }
+  function handleChangeColCardsScale(newValue) {
+    setScaleValue(newValue);
+    console.log(scaleValue);
+  }
+
   return (
     optionsOpen && (
       <div className="modal-options">
-        <h1>OPTIONS (placeholder)</h1>
+        <h1>OPTIONS</h1>
+        <div
+          className="closeOptions"
+          onClick={() => {
+            setOptionsOpen((a) => !a);
+          }}
+        ></div>
         <div className="options-content">
-          <h2>placeholder</h2>
-          <p>
-            Some basic rules for the editor: For the magis, (the red border
-            cards) you can only have 1 of each type in a deck, or 3 in total.
-            For the other types of cards, you can have up to 3 copies of each.
-          </p>
-          <p>1 Disable Magi red borders</p>
-          <p>2 Increase collection card Zoom on Hover</p>
+          {/* /////// */}
+          <div className="checkbox-container">
+            <span> Sounds:</span>
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="myCheckbox"
+                checked={checked}
+                onClick={(e) => handleToggleChange(e.target)}
+              />
+              <div class="slidercheck round"></div>
+            </label>
+          </div>
+          {/* ////////// */}
+          <div class="slide-container">
+            <label>Cards zoom size:</label>
+            <input
+              type="range"
+              min="1"
+              max="2.5"
+              step="0.75"
+              value={scaleValue}
+              class="slider"
+              id="myRange"
+              onChange={(e) => handleChangeColCardsScale(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     )
   );
-}
+};
 
 function NewDeck({
   setSelected,
@@ -141,11 +205,10 @@ function NewDeck({
     ];
     setCardsOnEditor(onEditor);
   }
-  const soundUrl = deckSelected;
-  const [play] = useSound(soundUrl);
 
-  const soundUrl2 = hoveringSystemBtns;
-  const [play2] = useSound(soundUrl2);
+  const [play] = useSound(deckSelected, { volume });
+
+  const [play2] = useSound(hoveringSystemBtns, { volume });
 
   return (
     <button
@@ -171,6 +234,15 @@ function DeleteDeck({
   handleSelectDeck,
 }) {
   function removeSelectedDeck() {
+    const decksLeft = Object.values(state.playerDecks).filter(
+      (deck) => deck.name
+    ).length;
+
+    if (decksLeft < 2) {
+      alert("You can't delete all decks!");
+      return;
+    }
+
     let id = selected.id;
     console.log(selected);
     console.log(id);
@@ -190,10 +262,12 @@ function DeleteDeck({
     handleSelectDeck(firstNamedDeck.id);
     console.log(selected);
     setCardsOnEditor(onEditor);
-    console.log(selected);
+    console.log(
+      Object.values(state.playerDecks).filter((deck) => deck.name).length
+    );
   }
-  const soundUrl = hoveringSystemBtns;
-  const [play] = useSound(soundUrl);
+
+  const [play] = useSound(hoveringSystemBtns, { volume });
   return (
     <button
       className="console_button"
@@ -222,11 +296,12 @@ export function DeckBtn({
   let deckRegion = addDeckRegionImg(deck);
 
   let id = `deck_${i}`;
-  const soundUrl = deckSelected;
-  const [play] = useSound(soundUrl);
+  // let options = {
+  //   volume,
+  // };
+  const [play] = useSound(deckSelected, { volume });
 
-  const soundUrl2 = hoveringDeckBtns;
-  const [play2] = useSound(soundUrl2);
+  const [play2] = useSound(hoveringDeckBtns, { volume });
 
   return (
     <div

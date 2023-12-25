@@ -4,7 +4,8 @@ import useSound from "use-sound";
 import switchingGameSections from "../sounds/switchingGameSections.mp3";
 import hoveringSystemBtns from "../sounds/hoveringSystemBtns.mp3";
 import { useState, useEffect } from "react";
-
+import introMusic from "../sounds/StickerbushSymphony.mp3";
+import { volume } from "./decks";
 export function PlayScreen({
   selected,
   setSelected,
@@ -12,6 +13,30 @@ export function PlayScreen({
   pSopen,
   handleFieldOpen,
 }) {
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [volume, setVolume] = useState(0.1);
+
+  // const [play, { stop }] = useSound(introMusic, {
+  //   volume,
+  //   // loop: true,
+  // });
+  // if (!isPlaying) {
+  //   play();
+  // }
+  // const togglePlay = () => {
+  //   if (isPlaying) {
+  //     stop();
+  //   } else {
+  //     play();
+  //   }
+
+  //   setIsPlaying(!isPlaying);
+  // };
+
+  // setIsPlaying(false);
+
+  // const soundUrl = introMusic;
+  // const [play] = useSound(soundUrl);
   function handleSelectDeck(id) {
     setSelected(state.playerDecks[id]);
   }
@@ -88,11 +113,10 @@ function ShowMagiWhenSelectingDeck({ selected }) {
 function RightScreenSection({ selected, handleSetPSopen, handleFieldOpen }) {
   let deck = selected;
   let regionSelected = addDeckRegionImg(deck);
-  const soundUrl = switchingGameSections;
-  const [play] = useSound(soundUrl);
 
-  const soundUrl2 = hoveringSystemBtns;
-  const [play2] = useSound(soundUrl2);
+  const [play] = useSound(switchingGameSections, { volume });
+
+  const [play2] = useSound(hoveringSystemBtns, { volume });
 
   return (
     <section className="modal-PlayScreen-RightSection">

@@ -1,13 +1,14 @@
 import "./App.css";
 import { convertedMNDcards } from "./js/cards";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useSound from "use-sound";
 import { state } from "./js/model";
 import { PlayScreen, ProgressBar } from "./js/PlayScreen";
 import { Field } from "./js/Field";
-import { CollectionDecks, addDeckRegionImg } from "./js/decks";
+import { CollectionDecks, addDeckRegionImg, volume } from "./js/decks";
 import hoveringcardSound from "./sounds/hoveringcardSound.mp3";
 import changingPage from "./sounds/changingPage.mp3";
+
 import { FilterBar } from "./js/Filterbar";
 
 const regions = [
@@ -38,6 +39,9 @@ export default function App() {
   const [pSopen, setPSopen] = useState(false);
   const [fieldOpen, setFieldOpen] = useState(false);
   const [regionActive, setRegionActive] = useState("Arderial");
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [scaleValue, setScaleValue] = useState(1.75);
+  const [checked, setChecked] = useState(true);
 
   function handleRegionButtonClick(e, region) {
     setRegionActive(region);
@@ -70,6 +74,12 @@ export default function App() {
         handleSetPSopen={handleSetPSopen}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
+        optionsOpen={optionsOpen}
+        setOptionsOpen={setOptionsOpen}
+        scaleValue={scaleValue}
+        setScaleValue={setScaleValue}
+        checked={checked}
+        setChecked={setChecked}
       />
       <Field
         selected={selected}
@@ -77,6 +87,12 @@ export default function App() {
         handleSetPSopen={handleSetPSopen}
         handleFieldOpen={handleFieldOpen}
         fieldOpen={fieldOpen}
+        optionsOpen={optionsOpen}
+        setOptionsOpen={setOptionsOpen}
+        scaleValue={scaleValue}
+        setScaleValue={setScaleValue}
+        checked={checked}
+        setChecked={setChecked}
       />
     </>
   );
@@ -93,6 +109,12 @@ function Collection({
   selectedID,
   cardsOnEditor,
   setCardsOnEditor,
+  optionsOpen,
+  setOptionsOpen,
+  scaleValue,
+  setScaleValue,
+  checked,
+  setChecked,
 }) {
   const [cardSetFilter, setCardSetFilter] = useState([]);
   const [cardTypeFilter, setCardTypeFilter] = useState([]);
@@ -117,6 +139,7 @@ function Collection({
         setCardSetFilter={setCardSetFilter}
         query={query}
         setQuery={setQuery}
+        scaleValue={scaleValue}
       />
 
       <CollectionBuilder
@@ -135,6 +158,12 @@ function Collection({
         setSelectedID={setSelectedID}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
+        optionsOpen={optionsOpen}
+        setOptionsOpen={setOptionsOpen}
+        scaleValue={scaleValue}
+        setScaleValue={setScaleValue}
+        checked={checked}
+        setChecked={setChecked}
       ></CollectionDecks>
     </div>
   );
@@ -154,8 +183,7 @@ function CollectionHeader({ onRegionButtonClick }) {
   );
 
   function RegionButton({ region, onRegionButtonClick }) {
-    const soundUrl = changingPage;
-    const [play] = useSound(soundUrl);
+    const [play] = useSound(changingPage, { volume });
     return (
       <>
         <div
@@ -187,6 +215,7 @@ function CollectionContent({
   setCardTypeFilter,
   query,
   setQuery,
+  scaleValue,
 }) {
   return (
     <div className="modal-collection-content-wrapper">
@@ -212,6 +241,7 @@ function CollectionContent({
                       setCardTypeFilter={setCardTypeFilter}
                       query={query}
                       setQuery={setQuery}
+                      scaleValue={scaleValue}
                     />
                   );
                 })}
@@ -237,6 +267,7 @@ function CollectionContent({
                       setCardTypeFilter={setCardTypeFilter}
                       query={query}
                       setQuery={setQuery}
+                      scaleValue={scaleValue}
                     />
                   );
                 })}
@@ -261,6 +292,7 @@ function CollectionContent({
                       setCardTypeFilter={setCardTypeFilter}
                       query={query}
                       setQuery={setQuery}
+                      scaleValue={scaleValue}
                     />
                   );
                 })}
@@ -286,6 +318,7 @@ function CollectionContent({
                       setCardTypeFilter={setCardTypeFilter}
                       query={query}
                       setQuery={setQuery}
+                      scaleValue={scaleValue}
                     />
                   );
                 })}
@@ -330,6 +363,7 @@ function RenderCollectionREGIONS({
   setCardTypeFilter,
   query,
   setQuery,
+  scaleValue,
 }) {
   let regexPatern = /[^A-Za-z0-9_]/g;
 
@@ -407,6 +441,7 @@ function RenderCollectionREGIONS({
         addCardsToEditor={addCardsToEditor}
         cardsOnEditor={cardsOnEditor}
         setCardsOnEditor={setCardsOnEditor}
+        scaleValue={scaleValue}
       />
     </>
   );
@@ -488,11 +523,12 @@ function CreateCard({
   card,
   builder,
   selected,
-
+  scaleValues,
   setSelected,
   addCardsToEditor,
   cardsOnEditor,
   setCardsOnEditor,
+  scaleValue,
 }) {
   function handleAddtoEditor() {
     let onEditor = [...state.deckEditor.curMagi, ...state.deckEditor.curCrs];
@@ -559,8 +595,9 @@ function CreateCard({
       return crsCount;
     }
   }
-  const soundUrl = hoveringcardSound;
-  const [play] = useSound(soundUrl);
+
+  // const ReactDOM = require("react-dom");
+  const [play] = useSound(hoveringcardSound, { volume });
 
   return (
     <img
@@ -576,8 +613,34 @@ function CreateCard({
       onClick={() => {
         builder ? removeCardsFromEditor(card) : handleAddtoEditor();
       }}
-      onMouseEnter={play}
+      onMouseEnter={(e) => {
+        play();
+        // console.log(e.target.className);
+        if (
+          e.target.className.includes("collection-cards") &&
+          !e.target.className.includes("builder-collection-cards")
+        ) {
+          e.target.style.transform = `scale(${scaleValue})`;
+          // e.target.style.overflowY = "hidden";
+          e.target.style.zIndex = 2;
+          // e.target.style.position = "relative";
+        }
+      }}
+      onMouseOut={(e) => {
+        // play();
+        e.target.style.transform = "scale(1)";
+        e.target.style.zIndex = 0;
+      }}
     />
   );
 }
+
 /////////////////////////////////////
+
+// allColCards?.addEventListener("mouseover", () => {
+//   allColCards.style.transform = "scale(1.5)";
+// });
+
+// allColCards?.addEventListener("mouseout", () => {
+//   allColCards.style.transform = "scale(1)";
+// });

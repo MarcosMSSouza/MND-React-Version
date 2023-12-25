@@ -3,8 +3,10 @@ import { state } from "./model";
 import { useState, useEffect } from "react";
 import useSound from "use-sound";
 import { convertedMNDcards } from "./cards";
-import { clear } from "@testing-library/user-event/dist/clear";
+// import { clear } from "@testing-library/user-event/dist/clear";
+
 import powerUsed from "../sounds/powerUsed.wav";
+import { volume } from "./decks";
 
 export function PlayerHand({
   classs,
@@ -120,6 +122,7 @@ export function FieldCardOpen({
   openGameAreaCard,
   setLogActions,
 }) {
+  console.log(gameCardTarget);
   const handleOutsideClick = (event) => {
     if (
       event.target.closest(".gameArea-cardOpen-1") ||
@@ -192,8 +195,11 @@ function PowerButton({
 }) {
   const finalPowerName = powerName.slice(8, powerName.length - 1);
   const isPower = powerName.slice(0, 5) === "Power";
-  const soundUrl = powerUsed;
-  const [play] = useSound(soundUrl, { volume: 0.2 });
+
+  const [play] = useSound(
+    powerUsed,
+    volume > 0.2 ? { volume: 0.2 } : { volume: 0 }
+  );
 
   return (
     <button
@@ -202,6 +208,7 @@ function PowerButton({
       onClick={(e) => {
         isPower && play();
         handleGameAreaCardOpen(
+          e,
           e.target.closest("button").value,
           isPower,
           setLogActions
@@ -220,22 +227,25 @@ export function Log({ logActions, setLogActions }) {
       <h1>LOG</h1>
       <div className="logWrapper">
         {logActions.map((action, i) => {
-          return <LogBit action={action} key={i} />;
+          return (
+            <LogBit player={action.player} action={action.action} key={i} />
+          );
         })}
       </div>
     </section>
   );
 }
 
-function LogBit({ action, key }) {
+function LogBit({ player, action, key }) {
   return (
-    <div className="logBit" id={key}>
+    <div className={`logBit-${player}`} id={key}>
       {action}
     </div>
   );
 }
 
 export function getMagiPowerNames(gameCardTarget) {
+  if (gameCardTarget === undefined) return;
   console.log(gameCardTarget);
   let firstSlice = gameCardTarget.Text?.indexOf("-");
   console.log(firstSlice);
@@ -273,13 +283,7 @@ export function getMagiPowerNames(gameCardTarget) {
       whichisPower?.indexOf("(") + 1,
       whichisPower?.indexOf(")")
     );
-  console.log(whichisPower, powerCost);
-  // console.log(powerOrEffect1);
-  console.log(powerName1);
-  console.log(firstPowerText);
-  // console.log(powerOrEffect2);
-  console.log(powerName2);
-  console.log(secondPowerText);
+
   return [powerCost, powerName1, firstPowerText, powerName2, secondPowerText];
 }
 
@@ -318,9 +322,24 @@ class AllCreaturePowers {
   }
 }
 
-export function handleGameAreaCardOpen(power, isPower, setLogActions) {
-  console.log(power, isPower);
-  isPower && setLogActions((action) => [`${power} was used`, ...action]);
+export function handleGameAreaCardOpen(
+  e,
+  power,
+  isPower,
+  setLogActions,
+  player
+) {
+  console.log(player);
+  if (!player) {
+    player = e.target.closest(".container").getAttribute("player");
+  }
+  isPower &&
+    setLogActions((actions) => [
+      // `${power} was used`,
+      // ...actions,
+      { player: player, action: `${power} was used` },
+      ...actions,
+    ]);
   const powerName = power.toLowerCase();
 
   let powers = new AllCreaturePowers();
